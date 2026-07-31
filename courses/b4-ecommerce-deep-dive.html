@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Builder session 4 · Ecommerce deep dive - learn metric decomposition with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-metric-decomposition-with-phoebe</a> / Builder session 4 of 10</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Metric Decomposition with Phoebe · Builder track · Session 4 of 10</div>
+    <h1><span class="accent">Ecommerce</span> deep dive</h1>
+    <p class="sub">The first of six domain deep-dives. You know the shapes (b2) and the playbook (b3); now you apply both to the metric an online store lives and dies by: GMV. We push the tree <strong>two levels deep</strong> - traffic splits into channels, AOV splits into units and price - so a drop lands not just on a driver but on a specific branch with a specific owner. Then you diagnose the three classic ecommerce drops live, tree first and SQL second.</p>
+    <div class="chip-row">
+      <span class="chip level">🟡 Builder track</span>
+      <span class="chip audience">Analysts · PMs · founders · ops</span>
+      <span class="chip audience">Live tree simulator + SQL</span>
+      <span class="chip time">45 min</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Recap</span>
+      <span class="a2" style="flex:5">3-18 · The full GMV tree</span>
+      <span class="a3" style="flex:5">18-42 · Diagnose a drop</span>
+      <span class="a4" style="flex:1">42-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Recap, and the first deep dive</h2>
+    </div>
+    <p class="lede">Three sessions in, you have the general engine: build a tree (b1), name its shape (b2), run the diagnosis playbook with leading indicators and baselines (b3). Now we specialise. Ecommerce is the ideal first domain because its top line - GMV - is a clean, deep, multiplicative tree that every other domain borrows from. Get this one into your hands and marketing (b5), branding (b6), and the rest will feel familiar. Today the tree goes two levels deep and the diagnosis gets specific.</p>
+    <div class="legend">
+      <span class="pill solid">Live - presented in session</span>
+      <span class="pill light">Self-study - read after class</span>
+      <span class="pill peach">▶ Live tree - editable &amp; runnable</span>
+      <span class="pill inkpill">Framework sources covered</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with today</strong>
+      A two-level GMV tree you can read cold - Traffic (SEO + Paid + Direct + Email) x Conversion x AOV (Units x Price) - and a symptom-to-branch map for the three drops every store sees: a channel dying, checkout breaking, and discounting eroding AOV.
+    </div>
+  </section>
+
+  <!-- ============ PART 1: THE FULL GMV TREE ============ -->
+  <section class="section" id="full-tree">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers Lean Analytics ecommerce model, domain canon</span>
+      <h2>The full GMV tree, two levels deep <span class="tag concept">7 min live</span></h2>
+    </div>
+    <p class="lede">In b1 the GMV tree was one level: Traffic x Conversion x AOV. That is enough to name a driver, but not to route a fix. So we go deeper. <strong>Traffic</strong> is really a sum of acquisition channels - SEO + Paid + Direct + Email. <strong>AOV</strong> is really a product - Units-per-order x Price-per-unit. Now a drop lands on "Paid traffic" or "Price per unit", not just "Traffic" or "AOV" - a branch a single team owns and can act on this afternoon.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="GMV decomposed two levels: traffic into channels, AOV into units and price">
+        <style>
+          .gmvT { font: 800 14px Inter, sans-serif; fill: #FFFFFF; }
+          .gmvV { font: 700 11px Inter, sans-serif; fill: #16241E; }
+          .gmvL { font: 700 11.5px Inter, sans-serif; fill: #16241E; }
+          .gmvS { font: 400 10px Inter, sans-serif; fill: #566A61; }
+          .gmvN { font: 600 12px Inter, sans-serif; fill: #431105; }
+          .gmvLine { stroke: #B8DFCD; stroke-width: 2; fill: none; }
+        </style>
+        <rect x="360" y="24" width="160" height="44" rx="10" fill="#2F7D5B"/>
+        <text class="gmvT" x="440" y="43" text-anchor="middle">GMV</text>
+        <text class="gmvT" x="440" y="60" text-anchor="middle" style="font-size:11px">$208K / mo</text>
+
+        <path class="gmvLine" d="M440,68 L440,86 M180,86 L700,86 M180,86 L180,102 M440,86 L440,102 M700,86 L700,102"/>
+        <text class="gmvS" x="310" y="82" text-anchor="middle">x</text>
+        <text class="gmvS" x="570" y="82" text-anchor="middle">x</text>
+
+        <rect x="100" y="102" width="160" height="40" rx="9" fill="#4FA37E"/>
+        <text class="gmvT" x="180" y="127" text-anchor="middle">Traffic (sum)</text>
+        <rect x="360" y="102" width="160" height="40" rx="9" fill="#E9F5EF" stroke="#B8DFCD"/>
+        <text class="gmvL" x="440" y="120" text-anchor="middle">Conversion</text>
+        <text class="gmvV" x="440" y="135" text-anchor="middle">2.8%</text>
+        <rect x="620" y="102" width="160" height="40" rx="9" fill="#4FA37E"/>
+        <text class="gmvT" x="700" y="127" text-anchor="middle">AOV (product)</text>
+
+        <path class="gmvLine" d="M180,142 L180,158 M60,158 L300,158 M60,158 L60,174 M140,158 L140,174 M220,158 L220,174 M300,158 L300,174"/>
+        <rect x="24" y="174" width="72" height="34" rx="7" fill="#E9F5EF" stroke="#B8DFCD"/>
+        <text class="gmvS" x="60" y="190" text-anchor="middle">SEO</text>
+        <text class="gmvV" x="60" y="203" text-anchor="middle">52K</text>
+        <rect x="104" y="174" width="72" height="34" rx="7" fill="#E9F5EF" stroke="#B8DFCD"/>
+        <text class="gmvS" x="140" y="190" text-anchor="middle">Paid</text>
+        <text class="gmvV" x="140" y="203" text-anchor="middle">38K</text>
+        <rect x="184" y="174" width="72" height="34" rx="7" fill="#E9F5EF" stroke="#B8DFCD"/>
+        <text class="gmvS" x="220" y="190" text-anchor="middle">Direct</text>
+        <text class="gmvV" x="220" y="203" text-anchor="middle">20K</text>
+        <rect x="264" y="174" width="72" height="34" rx="7" fill="#E9F5EF" stroke="#B8DFCD"/>
+        <text class="gmvS" x="300" y="190" text-anchor="middle">Email</text>
+        <text class="gmvV" x="300" y="203" text-anchor="middle">10K</text>
+
+        <path class="gmvLine" d="M700,142 L700,158 M640,158 L760,158 M640,158 L640,174 M760,158 L760,174"/>
+        <rect x="596" y="174" width="88" height="34" rx="7" fill="#E9F5EF" stroke="#B8DFCD"/>
+        <text class="gmvS" x="640" y="190" text-anchor="middle">Units/order</text>
+        <text class="gmvV" x="640" y="203" text-anchor="middle">2</text>
+        <rect x="716" y="174" width="88" height="34" rx="7" fill="#E9F5EF" stroke="#B8DFCD"/>
+        <text class="gmvS" x="760" y="190" text-anchor="middle">Price/unit</text>
+        <text class="gmvV" x="760" y="203" text-anchor="middle">$31</text>
+
+        <rect x="24" y="276" width="14" height="14" rx="3" fill="#E4572E"/>
+        <text class="gmvN" x="48" y="288">Two levels down, a drop lands on one channel or on price - a branch a single team owns.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - Traffic is a sum of channels, AOV is a product of units and price</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>Why two levels beats one<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>A one-level tree tells you "traffic fell". A two-level tree tells you "Paid traffic fell while SEO, Direct, and Email held" - which is a different meeting, a different owner, and a different fix. Notice the tree <strong>nests the patterns from b2</strong>: the root is multiplicative, but Traffic underneath it is additive (a sum of channels) and AOV is multiplicative again (units x price). Real trees are patterns stacked inside patterns.</p>
+        <ul>
+          <li><strong>Root ( x ):</strong> GMV = Traffic x Conversion x AOV. A percentage move in any child passes through.</li>
+          <li><strong>Traffic ( + ):</strong> a sum of channels. A drop is usually one channel dying; read it by each channel's weight.</li>
+          <li><strong>AOV ( x ):</strong> Units-per-order x Price-per-unit. Discounting hits price; smaller baskets hit units.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>The "traffic is down" that was really one channel.</strong> A store panicked over a 12% traffic dip and nearly cut its whole marketing budget. The two-level tree showed Paid alone collapsed - a broken ad account - while organic channels were flat. The fix was a billing fix, not a strategy pivot. One level would have hidden it.</p>
+        </div>
+      </div>
+    </details>
+
+    <div class="treebox" data-caption="The full GMV tree. Traffic is a sum of four channels; AOV is units x price. Read the baseline, then edit a channel.">
+      <pre class="tree-src">{
+  "unit": "$",
+  "root": {
+    "label": "GMV", "op": "x",
+    "children": [
+      { "label": "Traffic", "op": "+", "children": [
+        { "label": "SEO",    "value": 52000, "unit": "visits" },
+        { "label": "Paid",   "value": 38000, "unit": "visits" },
+        { "label": "Direct", "value": 20000, "unit": "visits" },
+        { "label": "Email",  "value": 10000, "unit": "visits" }
+      ] },
+      { "label": "Conversion", "value": 0.028, "pct": true },
+      { "label": "AOV", "op": "x", "children": [
+        { "label": "Units per order", "value": 2,  "unit": "units" },
+        { "label": "Price per unit",  "value": 31, "unit": "$" }
+      ] }
+    ]
+  }
+}</pre>
+    </div>
+  </section>
+
+  <!-- ============ PART 2: LEADING VS LAGGING ============ -->
+  <section class="section" id="leading-lagging">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers Amplitude leading inputs, applied to ecommerce</span>
+      <h2>Leading vs lagging in ecommerce <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">GMV is the ultimate lagging number - it lands at the end. Near the leaves live the early warnings: <strong>add-to-cart rate</strong> and <strong>channel traffic</strong> move before GMV, so a dip there is your reaction time. <strong>Refunds</strong>, by contrast, lag GMV - they show up weeks after the sale. Steer by the leading leaves; report the lagging root. The deeper your ecommerce tree, the earlier the signal you can act on.</p>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Which ecommerce drivers lead, which lag<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Map every driver on the lead-lag axis and you know which to watch daily and which to report monthly. Simulate a drop on the tree above to feel it: knock down Paid traffic and GMV follows - but in the real world the traffic dip was visible a week earlier, if anyone was watching the leading leaf.</p>
+        <ul>
+          <li><strong>Leading:</strong> ad impressions, sessions, add-to-cart rate. Move first, warn early, watch daily.</li>
+          <li><strong>Lagging:</strong> GMV, refunds, repeat-purchase rate. Land late, report on a cadence.</li>
+          <li><strong>The skill:</strong> hang a leading indicator on each branch. When Paid traffic is the branch, its leading leaf is ad spend and impressions - watch those, not GMV, for early warning.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>Steer by leaves, report the root</strong>
+          The board wants GMV. Your team should be watching add-to-cart rate and channel sessions - the leaves that move a week before GMV does. Same tree, two audiences, two altitudes.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 3: COMMON DROPS ============ -->
+  <section class="section" id="common-drops">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · covers domain canon, symptom-to-branch mapping</span>
+      <h2>The three common ecommerce drops <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">Almost every ecommerce GMV drop is one of three stories, and each maps to a specific branch of the tree. Learn the map and diagnosis starts before you open the data: the symptom already tells you which branch to walk to. This is the payoff of a two-level tree - the shape of the fall names the cause.</p>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Symptom to branch: the ecommerce cheat map<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Three drops, three branches. Notice each drop has a signature pattern from b2 - a channel dying is an <strong>additive</strong> failure inside Traffic; a broken checkout is a <strong>leaf</strong> failure at Conversion; discount erosion is a <strong>leaf</strong> failure inside the AOV product.</p>
+        <table class="clean">
+          <thead>
+            <tr><th>Symptom</th><th>Tree branch</th><th>Pattern</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>A channel dies (ad account breaks, SEO update hits)</td><td>Traffic -&gt; one channel leaf</td><td>Additive: one part falls, others hold</td></tr>
+            <tr><td>Checkout breaks (new bug, slow page, payment error)</td><td>Conversion leaf</td><td>Multiplicative: the rate leaf drops</td></tr>
+            <tr><td>Discounting erodes basket value</td><td>AOV -&gt; Price-per-unit leaf</td><td>Multiplicative: the value leaf drops</td></tr>
+          </tbody>
+        </table>
+        <div class="callout tip">
+          <strong>Read the shape, name the cause</strong>
+          Traffic flat but conversion down? Checkout. AOV down but units flat? Discounting on price. One channel's traffic gone but others fine? A channel died. The tree turns a symptom into a branch before you write a single query.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO 1 ============ -->
+  <section class="section" id="demo-1">
+    <div class="section-kicker">
+      <span class="klabel">Demo 1 of 2</span>
+      <h2>Diagnose a GMV drop live <span class="tag demo">★ 12 min · everyone builds</span></h2>
+    </div>
+    <p class="lede">The full loop on the deep tree. Simulate a drop, read the coral path down to the exact leaf, then confirm the fall in SQL by segmenting revenue by channel. Tree says which branch; SQL says which slice - and now the branch is specific enough to route the fix to one team.</p>
+
+    <div class="treebox" data-caption="Simulate a drop. The coral path runs from one leaf - a channel, conversion, or price - all the way up to GMV.">
+      <pre class="tree-src">{
+  "unit": "$",
+  "root": {
+    "label": "GMV", "op": "x",
+    "children": [
+      { "label": "Traffic", "op": "+", "children": [
+        { "label": "SEO",    "value": 52000, "unit": "visits" },
+        { "label": "Paid",   "value": 38000, "unit": "visits" },
+        { "label": "Direct", "value": 20000, "unit": "visits" },
+        { "label": "Email",  "value": 10000, "unit": "visits" }
+      ] },
+      { "label": "Conversion", "value": 0.028, "pct": true },
+      { "label": "AOV", "op": "x", "children": [
+        { "label": "Units per order", "value": 2,  "unit": "units" },
+        { "label": "Price per unit",  "value": 31, "unit": "$" }
+      ] }
+    ]
+  }
+}</pre>
+    </div>
+
+    <div class="sqlbox" data-caption="Confirm in the data. Revenue and orders by channel - which channel is dragging the total down?">
+      <pre class="sql-src">SELECT o.channel,
+       COUNT(DISTINCT o.order_id)                 AS orders,
+       ROUND(SUM(oi.quantity * oi.unit_price), 0) AS revenue
+FROM orders o
+JOIN order_items oi ON o.order_id = oi.order_id
+WHERE o.status = 'completed'
+GROUP BY o.channel
+ORDER BY revenue DESC;</pre>
+    </div>
+
+    <div class="steps">
+      <div class="step"><p>Simulate a drop and trace the coral leaf. Is it a channel (Traffic branch), the Conversion leaf, or a leaf inside AOV?</p></div>
+      <div class="step"><p>Name the pattern from the symptom map: channel death (additive), checkout break (conversion leaf), or discount erosion (price leaf).</p></div>
+      <div class="step"><p>Run the SQL to segment revenue by channel and confirm which slice moved in the actual store data.</p></div>
+      <div class="step"><p>State the full diagnosis: "GMV fell X% - [branch] on [channel/leaf] - here is the confirming query." Reset and run another drop.</p></div>
+    </div>
+  </section>
+
+  <!-- ============ DEMO 2 ============ -->
+  <section class="section" id="demo-2">
+    <div class="section-kicker">
+      <span class="klabel">Demo 2 of 2</span>
+      <h2>Your turn: segment the drivers <span class="tag demo">★ 10 min · everyone builds</span></h2>
+    </div>
+    <p class="lede">Two live queries and one prose call. First a conversion proxy by channel, then AOV by channel, then reason from a symptom to the next query without any data at all - the skill this whole session builds.</p>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>Q1 · Conversion proxy - completed vs total orders by channel<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>We do not have raw sessions, but completion rate is a fair conversion proxy: of all orders started on a channel, how many completed rather than being refunded or cancelled? A channel with a low completion rate is where checkout is leaking.</p>
+        <div class="sqlbox" data-caption="A low completion_pct on one channel points at a checkout or payment problem there.">
+          <pre class="sql-src">SELECT channel,
+       COUNT(*)                                       AS all_orders,
+       COUNT(*) FILTER (WHERE status = 'completed')   AS completed,
+       ROUND(100.0 * COUNT(*) FILTER (WHERE status = 'completed')
+             / COUNT(*), 1)                           AS completion_pct
+FROM orders
+GROUP BY channel
+ORDER BY completion_pct DESC;</pre>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Q2 · AOV by channel - which basket shrank?<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>If the tree pointed at AOV, split it by channel. Average order value is revenue divided by distinct orders. A channel whose basket is far smaller is where discounting or a product-mix shift is eroding value.</p>
+        <div class="sqlbox" data-caption="Compare avg_order_value across channels. A much smaller basket on one channel is your AOV culprit.">
+          <pre class="sql-src">SELECT o.channel,
+       COUNT(DISTINCT o.order_id)                      AS orders,
+       ROUND(SUM(oi.quantity * oi.unit_price) * 1.0
+             / COUNT(DISTINCT o.order_id), 2)          AS avg_order_value
+FROM orders o
+JOIN order_items oi ON o.order_id = oi.order_id
+WHERE o.status = 'completed'
+GROUP BY o.channel
+ORDER BY avg_order_value DESC;</pre>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Q3 · GMV down, traffic flat, AOV flat - who is guilty?<span class="mini">2 min write</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Reason it out in prose before touching data. GMV = Traffic x Conversion x AOV. If GMV fell but Traffic and AOV are both flat, arithmetic leaves only one driver that can have moved. Name it, then name the single next query you would run to localise it. This is the move that separates fast analysts from slow ones - the tree points, you do not guess.</p>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>The answer:</strong> in a product tree, if two of three drivers are flat and the top line fell, the third - <strong>Conversion</strong> - is guilty. Next query: segment conversion (completion rate) by channel and by device to find which slice broke. Checkout is the usual suspect.</p>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ HOMEWORK ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>Try it yourself - this week <span class="tag exercise">◐ 20-30 min total</span></h2>
+    </div>
+    <ul>
+      <li>Draw your store's GMV tree two levels deep. Split Traffic into your real channels and AOV into units and price. Paste your numbers into the deep tree above.</li>
+      <li>For each of the three common drops, write the branch it lands on and the owner who gets the ticket. Pin it as your symptom-to-branch map.</li>
+      <li>Hang one leading indicator on each top branch: ad impressions under Paid, add-to-cart rate under Conversion, discount depth under Price. Watch those daily.</li>
+      <li>Run the completion-rate-by-channel query on your own data. A channel far below the others is a checkout leak worth a look this week.</li>
+      <li>Bring your channel mix to b5 - the marketing deep dive splits acquisition into spend, CAC, and channel efficiency.</li>
+    </ul>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Framework sources</span>
+      <h2>Frameworks this session draws on</h2>
+    </div>
+    <p class="lede">The ecommerce GMV tree is the domain canon - the same decomposition Lean Analytics and every store's analytics stack use, applied here live instead of described. This page draws on:</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Lean Analytics (Croll &amp; Yoskovitz) - the ecommerce business model</span><span class="note">Part 1 · GMV = Traffic x Conversion x AOV, the canonical store tree</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Ecommerce domain canon - channel mix and AOV decomposition</span><span class="note">Parts 1 &amp; 3 · Traffic as a channel sum, AOV as units x price</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Amplitude North Star Playbook - leading inputs in ecommerce</span><span class="note">Part 2 · add-to-cart rate and sessions as leading leaves</span></div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">1 · What is the canonical ecommerce GMV formula?</p>
+      <button class="qopt" type="button">A · GMV = Revenue - Refunds</button>
+      <button class="qopt" type="button">B · GMV = Traffic x Conversion x AOV</button>
+      <button class="qopt" type="button">C · GMV = Users + Orders + Basket</button>
+      <p class="qwhy">GMV is a product of three drivers: traffic (how many arrive), conversion (what share buy), and average order value (how much each spends). Two levels down, traffic splits into channels and AOV into units x price.</p>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">2 · A single acquisition channel dies while the others hold. Which pattern is that, and where in the tree?</p>
+      <button class="qopt" type="button">A · Multiplicative, at the Conversion leaf</button>
+      <button class="qopt" type="button">B · A bridge, in the AOV branch</button>
+      <button class="qopt" type="button">C · Additive, inside the Traffic branch - one part falls while others hold</button>
+      <p class="qwhy">Traffic is a sum of channels, so a channel dying is an additive failure: one part collapses, the rest hold. Read it by each channel's weight - a dead small channel barely dents GMV; a dead big one hurts.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">3 · GMV is down, but traffic is flat and AOV is flat. Which driver is guilty?</p>
+      <button class="qopt" type="button">A · Conversion - in a product of three, if two are flat and the top fell, the third moved</button>
+      <button class="qopt" type="button">B · Traffic - it must be a channel</button>
+      <button class="qopt" type="button">C · AOV - discounting is always the cause</button>
+      <p class="qwhy">GMV = Traffic x Conversion x AOV. With traffic and AOV both flat, only conversion can explain the fall. Next query: segment conversion by channel and device - checkout is the usual suspect.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Builder session 4 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>GMV formula</b><span>GMV = Traffic x Conversion x AOV. The canonical store tree, multiplicative at the root.</span></div>
+      <div class="cheat-item"><b>Two levels deep</b><span>Traffic = SEO + Paid + Direct + Email (sum). AOV = Units-per-order x Price-per-unit (product).</span></div>
+      <div class="cheat-item"><b>Patterns nest</b><span>Multiplicative root, additive Traffic, multiplicative AOV. Real trees stack the b2 shapes.</span></div>
+      <div class="cheat-item"><b>Channel dies = additive</b><span>One channel falls, others hold. Read by weight - a dead small channel barely dents GMV.</span></div>
+      <div class="cheat-item"><b>Checkout break = conversion leaf</b><span>Traffic flat, AOV flat, GMV down - the only driver left is conversion. Segment by channel and device.</span></div>
+      <div class="cheat-item"><b>Discount erosion = price leaf</b><span>AOV down with units flat means price fell. Split AOV by channel to find where the basket shrank.</span></div>
+      <div class="cheat-item"><b>Steer by leaves</b><span>Add-to-cart rate and sessions lead GMV; refunds lag it. Watch leaves daily, report the root.</span></div>
+      <div class="cheat-item"><b>Running skill</b><span>Read a deep GMV tree and route a drop to one team. Next: b5, the marketing deep dive.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Builder session 4 of 10 · learn-metric-decomposition-with-phoebe · by Phoebe Fu &nbsp;·&nbsp; 📚 <a href="https://phoebefu6.github.io/learn-with-phoebe/">Learn with Phoebe ↗</a></span>
+    <span><a href="b3-leading-indicators-playbook.html">← Prev: Leading indicators &amp; the playbook</a> &nbsp;·&nbsp; <a href="b5-marketing-deep-dive.html">Next: Marketing deep dive →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/metric-seed.js?v=1"></script>
+<script src="../assets/duck-live.js?v=1"></script>
+<script src="../assets/tree-live.js?v=3"></script>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

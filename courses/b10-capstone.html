@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Builder session 10 · Capstone: diagnose the drop - learn metric decomposition with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-metric-decomposition-with-phoebe</a> / Builder session 10 of 10</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Metric Decomposition with Phoebe · Builder track · Session 10 of 10</div>
+    <h1>Capstone: diagnose the <span class="accent">drop</span></h1>
+    <p class="sub">"Revenue is down 12% this month." That is the whole brief - a mystery, no cause attached. Nine sessions gave you every tool this needs: build the tree, simulate and read the drop, segment in SQL to the guilty slice, then write the one-paragraph narrative that a weekly business review can act on. Today you run the full loop end to end, on the clock, the way a real metric review runs. No new theory - just the method, done for real.</p>
+    <div class="chip-row">
+      <span class="chip level">🟠 Builder track</span>
+      <span class="chip audience">Analysts · PMs · founders · ops</span>
+      <span class="chip audience">Live tree simulator + SQL</span>
+      <span class="chip time">60 min · capstone</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-5 · The brief</span>
+      <span class="a2" style="flex:3">5-20 · Build &amp; read the tree</span>
+      <span class="a3" style="flex:3">20-35 · Segment to the culprit</span>
+      <span class="a4" style="flex:3">35-60 · Write the narrative</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0 · the brief</span>
+      <h2>The mystery: revenue is down 12%</h2>
+    </div>
+    <p class="lede">A message lands from your CEO on the first of the month: <strong>"Revenue is down 12% versus last month. What happened?"</strong> No driver named, no segment, no cause - just the drop and the question. This is the exact moment the whole track was built for. You will not argue about it in a meeting; you will diagnose it in four moves and hand back a paragraph anyone can act on. Everything you need - the three patterns, the leading-versus-lagging lens, the diagnosis playbook, the six domains - collapses into one repeatable loop today.</p>
+    <div class="legend">
+      <span class="pill solid">Live - presented in session</span>
+      <span class="pill light">Self-study - read after class</span>
+      <span class="pill peach">▶ Live tree - editable &amp; runnable</span>
+      <span class="pill inkpill">Framework sources covered</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with today</strong>
+      A repeatable diagnosis loop you can run on any top-line drop: tree -&gt; branch -&gt; segment -&gt; hypothesize -&gt; confirm -&gt; narrate. By the end you can take any metric that falls and hand back a diagnosis with a named driver, a confirmed cause, an owner, and a next step with a date. That paragraph is the job.
+    </div>
+  </section>
+
+  <!-- ============ PART 1: THE METHOD AS ONE PICTURE ============ -->
+  <section class="section" id="method">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · the method in one picture</span>
+      <h2>The diagnosis loop and its four questions <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">The whole track reduces to one loop and four questions. Keep this picture in your head and no metric drop can intimidate you again - you always know the next move.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The diagnosis loop: tree to branch to segment to hypothesize to confirm to narrate, with four questions">
+        <style>
+          .dlT { font: 800 13px Inter, sans-serif; fill: #FFFFFF; }
+          .dlS { font: 700 11.5px Inter, sans-serif; fill: #16241E; }
+          .dlQ { font: 600 11px Inter, sans-serif; fill: #566A61; }
+          .dlN { font: 600 12px Inter, sans-serif; fill: #431105; }
+          .dlArrow { stroke: #4FA37E; stroke-width: 2.5; fill: none; marker-end: url(#dlHead); }
+        </style>
+        <defs>
+          <marker id="dlHead" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#4FA37E"/>
+          </marker>
+        </defs>
+        <rect x="20" y="60" width="150" height="56" rx="10" fill="#2F7D5B"/>
+        <text class="dlT" x="95" y="84" text-anchor="middle">1 · Build tree</text>
+        <text class="dlS" x="95" y="102" text-anchor="middle" style="fill:#FFFFFF;font-size:10px">which branch moved?</text>
+        <rect x="200" y="60" width="150" height="56" rx="10" fill="#4FA37E"/>
+        <text class="dlT" x="275" y="84" text-anchor="middle">2 · Segment</text>
+        <text class="dlS" x="275" y="102" text-anchor="middle" style="fill:#FFFFFF;font-size:10px">which slice fell?</text>
+        <rect x="380" y="60" width="150" height="56" rx="10" fill="#B8DFCD"/>
+        <text class="dlS" x="455" y="84" text-anchor="middle">3 · Hypothesize</text>
+        <text class="dlQ" x="455" y="102" text-anchor="middle">why would it fall?</text>
+        <rect x="560" y="60" width="150" height="56" rx="10" fill="#B8DFCD"/>
+        <text class="dlS" x="635" y="84" text-anchor="middle">4 · Confirm</text>
+        <text class="dlQ" x="635" y="102" text-anchor="middle">does data agree?</text>
+        <rect x="710" y="150" width="150" height="56" rx="10" fill="#E4572E"/>
+        <text class="dlT" x="785" y="174" text-anchor="middle">5 · Narrate</text>
+        <text class="dlS" x="785" y="192" text-anchor="middle" style="fill:#FFFFFF;font-size:10px">one paragraph, owned</text>
+        <path class="dlArrow" d="M170,88 L196,88"/>
+        <path class="dlArrow" d="M350,88 L376,88"/>
+        <path class="dlArrow" d="M530,88 L556,88"/>
+        <path class="dlArrow" d="M660,116 L720,146"/>
+        <rect x="20" y="250" width="14" height="14" rx="3" fill="#E4572E"/>
+        <text class="dlN" x="44" y="262">Tree points at the branch, SQL finds the slice, a hypothesis explains it, data confirms it - then you narrate.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the diagnosis loop: build, segment, hypothesize, confirm, narrate</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>The four questions, in order<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Every good metric review asks the same four questions in the same order. Skip one and you get a guess; run all four and you get a diagnosis.</p>
+        <ul>
+          <li><strong>Q1 - Which branch moved?</strong> Build the tree, read the drop, follow the coral trail to the guilty driver. This is Demo 1.</li>
+          <li><strong>Q2 - Which slice fell?</strong> Segment the guilty driver by channel, plan, or cohort until one slice owns the fall. This is Demo 2.</li>
+          <li><strong>Q3 - Why would it fall?</strong> Form a specific, testable hypothesis about the mechanism - a bug, a price change, a lost campaign.</li>
+          <li><strong>Q4 - Does the data confirm it?</strong> Run the one query that proves or kills the hypothesis before you spend a cent fixing anything.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>Order is not optional</strong>
+          Tree before segment, segment before hypothesis, hypothesis before fix. Analysts who jump straight to SQL waste an afternoon slicing the wrong driver. Let the tree aim you first - it is the cheapest step and it saves every step after it.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO 1 ============ -->
+  <section class="section" id="demo-1">
+    <div class="section-kicker">
+      <span class="klabel">Demo 1 of 3 · 15 min</span>
+      <h2>Build and read the tree <span class="tag demo">★ 15 min · everyone builds</span></h2>
+    </div>
+    <p class="lede">Start with the picture. Revenue splits by channel, and each channel is its own GMV tree: Traffic x Conversion x AOV. Read the baseline, press <strong>Simulate a drop</strong>, and answer the first two questions of the loop - which branch moved, and by how much. This is a two-level tree, so the coral trail runs from a leaf, up through a channel, to total revenue.</p>
+
+    <div class="treebox" data-caption="Revenue = Web GMV + App GMV, each = Traffic x Conversion x AOV. Simulate a drop and trace the coral path.">
+      <pre class="tree-src">{
+  "unit": "$",
+  "root": {
+    "label": "Revenue", "op": "+",
+    "children": [
+      {
+        "label": "Web GMV", "op": "x",
+        "children": [
+          { "label": "Web traffic",     "value": 80000, "unit": "visits" },
+          { "label": "Web conversion",  "value": 0.03,  "pct": true },
+          { "label": "Web AOV",         "value": 60,    "unit": "$" }
+        ]
+      },
+      {
+        "label": "App GMV", "op": "x",
+        "children": [
+          { "label": "App traffic",     "value": 40000, "unit": "visits" },
+          { "label": "App conversion",  "value": 0.025, "pct": true },
+          { "label": "App AOV",         "value": 64,    "unit": "$" }
+        ]
+      }
+    ]
+  }
+}</pre>
+    </div>
+
+    <div class="steps">
+      <div class="step"><p><strong>Read the baseline.</strong> Web is 80,000 x 3% x $60 = $144K; App is 40,000 x 2.5% x $64 = $64K; total revenue is about $208K at rest.</p></div>
+      <div class="step"><p><strong>Simulate a drop.</strong> Press the button. One leaf falls and its whole path - leaf, its channel, and total revenue - lights coral. Note which leaf and by what percent.</p></div>
+      <div class="step"><p><strong>Q1, which branch?</strong> Say it out loud: "Revenue fell X% because [which leaf] in [which channel] fell Y%." That is the first diagnosis question, answered.</p></div>
+      <div class="step"><p><strong>Set up Q2.</strong> Whatever channel the coral trail lands in is where you point your SQL next. If App conversion fell, you segment the App channel. The tree just told you where to dig.</p></div>
+    </div>
+
+    <div class="callout example">
+      <span class="ex-pill">Worked path for today</span>
+      <p>Say the simulator (or the CEO's real data) points at <strong>App conversion</strong>, down sharply, dragging total revenue down 12%. Web held. Q1 is answered: the branch that moved is App conversion. Q2 is now scoped - do not touch Web, do not touch AOV; segment the App channel and find what broke conversion there. Carry that into Demo 2.</p>
+    </div>
+  </section>
+
+  <!-- ============ DEMO 2 ============ -->
+  <section class="section" id="demo-2">
+    <div class="section-kicker">
+      <span class="klabel">Demo 2 of 3 · 15 min</span>
+      <h2>Segment to the culprit <span class="tag demo">★ 15 min · everyone builds</span></h2>
+    </div>
+    <p class="lede">The tree pointed at a channel. Now SQL finds the slice and confirms the mechanism - questions 3 and 4 of the loop. Run the chain: first revenue by channel to see the fallen slice, then refund rate by channel to test <em>why</em> that channel's conversion or revenue broke. Two queries, and the mystery is solved.</p>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>Q2 · Revenue by channel - find the fallen slice<span class="mini">5 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The tree said a channel moved. Confirm it in the data: split completed revenue by channel and see which slice is carrying the fall.</p>
+        <div class="sqlbox" data-caption="Which channel owns the drop? Swap status to compare completed against refunded to preview the mechanism.">
+          <pre class="sql-src">SELECT o.channel,
+       COUNT(DISTINCT o.order_id)                 AS orders,
+       ROUND(SUM(oi.quantity * oi.unit_price), 0) AS revenue
+FROM orders o
+JOIN order_items oi ON o.order_id = oi.order_id
+WHERE o.status = 'completed'
+GROUP BY o.channel
+ORDER BY revenue DESC;</pre>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Q3-Q4 · Refund rate by channel - confirm the mechanism<span class="mini">6 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p><strong>Hypothesis (Q3):</strong> the fallen channel's revenue dropped because refunds spiked there - a checkout or fulfilment problem, not a demand problem. <strong>Confirm it (Q4):</strong> compute the refund rate per channel and see if the guilty channel is worse.</p>
+        <div class="sqlbox" data-caption="Refund rate = refunded orders / all orders, per channel. A high rate in the fallen channel confirms the mechanism.">
+          <pre class="sql-src">SELECT o.channel,
+       COUNT(*)                                          AS all_orders,
+       COUNT(*) FILTER (WHERE o.status = 'refunded')     AS refunds,
+       ROUND(100.0 * COUNT(*) FILTER (WHERE o.status = 'refunded')
+             / COUNT(*), 1)                              AS refund_rate_pct
+FROM orders o
+GROUP BY o.channel
+ORDER BY refund_rate_pct DESC;</pre>
+        </div>
+        <div class="callout tip">
+          <strong>The diagnosis chain, complete</strong>
+          Tree named the branch (App conversion) -&gt; revenue-by-channel confirmed the slice -&gt; a hypothesis named the mechanism (refunds) -&gt; refund-rate-by-channel confirmed or killed it. Four questions, four moves. Now you have a named driver, a named segment, and a confirmed cause - everything the narrative needs.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO 3 ============ -->
+  <section class="section" id="demo-3">
+    <div class="section-kicker">
+      <span class="klabel">Demo 3 of 3 · 15 min</span>
+      <h2>Write the narrative <span class="tag demo">★ 15 min · writing, not code</span></h2>
+    </div>
+    <p class="lede">This last demo is not code. A diagnosis nobody can read is not finished. The deliverable of every metric review is one tight paragraph - the Amazon Weekly Business Review format - that names the drop, the driver, the segment, the confirmed cause, the owner, and the next step with a date. Fill in the template, and you have done the whole job.</p>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>The WBR narrative template<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Every metric-review narrative fits one sentence-shaped template. Six blanks, and you filled every one of them in Demos 1 and 2.</p>
+        <div class="callout tip">
+          <strong>The template</strong>
+          "Revenue fell <em>[X%]</em> driven by <em>[driver]</em> in <em>[segment]</em>, because <em>[confirmed cause]</em>; owner <em>[team]</em>; action <em>[next step]</em> by <em>[date]</em>."
+        </div>
+        <ul>
+          <li><strong>[X%]</strong> - the top-line move, from the tree.</li>
+          <li><strong>[driver]</strong> - the branch that moved, from Q1.</li>
+          <li><strong>[segment]</strong> - the slice that owns it, from Q2.</li>
+          <li><strong>[confirmed cause]</strong> - the mechanism you proved, from Q3-Q4. Not a guess - a confirmed one.</li>
+          <li><strong>[team]</strong> - who owns the driver, so the fix has an address.</li>
+          <li><strong>[next step] by [date]</strong> - one action, one deadline. A diagnosis with no action is trivia.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Worked example, filled from Demos 1-2<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Here is the whole diagnosis in one paragraph, using the numbers you traced today:</p>
+        <div class="callout example">
+          <span class="ex-pill">Filled in</span>
+          <p>"Revenue fell <strong>12%</strong> driven by <strong>conversion</strong> in the <strong>app channel</strong>, because <strong>a checkout bug pushed the app refund rate well above web's</strong>; owner <strong>product</strong>; action <strong>ship the checkout fix and re-test the app funnel by this Friday</strong>."</p>
+        </div>
+        <p>Read it back against the loop: 12% is the tree, conversion is Q1, app channel is Q2, the refund spike is the confirmed cause from Q3-Q4, product is the owner, and the fix-by-Friday is the action. Nothing vague, nothing unowned, nothing without a date.</p>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Your blank to fill<span class="mini">8 min write</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Now you write one. Run the simulator's drop again in Demo 1, follow it through Demo 2's queries, and fill every blank from your own trace - not from the worked example.</p>
+        <div class="callout tip">
+          <strong>Fill this in</strong>
+          "Revenue fell ____% driven by ____ in ____, because ____; owner ____; action ____ by ____."
+        </div>
+        <ul>
+          <li>If you cannot fill a blank, you skipped a step - go back and run it. A missing [confirmed cause] means you never ran Q4.</li>
+          <li>Keep it to one paragraph. If it needs two, you are reporting, not diagnosing - cut to the single driver that owns the fall.</li>
+          <li>Read it out loud to a neighbor. If they know what to do next without asking a question, it is done.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 3: WHERE THIS GOES NEXT ============ -->
+  <section class="section" id="next">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · wrap</span>
+      <h2>Where this goes next - and what it is not <span class="tag concept">honest close</span></h2>
+    </div>
+    <p class="lede">You now own a loop you will use for the rest of your career. Here is where it lives in a real operating rhythm, and - just as important - an honest list of what this track deliberately did not teach.</p>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Run it weekly, roll it up monthly<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The loop is not a one-off. It is a cadence.</p>
+        <ul>
+          <li><strong>Weekly:</strong> the leader track's a5 turns this into the Weekly Business Review - the same four questions, run every Monday on last week's numbers.</li>
+          <li><strong>Monthly:</strong> a6 rolls the weeklies into the monthly review, where you look for the trend under the noise, not just the single drop.</li>
+          <li><strong>Everywhere:</strong> the paragraph you wrote today is the atom of both. Trees and queries are the work; the narrative is the deliverable.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Sibling courses</span>
+          <p>This track reads and decomposes metrics. Its siblings build the rest of the stack: <strong>learn-business-intelligence</strong> (the dashboards that surface the drop), <strong>learn-data-warehouse</strong> (where the numbers actually live), <strong>learn-marketing-attribution</strong> (the marketing-driver depth), and <strong>learn-strategic-thinking</strong> (the strategy the metrics ultimately serve).</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>The honest gap list<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>What this track is not, said plainly so you are not surprised later:</p>
+        <ul>
+          <li><strong>It does not build the data platform.</strong> The seed database is a teaching toy. Real pipelines, warehouses, and modeling are the data-engineering and warehouse courses.</li>
+          <li><strong>It does not run the statistics.</strong> "Down 12%" here is read at face value. Whether a move is signal or noise - significance testing, confidence intervals, anomaly detection - is a statistics and experimentation course, not this one.</li>
+          <li><strong>It does not fix the problem.</strong> The loop ends at a diagnosis and an owner. Shipping the checkout fix is the product team's job; the narrative just routes it there.</li>
+          <li><strong>What it does do</strong> - and does well - is turn a vague top-line drop into a specific, owned, confirmed diagnosis in minutes. That skill is the difference between arguing and acting.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ HOMEWORK ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework · the capstone</span>
+      <h2>Diagnose your own real drop <span class="tag exercise">◐ 30-45 min</span></h2>
+    </div>
+    <ul>
+      <li>Take your team's <strong>last real metric drop</strong> - a month revenue missed, a week conversion fell, a quarter bookings came in light. A real one, with real numbers.</li>
+      <li>Build its tree. Multiplicative, additive, or a flow bridge - pick the pattern that fits, from b2.</li>
+      <li>Run the four questions in order: which branch, which slice, why, does the data confirm it. Do not skip to the fix.</li>
+      <li>Write the WBR paragraph. Named driver, named segment, confirmed cause, owner, next step, date. One paragraph.</li>
+      <li>Bring it to your next real metric review and read it aloud. Watch how fast the room re-orients from arguing to acting. That is the whole track, paying off.</li>
+    </ul>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Framework sources</span>
+      <h2>Frameworks this capstone draws on</h2>
+    </div>
+    <p class="lede">The capstone pulls together every framework the track has taught - decomposition, leading indicators, the review ritual, and the discipline of watching more than one number. This page draws on:</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Lean Analytics (Croll &amp; Yoskovitz) - the one metric that matters, decomposed</span><span class="note">Demo 1 · picking and breaking down the top line that fell</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">DuPont analysis - the original driver-tree decomposition</span><span class="note">Demo 1 · the multiply-the-levers move, now second nature</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Amplitude North Star Playbook - inputs that lead the output</span><span class="note">Part 1 · steer by the leading branches, report the lagging root</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Amazon Weekly Business Review - the narrative and the cadence</span><span class="note">Demo 3 · the one-paragraph write-up, run weekly (a5) and monthly (a6)</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Goodhart's Law - when a measure becomes a target</span><span class="note">Part 3 · why you watch more than the single number you are judged on</span></div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">1 · What is the correct order of the diagnosis loop?</p>
+      <button class="qopt" type="button">A · Segment, then build the tree, then hypothesize, then confirm</button>
+      <button class="qopt" type="button">B · Build the tree, then segment, then hypothesize, then confirm, then narrate</button>
+      <button class="qopt" type="button">C · Hypothesize first, then fix, then build a tree to justify it</button>
+      <p class="qwhy">Tree before segment, segment before hypothesis, hypothesis before confirmation, then the narrative. The tree is the cheapest step and it aims every step after it - skipping it means slicing the wrong driver.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">2 · The tree says App conversion fell. What is the very next move?</p>
+      <button class="qopt" type="button">A · Segment the app channel in SQL to find the slice and confirm the mechanism - do not touch web or AOV</button>
+      <button class="qopt" type="button">B · Rebuild the entire checkout for every channel at once</button>
+      <button class="qopt" type="button">C · Report revenue is down and wait for next month</button>
+      <p class="qwhy">Tree points, SQL finds. Once the tree isolates App conversion, you segment only that channel - the tree already told you web and AOV are innocent, so spending effort there is wasted.</p>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">3 · What must a finished WBR narrative contain?</p>
+      <button class="qopt" type="button">A · Only the percentage the metric fell</button>
+      <button class="qopt" type="button">B · A long list of every query you ran</button>
+      <button class="qopt" type="button">C · The drop, the driver, the segment, the confirmed cause, an owner, and a next step with a date</button>
+      <p class="qwhy">A diagnosis with no owner or no action is trivia. The narrative names the driver and segment, states the confirmed (not guessed) cause, assigns a team, and commits to one next step by a date.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>The whole method · capstone cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>1 · Build the tree</b><span>Write the top line as a product, sum, or bridge of its drivers. Read the drop, follow the coral trail to the branch that moved.</span></div>
+      <div class="cheat-item"><b>2 · Leading vs lagging</b><span>Root lags and reports late; leaves lead and warn early. Steer by the leaves, narrate the root.</span></div>
+      <div class="cheat-item"><b>3 · The three patterns</b><span>Multiplicative (rate x volume), additive (sum of parts), flow bridge (fills and drains). Pick the one that fits.</span></div>
+      <div class="cheat-item"><b>4 · The four questions</b><span>Which branch? Which slice? Why would it fall? Does the data confirm it? In that order, every time.</span></div>
+      <div class="cheat-item"><b>5 · Segment to the culprit</b><span>Tree names the branch; GROUP BY finds the slice. Segment only the guilty driver, never the whole table.</span></div>
+      <div class="cheat-item"><b>6 · Baseline everything</b><span>A drop only means something against a baseline. "Down 12%" needs a versus - last month, last year, plan.</span></div>
+      <div class="cheat-item"><b>7 · Write the narrative</b><span>Drop, driver, segment, confirmed cause, owner, next step, date. One paragraph. The deliverable of the whole loop.</span></div>
+      <div class="cheat-item"><b>8 · Run it on a cadence</b><span>Weekly (a5) and monthly (a6). The loop is a rhythm, not a one-off. You now own it - go diagnose a real drop.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Builder session 10 of 10 · learn-metric-decomposition-with-phoebe · by Phoebe Fu &nbsp;·&nbsp; 📚 <a href="https://phoebefu6.github.io/learn-with-phoebe/">Learn with Phoebe ↗</a></span>
+    <span><a href="b9-b2g-deep-dive.html">← Prev: B2G deep dive</a> &nbsp;·&nbsp; <a href="../index.html">Back to all sessions →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/metric-seed.js?v=1"></script>
+<script src="../assets/duck-live.js?v=1"></script>
+<script src="../assets/tree-live.js?v=3"></script>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

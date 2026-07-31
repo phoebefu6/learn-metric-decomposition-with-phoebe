@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Builder session 2 · The three decomposition patterns - learn metric decomposition with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-metric-decomposition-with-phoebe</a> / Builder session 2 of 10</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Metric Decomposition with Phoebe · Builder track · Session 2 of 10</div>
+    <h1>The three <span class="accent">patterns</span></h1>
+    <p class="sub">Every driver tree you will ever build is one of three shapes, or a nesting of them. A metric is a <strong>product</strong> of rates and volumes, a <strong>sum</strong> of parts, or a <strong>bridge</strong> that carries a balance forward through gross adds and gross losses. Name the shape and you already know how a drop will behave - what passes through, what dilutes, what to watch. Today you build all three live and learn to read a fall off each one.</p>
+    <div class="chip-row">
+      <span class="chip level">🟢 Builder track</span>
+      <span class="chip audience">Analysts · PMs · founders · ops</span>
+      <span class="chip audience">Live tree simulator + SQL</span>
+      <span class="chip time">45 min</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Recap</span>
+      <span class="a2" style="flex:5">3-20 · The three patterns</span>
+      <span class="a3" style="flex:5">20-42 · Build all three live</span>
+      <span class="a4" style="flex:1">42-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Recap, and where this fits</h2>
+    </div>
+    <p class="lede">In b1 you built one tree - GMV = Traffic x Conversion x AOV - and broke it in the simulator until naming the guilty driver was a reflex. That tree was <strong>multiplicative</strong>: a product of drivers. But not every metric multiplies. Revenue split by region is a <strong>sum</strong>. Active users this month is a balance carried from last month, a <strong>bridge</strong>. This session gives you the full vocabulary so that the moment a metric lands on your desk, you already know which shape it is and how its drop will read.</p>
+    <div class="legend">
+      <span class="pill solid">Live - presented in session</span>
+      <span class="pill light">Self-study - read after class</span>
+      <span class="pill peach">▶ Live tree - editable &amp; runnable</span>
+      <span class="pill inkpill">Framework sources covered</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with today</strong>
+      Three ready-to-use tree shapes and the one diagnostic rule for each: in a product, percentages pass straight through; in a sum, watch each part's weight; in a bridge, watch the flows - gross adds against gross losses - not just the net.
+    </div>
+  </section>
+
+  <!-- ============ PART 1: MULTIPLICATIVE ============ -->
+  <section class="section" id="multiplicative">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers the DuPont / multiplicative pattern</span>
+      <h2>Pattern one: multiplicative - rate x volume <span class="tag concept">6 min live</span></h2>
+    </div>
+    <p class="lede">A multiplicative tree is a <strong>product of drivers</strong>, usually a volume times one or more rates times a value. Revenue = Users x ARPU. GMV = Traffic x Conversion x AOV. Its signature property - the one that makes it the friendliest tree to diagnose - is clean <strong>pass-through</strong>: a percentage change in any single driver moves the top line by that same percentage. Users down 10% with ARPU flat, revenue down 10%. Nothing gets absorbed.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The three decomposition patterns: multiplicative, additive, and bridge">
+        <style>
+          .patT { font: 800 14px Inter, sans-serif; fill: #16241E; }
+          .patS { font: 400 11px Inter, sans-serif; fill: #566A61; }
+          .patB { font: 700 12px Inter, sans-serif; fill: #FFFFFF; }
+          .patN { font: 600 12.5px Inter, sans-serif; fill: #431105; }
+          .patLine { stroke: #B8DFCD; stroke-width: 2; fill: none; }
+        </style>
+        <text class="patT" x="150" y="34" text-anchor="middle">Multiplicative ( x )</text>
+        <text class="patS" x="150" y="52" text-anchor="middle">product of rate and volume</text>
+        <rect x="95" y="66" width="110" height="34" rx="8" fill="#2F7D5B"/>
+        <text class="patB" x="150" y="88" text-anchor="middle">Revenue</text>
+        <path class="patLine" d="M150,100 L150,116 M100,116 L200,116 M100,116 L100,132 M200,116 L200,132"/>
+        <rect x="55" y="132" width="90" height="30" rx="7" fill="#E9F5EF" stroke="#B8DFCD"/>
+        <text class="patS" x="100" y="151" text-anchor="middle">Users</text>
+        <rect x="165" y="132" width="90" height="30" rx="7" fill="#E9F5EF" stroke="#B8DFCD"/>
+        <text class="patS" x="210" y="151" text-anchor="middle">ARPU</text>
+
+        <text class="patT" x="440" y="34" text-anchor="middle">Additive ( + )</text>
+        <text class="patS" x="440" y="52" text-anchor="middle">sum of parts</text>
+        <rect x="385" y="66" width="110" height="34" rx="8" fill="#2F7D5B"/>
+        <text class="patB" x="440" y="88" text-anchor="middle">Revenue</text>
+        <path class="patLine" d="M440,100 L440,116 M360,116 L520,116 M360,116 L360,132 M440,116 L440,132 M520,116 L520,132"/>
+        <rect x="325" y="132" width="70" height="30" rx="7" fill="#B8DFCD"/>
+        <text class="patS" x="360" y="151" text-anchor="middle">N. Am.</text>
+        <rect x="405" y="132" width="70" height="30" rx="7" fill="#B8DFCD"/>
+        <text class="patS" x="440" y="151" text-anchor="middle">EMEA</text>
+        <rect x="485" y="132" width="70" height="30" rx="7" fill="#B8DFCD"/>
+        <text class="patS" x="520" y="151" text-anchor="middle">APAC</text>
+
+        <text class="patT" x="730" y="34" text-anchor="middle">Bridge ( flow )</text>
+        <text class="patS" x="730" y="52" text-anchor="middle">start + adds - losses</text>
+        <rect x="675" y="66" width="110" height="34" rx="8" fill="#2F7D5B"/>
+        <text class="patB" x="730" y="88" text-anchor="middle">End users</text>
+        <path class="patLine" d="M730,100 L730,116 M660,116 L800,116 M660,116 L660,132 M730,116 L730,132 M800,116 L800,132"/>
+        <rect x="628" y="132" width="64" height="30" rx="7" fill="#E9F5EF" stroke="#B8DFCD"/>
+        <text class="patS" x="660" y="151" text-anchor="middle">+ New</text>
+        <rect x="700" y="132" width="60" height="30" rx="7" fill="#E9F5EF" stroke="#B8DFCD"/>
+        <text class="patS" x="730" y="151" text-anchor="middle">Start</text>
+        <rect x="768" y="132" width="64" height="30" rx="7" fill="#E4572E"/>
+        <text class="patB" x="800" y="151" text-anchor="middle">- Churn</text>
+
+        <rect x="55" y="248" width="14" height="14" rx="3" fill="#E4572E"/>
+        <text class="patN" x="79" y="260">Same tree, three combine rules. Name the rule and you know how a drop will read.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the three shapes every driver tree is built from</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>Why the product tree is the easiest to diagnose<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>In a pure product, percentage moves are additive down the guilty path. Users down 8% and ARPU down 2%, revenue down about 10% - you literally sum the percentages. That is why a multiplicative tree lets you read the fall off the branches instead of rebuilding a spreadsheet: find the driver that moved, note its percent, and you have most of the explanation.</p>
+        <ul>
+          <li><strong>Volume x rate x value</strong> is the classic ecommerce form: Traffic x Conversion x AOV.</li>
+          <li><strong>Users x ARPU</strong> is the classic subscription form - two drivers, same rule.</li>
+          <li><strong>Diagnose in percent, never absolutes.</strong> A "10-point" move means nothing until you know 10 points of what.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>The pass-through rule</strong>
+          A percentage change in one driver of a product tree flows to the top line as the same percentage. Sum the percent changes along the moved path and you have explained the drop.
+        </div>
+      </div>
+    </details>
+
+    <div class="treebox" data-caption="Revenue = Users x ARPU. Drop Users 10% and watch revenue fall the same 10% - clean pass-through.">
+      <pre class="tree-src">{
+  "unit": "$",
+  "root": {
+    "label": "Revenue", "op": "x",
+    "children": [
+      { "label": "Users", "value": 42000, "unit": "users" },
+      { "label": "ARPU",  "value": 5, "unit": "$" }
+    ]
+  }
+}</pre>
+    </div>
+  </section>
+
+  <!-- ============ PART 2: ADDITIVE ============ -->
+  <section class="section" id="additive">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers the additive / sum-of-parts pattern</span>
+      <h2>Pattern two: additive - sum of parts <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">An additive tree is a <strong>sum of segments</strong>: total revenue = North America + EMEA + APAC. Regions, product lines, cohorts, channels - anything that partitions the whole. A drop here does not pass through evenly; it is usually <strong>one part falling while the others hold</strong>. To read it you need each part's <strong>weight</strong> (its share of the total), because a big swing in a tiny segment barely moves the top line, and a small swing in a dominant one moves it a lot.</p>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Reading an additive drop: which part, and how heavy<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>In a sum, the top-line change equals the <em>absolute</em> change of the part that moved - percentages do not pass through cleanly because each part carries a different weight. If EMEA is 28% of revenue and it falls 20%, the top line falls about 20% x 28% = 5.6%. So the additive diagnosis is a two-step read: which part moved, and what share of the whole is it.</p>
+        <ul>
+          <li><strong>Contribution = the part's share of the total.</strong> Sort your segments by contribution before you panic about any one of them.</li>
+          <li><strong>A drop is usually concentrated.</strong> One region, one SKU, one cohort - additive trees fail in a corner, not everywhere at once.</li>
+          <li><strong>The move down the tree</strong> is to re-decompose the guilty part: EMEA fell, so split EMEA into its own drivers.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>The "it's just one region" save.</strong> A SaaS company saw total revenue dip and braced for a company-wide problem. The additive tree showed EMEA alone fell while North America and APAC held - a single currency swing in one market, not a product failure. Ten minutes of reading the sum saved a week of the wrong fire drill.</p>
+        </div>
+      </div>
+    </details>
+
+    <div class="treebox" data-caption="Total revenue summed across three regions. Simulate a drop, then read which region moved and how heavy its share is.">
+      <pre class="tree-src">{
+  "unit": "$",
+  "root": {
+    "label": "Total revenue", "op": "+",
+    "children": [
+      { "label": "North America", "value": 120000, "unit": "$" },
+      { "label": "EMEA",          "value": 62000,  "unit": "$" },
+      { "label": "APAC",          "value": 38000,  "unit": "$" }
+    ]
+  }
+}</pre>
+    </div>
+  </section>
+
+  <!-- ============ PART 3: BRIDGE ============ -->
+  <section class="section" id="bridge">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · covers the bridge / flow pattern</span>
+      <h2>Pattern three: the bridge - start + adds - losses <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">Some metrics are <strong>stocks</strong>: they carry a balance forward. Active users, ARR, headcount - this month's number is last month's plus what came in minus what left. A bridge tree makes the <strong>flows</strong> explicit: Ending = Start + New + Resurrected - Churned. The whole point is that you watch gross adds against gross losses, not just the net. A flat active-user count can hide a business bleeding both ways fast - big adds papering over big churn.</p>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Why a bridge is a different animal<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>A product or sum is a snapshot - it describes this period from scratch. A bridge is a <strong>flow statement</strong>: it explains how you got from the last balance to this one. That changes the diagnosis. When ending active users dips, the question is never just "how much" - it is "did adds fall or did losses grow?" Those two have opposite owners and opposite fixes: growth versus retention.</p>
+        <ul>
+          <li><strong>Stock vs flow:</strong> if the metric carries over month to month, it is a bridge. If it resets each period, it is a product or a sum.</li>
+          <li><strong>Losses carry a minus.</strong> In the simulator, churn is a leaf with <code>"sign": -1</code> - growing losses pull the ending balance down.</li>
+          <li><strong>Net can lie.</strong> +8,000 new and -6,000 churned nets to +2,000, but a churn spike is the story, not the calm net.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>The bridge question</strong>
+          When a stock metric moves, always ask "adds or losses?" before "how much?". The net number hides which side of the flow broke - and which team owns it.
+        </div>
+      </div>
+    </details>
+
+    <div class="treebox" data-caption="Ending active users = Start + New + Resurrected - Churned. Churn carries a minus. Simulate a drop and watch a flow move.">
+      <pre class="tree-src">{
+  "unit": "users",
+  "root": {
+    "label": "Ending active users", "op": "bridge",
+    "children": [
+      { "label": "Start",       "value": 50000, "unit": "users" },
+      { "label": "New",         "value": 8000,  "unit": "users" },
+      { "label": "Resurrected", "value": 1500,  "unit": "users" },
+      { "label": "Churned",     "value": 6000,  "unit": "users", "sign": -1 }
+    ]
+  }
+}</pre>
+    </div>
+  </section>
+
+  <!-- ============ DEMO 1 ============ -->
+  <section class="section" id="demo-1">
+    <div class="section-kicker">
+      <span class="klabel">Demo 1 of 2</span>
+      <h2>Build all three, break all three <span class="tag demo">★ 12 min · everyone builds</span></h2>
+    </div>
+    <p class="lede">Three live trees, one per pattern. For each: press <strong>Simulate a drop</strong>, follow the coral trail, then say out loud which <em>pattern</em> this is and which <em>driver</em> moved. The muscle you are building is instant classification - shape first, culprit second - because the shape tells you how to read the fall before you even look at the number.</p>
+
+    <div class="treebox" data-caption="Multiplicative. GMV = Traffic x Conversion x AOV. A % drop in one leaf passes straight to the top line.">
+      <pre class="tree-src">{
+  "unit": "$",
+  "root": {
+    "label": "GMV", "op": "x",
+    "children": [
+      { "label": "Traffic",    "value": 90000, "unit": "visits" },
+      { "label": "Conversion", "value": 0.03,  "pct": true },
+      { "label": "AOV",        "value": 55,    "unit": "$" }
+    ]
+  }
+}</pre>
+    </div>
+
+    <div class="treebox" data-caption="Additive. Total signups = Organic + Paid + Referral. A drop is one channel falling; weight decides how much the top line moves.">
+      <pre class="tree-src">{
+  "unit": "signups",
+  "root": {
+    "label": "Total signups", "op": "+",
+    "children": [
+      { "label": "Organic",  "value": 4200, "unit": "signups" },
+      { "label": "Paid",     "value": 2800, "unit": "signups" },
+      { "label": "Referral", "value": 1500, "unit": "signups" }
+    ]
+  }
+}</pre>
+    </div>
+
+    <div class="treebox" data-caption="Bridge. Ending ARR = Start + New + Expansion - Churn. Watch the flows: did adds fall or did churn grow?">
+      <pre class="tree-src">{
+  "unit": "$",
+  "root": {
+    "label": "Ending ARR", "op": "bridge",
+    "children": [
+      { "label": "Start",     "value": 1200000, "unit": "$" },
+      { "label": "New",       "value": 240000,  "unit": "$" },
+      { "label": "Expansion", "value": 90000,   "unit": "$" },
+      { "label": "Churn",     "value": 150000,  "unit": "$", "sign": -1 }
+    ]
+  }
+}</pre>
+    </div>
+
+    <div class="steps">
+      <div class="step"><p>Tree one is <strong>multiplicative</strong>. Simulate a drop, sum the percent on the coral leaf, and that is roughly the GMV fall. Pass-through.</p></div>
+      <div class="step"><p>Tree two is <strong>additive</strong>. Simulate a drop and note the delta chip - the top line fell by that channel's absolute change, weighted by its share.</p></div>
+      <div class="step"><p>Tree three is a <strong>bridge</strong>. Simulate a drop and ask "adds or losses?". If Churn grows, ending ARR falls even with New unchanged.</p></div>
+      <div class="step"><p>For each, say the full diagnosis: "this is a [pattern] tree; [driver] moved [X%]; the top line moved because [rule]." Reset and repeat.</p></div>
+    </div>
+  </section>
+
+  <!-- ============ DEMO 2 ============ -->
+  <section class="section" id="demo-2">
+    <div class="section-kicker">
+      <span class="klabel">Demo 2 of 2</span>
+      <h2>Your turn: shape your own metrics <span class="tag demo">★ 10 min · everyone builds</span></h2>
+    </div>
+    <p class="lede">Now you drive. The two trees below are yours to edit - swap in a metric you actually own. Then answer the third question in prose. The goal is to leave able to look at any metric on your dashboard and instantly say "that is a product / a sum / a bridge."</p>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>Q1 · Write a multiplicative tree for a metric you pick<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Here is a sales-style product tree: Monthly revenue = Leads x Close rate x Deal size. Edit the leaves to match a metric you own - or keep these and knock one down to confirm the pass-through.</p>
+        <div class="treebox" data-caption="Edit any leaf to your own numbers. A % change in one driver should move revenue by the same %.">
+          <pre class="tree-src">{
+  "unit": "$",
+  "root": {
+    "label": "Monthly revenue", "op": "x",
+    "children": [
+      { "label": "Leads",      "value": 800,  "unit": "leads" },
+      { "label": "Close rate", "value": 0.22, "pct": true },
+      { "label": "Deal size",  "value": 1200, "unit": "$" }
+    ]
+  }
+}</pre>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Q2 · Write an additive segment tree<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Here is a product-line sum: Total revenue = Product A + Product B + Product C. Edit the parts to your segments. Then simulate a drop and note which part carries the most weight.</p>
+        <div class="treebox" data-caption="Swap the parts for your segments or regions. Which part is heaviest? A drop there moves the top line most.">
+          <pre class="tree-src">{
+  "unit": "$",
+  "root": {
+    "label": "Total revenue", "op": "+",
+    "children": [
+      { "label": "Product A", "value": 95000, "unit": "$" },
+      { "label": "Product B", "value": 68000, "unit": "$" },
+      { "label": "Product C", "value": 41000, "unit": "$" }
+    ]
+  }
+}</pre>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Q3 · When is a metric a bridge vs a fresh product?<span class="mini">2 min write</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Write two or three sentences answering: for one of your own metrics, is it a <strong>stock</strong> (carries a balance forward month to month - a bridge) or a <strong>flow that resets</strong> each period (a fresh product or sum)? The test: if you deleted last month's number, could you still compute this month's from scratch? If yes, it is a product or sum. If you need last month's balance as a starting point, it is a bridge.</p>
+        <div class="callout tip">
+          <strong>The tell</strong>
+          "Active users", "ARR", "headcount", "cash balance" carry over - bridges. "This month's GMV", "signups this week", "orders today" reset - products or sums. Same business, both kinds live on the dashboard.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ HOMEWORK ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>Try it yourself - this week <span class="tag exercise">◐ 20-30 min total</span></h2>
+    </div>
+    <ul>
+      <li>List your team's top five metrics. Beside each, write its shape: product, sum, or bridge. If you cannot decide, that metric is not yet understood - a useful discovery.</li>
+      <li>For the sums, rank the parts by contribution. You should be able to say which two segments carry most of the total from memory.</li>
+      <li>For any bridge, find where "adds" and "losses" live in your data - two different queries, two different owners. Most dashboards only show the net; that is the gap.</li>
+      <li>Take one metric currently shown as a single number and re-draw it as its shape in the simulator. Paste your numbers into any tree above.</li>
+      <li>Bring one bridge metric to b3 - we will hang a leading indicator on it and run the diagnosis playbook.</li>
+    </ul>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Framework sources</span>
+      <h2>Frameworks this session draws on</h2>
+    </div>
+    <p class="lede">The three patterns are not one person's invention - they are the working core distilled from a handful of durable frameworks, applied here live instead of described. This page draws on:</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">DuPont analysis - the original multiplicative decomposition</span><span class="note">Part 1 · margin x turnover x leverage, the product-tree ancestor</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Lean Analytics (Croll &amp; Yoskovitz) - the one metric that matters, and its parts</span><span class="note">Parts 1-2 · products and sums per business model</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Amplitude North Star Playbook - inputs and the movement equation</span><span class="note">Part 3 · flows into a stock; full leading-indicator treatment in b3</span></div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">1 · ARR this month = last month's ARR + new + expansion - churn. Which pattern is that?</p>
+      <button class="qopt" type="button">A · Multiplicative - it is a product of drivers</button>
+      <button class="qopt" type="button">B · Additive - it is a sum of regions</button>
+      <button class="qopt" type="button">C · A bridge - it carries a balance forward through adds and losses</button>
+      <p class="qwhy">ARR is a stock: this month's value starts from last month's and moves by gross adds minus gross losses. That is the bridge pattern - watch the flows, not just the net.</p>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">2 · In a multiplicative tree, one driver falls 10% and nothing else changes. The top line...</p>
+      <button class="qopt" type="button">A · Falls by the driver's absolute value, not its percent</button>
+      <button class="qopt" type="button">B · Falls about 10% - a percentage change in one driver passes straight through a product</button>
+      <button class="qopt" type="button">C · Barely moves, the other drivers absorb it</button>
+      <p class="qwhy">Clean pass-through is the signature of a product tree. A percentage change in a single driver flows to the top line as the same percentage - sum the percent moves down the guilty path.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">3 · Total revenue is a sum of three regions. EMEA is 15% of the total and falls 20%. The top line falls about...</p>
+      <button class="qopt" type="button">A · 3% - the 20% drop is weighted by EMEA's 15% share</button>
+      <button class="qopt" type="button">B · 20% - percentages pass through sums too</button>
+      <button class="qopt" type="button">C · 35% - you add the two percentages</button>
+      <p class="qwhy">In an additive tree a part's contribution is its share of the total. A 20% fall in a 15% segment moves the whole by about 20% x 15% = 3%. Weight is everything in a sum.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Builder session 2 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>Three patterns</b><span>Every tree is a product ( x ), a sum ( + ), a bridge (flow), or a nesting of them. Name the shape first.</span></div>
+      <div class="cheat-item"><b>Multiplicative</b><span>Volume x rate x value. A % change in one driver passes straight through - sum the percents down the guilty path.</span></div>
+      <div class="cheat-item"><b>Additive</b><span>Sum of segments. A drop is usually one part; contribution = each part's share. Weight decides the top-line move.</span></div>
+      <div class="cheat-item"><b>Bridge</b><span>Start + adds - losses, for stocks that carry over. Watch flows: did adds fall or losses grow? Not just the net.</span></div>
+      <div class="cheat-item"><b>Stock vs flow test</b><span>Can you compute this month from scratch? Product or sum. Need last month's balance? Bridge.</span></div>
+      <div class="cheat-item"><b>Diagnose in percent</b><span>Products pass % through. Sums move by weighted absolute change. Bridges move by which flow broke.</span></div>
+      <div class="cheat-item"><b>Losses carry a minus</b><span>In a bridge, churn is a leaf with sign -1. Growing losses pull the ending balance down even with adds flat.</span></div>
+      <div class="cheat-item"><b>Running skill</b><span>Classify any metric by shape on sight. Next: b3, leading indicators and the diagnosis playbook.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Builder session 2 of 10 · learn-metric-decomposition-with-phoebe · by Phoebe Fu &nbsp;·&nbsp; 📚 <a href="https://phoebefu6.github.io/learn-with-phoebe/">Learn with Phoebe ↗</a></span>
+    <span><a href="b1-first-driver-tree.html">← Prev: Your first driver tree</a> &nbsp;·&nbsp; <a href="b3-leading-indicators-playbook.html">Next: Leading indicators &amp; the playbook →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/metric-seed.js?v=1"></script>
+<script src="../assets/duck-live.js?v=1"></script>
+<script src="../assets/tree-live.js?v=3"></script>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leader session 3 · Decompose and read a drop - learn metric decomposition with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-metric-decomposition-with-phoebe</a> / Leader session 3 of 6</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Metric Decomposition with Phoebe · Leader track · Session 3 of 6</div>
+    <h1>Decompose and read a <span class="accent">drop</span></h1>
+    <p class="sub">A number just fell and the room is looking at you. This is the session where the mindset becomes a method. First you learn the three shapes a tree can take - multiply, add, or bridge - because the shape tells you how to read the fall. Then you walk the four questions a good leader asks in order, before anyone proposes a fix: is the drop even real, which branch moved, which segment inside that branch, and against what baseline. Done well, a revenue drop gets diagnosed in five minutes, not five meetings.</p>
+    <div class="chip-row">
+      <span class="chip level">🔵 Leader track</span>
+      <span class="chip audience">Leaders: CxO · VPs · founders</span>
+      <span class="chip audience">No code - thinking mode</span>
+      <span class="chip time">45 min</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Welcome</span>
+      <span class="a2" style="flex:5">3-20 · Three patterns</span>
+      <span class="a3" style="flex:6">20-42 · The diagnosis walk</span>
+      <span class="a4" style="flex:1">42-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Where this sits</h2>
+    </div>
+    <p class="lede">Session a1 gave you the driver-tree mindset and a2 sorted the levers into leading and lagging. Today you put both to work on the moment that matters most: a metric has dropped and you need to lead the diagnosis. You will leave able to name the shape of any tree at a glance, and to run a calm four-step walk from "is this even real" to "here is the guilty segment and here is who owns it" - the same walk that turns a tense boardroom into a five-minute trace.</p>
+    <div class="legend">
+      <span class="pill solid">Live - presented in session</span>
+      <span class="pill light">Self-study - read after class</span>
+      <span class="pill inkpill">Framework sources covered</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with today</strong>
+      The three decomposition patterns in plain language, the four-question diagnosis walk you can run from any chair in the room, and the discipline to resist a fix until the tree points at one. You leave able to lead a drop review that ends in a routed question, not a shrug.
+    </div>
+  </section>
+
+  <!-- ============ PART 1: THREE PATTERNS ============ -->
+  <section class="section" id="patterns">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers DuPont analysis, the three tree shapes</span>
+      <h2>The three decomposition patterns <span class="tag concept">8 min live</span></h2>
+    </div>
+    <p class="lede">Every driver tree is one of three shapes, and the shape decides how you read a fall. A <strong>multiplicative</strong> tree is rate times volume - GMV = traffic x conversion x AOV - and a percentage drop in any leaf passes straight to the top. An <strong>additive</strong> tree is a sum of parts - total revenue as the sum of regions - so a fall is one segment dragging the total. A <strong>bridge</strong> is a flow - ARR = start + new - churn - where the drop is a change in the ins and outs. Name the shape first; it tells you where to look.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three small trees side by side: multiplicative, additive, and bridge patterns">
+        <style>
+          .a3ptR { font: 800 14px Inter, sans-serif; fill: #FFFFFF; }
+          .a3ptL { font: 600 12px Inter, sans-serif; fill: #16241E; }
+          .a3ptTag { font: 700 11px Inter, sans-serif; fill: #2F7D5B; }
+          .a3ptN { font: 600 12.5px Inter, sans-serif; fill: #431105; }
+          .a3ptLine { stroke: #B8DFCD; stroke-width: 2; fill: none; }
+        </style>
+
+        <!-- Column 1: multiplicative -->
+        <path class="a3ptLine" d="M150,74 L150,90 M60,90 L240,90 M60,90 L60,102 M150,90 L150,102 M240,90 L240,102"/>
+        <rect x="70" y="30" width="160" height="42" rx="9" fill="#2F7D5B"/>
+        <text class="a3ptR" x="150" y="56" text-anchor="middle">GMV</text>
+        <rect x="30" y="102" width="240" height="34" rx="8" fill="#E9F5EF" stroke="#B8DFCD"/>
+        <text class="a3ptL" x="150" y="124" text-anchor="middle">Traffic x Conversion x AOV</text>
+        <text class="a3ptTag" x="150" y="164" text-anchor="middle">Multiplicative (x)</text>
+        <text class="a3ptL" x="150" y="182" text-anchor="middle" style="font-weight:400;fill:#566A61">rate x volume</text>
+
+        <!-- Column 2: additive -->
+        <path class="a3ptLine" d="M435,74 L435,90 M345,90 L525,90 M345,90 L345,102 M435,90 L435,102 M525,90 L525,102"/>
+        <rect x="355" y="30" width="160" height="42" rx="9" fill="#4FA37E"/>
+        <text class="a3ptR" x="435" y="56" text-anchor="middle">Revenue</text>
+        <rect x="315" y="102" width="240" height="34" rx="8" fill="#E9F5EF" stroke="#B8DFCD"/>
+        <text class="a3ptL" x="435" y="124" text-anchor="middle">APAC + EMEA + AMER</text>
+        <text class="a3ptTag" x="435" y="164" text-anchor="middle">Additive (+)</text>
+        <text class="a3ptL" x="435" y="182" text-anchor="middle" style="font-weight:400;fill:#566A61">sum of segments</text>
+
+        <!-- Column 3: bridge -->
+        <path class="a3ptLine" d="M720,74 L720,90 M630,90 L810,90 M630,90 L630,102 M720,90 L720,102 M810,90 L810,102"/>
+        <rect x="640" y="30" width="160" height="42" rx="9" fill="#1E5240"/>
+        <text class="a3ptR" x="720" y="56" text-anchor="middle">ARR</text>
+        <rect x="600" y="102" width="240" height="34" rx="8" fill="#E9F5EF" stroke="#B8DFCD"/>
+        <text class="a3ptL" x="720" y="124" text-anchor="middle">Start + New - Churn</text>
+        <text class="a3ptTag" x="720" y="164" text-anchor="middle">Bridge (+/-)</text>
+        <text class="a3ptL" x="720" y="182" text-anchor="middle" style="font-weight:400;fill:#566A61">start + adds - losses</text>
+
+        <rect x="30" y="250" width="14" height="14" rx="3" fill="#E4572E"/>
+        <text class="a3ptN" x="54" y="262">Three shapes: multiply rates, add segments, or bridge a flow start to end.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the three shapes every driver tree takes, and how each reads a fall</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>Name the shape, and you know how to read the drop<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The shape is not trivia - it changes the reading. In a multiplicative tree you read a fall as percentages: which leaf lost the most percent, because that percent passes straight to the top. In an additive tree you read it as absolute contribution: which segment lost the most dollars, because the total is a sum. In a bridge you read the flows: did new business slow, or did churn spike. Same drop, three different first questions - and the shape tells you which one to ask.</p>
+        <ul>
+          <li><strong>Multiplicative (x):</strong> rate x volume. Read in percentages; a percent drop in one leaf is a percent drop up top.</li>
+          <li><strong>Additive (+):</strong> a sum of segments or regions. Read in absolute contribution; the biggest dollar loss is the culprit.</li>
+          <li><strong>Bridge (flow):</strong> start + adds - losses. Read the flows; a fall is either weaker adds or heavier losses.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>DuPont was multiplicative; ARR is a bridge.</strong> The original DuPont tree split ROE as margin x turnover x leverage - a multiplicative read, where a percent change in any factor moves the result. A SaaS board reads ARR completely differently, as a bridge: last quarter's ARR plus new and expansion, minus churn and contraction. The same leader has to switch reading modes between the two, and naming the shape is what flips the switch.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Most real trees mix the shapes<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The three patterns are pure types; real trees combine them. GMV is multiplicative at the top, but its "traffic" leaf is additive - the sum of channels - and each channel might itself be a small bridge of new and returning visitors. That is fine and expected. The skill is knowing which shape you are reading at each level, because a mixed tree read with one fixed lens gives wrong answers. Read each branch in its own shape.</p>
+        <ul>
+          <li><strong>Top can be one shape, branches another.</strong> Multiplicative root, additive mid, bridge leaf is common.</li>
+          <li><strong>Switch lenses as you descend.</strong> Percentages here, dollars there, flows below.</li>
+          <li><strong>The shape is a property of the branch,</strong> not the whole tree. Name it fresh at each level.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2: THE DIAGNOSIS WALK ============ -->
+  <section class="section" id="walk">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers the four-question diagnosis walk</span>
+      <h2>The four questions, in order <span class="tag concept">8 min live</span></h2>
+    </div>
+    <p class="lede">When a metric drops, resist every instinct to explain it and instead walk four questions in strict order. <strong>Is it real?</strong> - or is it noise, a reporting lag, or seasonality. <strong>Which branch moved?</strong> - let the tree point. <strong>Which segment inside it?</strong> - split the guilty branch by channel, region, or cohort. <strong>Versus what baseline?</strong> - last week, last year, or plan, because a drop against the wrong baseline is a false alarm. Skip a step and you will confidently fix the wrong thing.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A four-step narrowing funnel: is it real, which branch, which segment, versus what baseline">
+        <style>
+          .a3fnT { font: 800 14px Inter, sans-serif; fill: #FFFFFF; }
+          .a3fnS { font: 400 11px Inter, sans-serif; fill: #E9F5EF; }
+          .a3fnTd { font: 800 14px Inter, sans-serif; fill: #16241E; }
+          .a3fnSd { font: 400 11px Inter, sans-serif; fill: #566A61; }
+          .a3fnNum { font: 800 13px Inter, sans-serif; fill: #FFFFFF; }
+          .a3fnN { font: 600 12.5px Inter, sans-serif; fill: #431105; }
+        </style>
+        <rect x="80" y="26" width="720" height="52" rx="8" fill="#1E5240"/>
+        <circle cx="112" cy="52" r="14" fill="#2F7D5B"/>
+        <text class="a3fnNum" x="112" y="57" text-anchor="middle">1</text>
+        <text class="a3fnT" x="150" y="48">Is it real?</text>
+        <text class="a3fnS" x="150" y="66">noise, reporting lag, or seasonality first</text>
+
+        <rect x="140" y="88" width="600" height="52" rx="8" fill="#2F7D5B"/>
+        <circle cx="172" cy="114" r="14" fill="#4FA37E"/>
+        <text class="a3fnNum" x="172" y="119" text-anchor="middle">2</text>
+        <text class="a3fnT" x="210" y="110">Which branch moved?</text>
+        <text class="a3fnS" x="210" y="128">let the tree point at the guilty lever</text>
+
+        <rect x="200" y="150" width="480" height="52" rx="8" fill="#4FA37E"/>
+        <circle cx="232" cy="176" r="14" fill="#2F7D5B"/>
+        <text class="a3fnNum" x="232" y="181" text-anchor="middle">3</text>
+        <text class="a3fnT" x="270" y="172">Which segment inside it?</text>
+        <text class="a3fnS" x="270" y="190">split by channel, region, or cohort</text>
+
+        <rect x="260" y="212" width="360" height="52" rx="8" fill="#B8DFCD"/>
+        <circle cx="292" cy="238" r="14" fill="#2F7D5B"/>
+        <text class="a3fnNum" x="292" y="243" text-anchor="middle">4</text>
+        <text class="a3fnTd" x="330" y="234">Versus what baseline?</text>
+        <text class="a3fnSd" x="330" y="252">last week, last year, or plan</text>
+
+        <rect x="80" y="286" width="14" height="14" rx="3" fill="#E4572E"/>
+        <text class="a3fnN" x="104" y="298">Four questions in order: real? which branch? which segment? vs what baseline?</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the diagnosis narrows step by step, from "is it real" down to the guilty segment</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>Why the order is the whole trick<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The order protects you from your own speed. Ask "is it real" first and half the fire drills evaporate - it was a weekend, a holiday, a late data feed. Only then does the tree earn its keep, pointing at the branch that moved so you are not guessing. Segmenting the guilty branch finds the actual slice, and checking the baseline stops you calling a normal seasonal dip a crisis. Every step you skip is a way to be confidently wrong, and the earlier you skip, the more expensive the mistake.</p>
+        <ul>
+          <li><strong>1. Is it real?</strong> Rule out noise, reporting lag, and seasonality before spending a single meeting.</li>
+          <li><strong>2. Which branch moved?</strong> The tree points; you do not litigate hunches.</li>
+          <li><strong>3. Which segment inside it?</strong> Split the guilty branch until one channel, region, or cohort stands out.</li>
+          <li><strong>4. Versus what baseline?</strong> Last week, last year, or plan - a drop is only a drop against the right comparison.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>The baseline trap</strong>
+          The same number is a crisis against plan, fine against last year, and alarming against last week. Always state the baseline out loud before anyone reacts - most false alarms are just the wrong comparison.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Is it real? - the question everyone skips<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The first question is the one most teams skip, and it is the cheapest to answer. A great many "drops" are not drops at all: a public holiday, a delayed data pipeline, a single large order that landed last week and not this one, or ordinary week-to-week variance that is well inside the normal range. A leader who reflexively asks "is this outside our usual noise, and is the data even complete?" saves the team from a dozen fire drills a year. Only once the drop survives that question does the tree come out.</p>
+        <ul>
+          <li><strong>Noise:</strong> is it bigger than the usual wobble, or just this week's random draw?</li>
+          <li><strong>Reporting lag:</strong> is the data complete, or is late data faking a fall?</li>
+          <li><strong>Seasonality:</strong> does this dip happen every year at this time? Then it is a pattern, not a problem.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 3: READING WITHOUT DROWNING ============ -->
+  <section class="section" id="reading">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · covers Amazon Weekly Business Review (preview)</span>
+      <h2>Reading a drop without drowning <span class="tag concept">6 min live</span></h2>
+    </div>
+    <p class="lede">The failure mode of a data-rich team is not too little information - it is drowning in it. The discipline is to <strong>resist jumping to fixes before the tree points</strong>, and to build the habit of "one number, three glances": glance at the root to see the size of the move, glance at the branches to see which lever, glance at the segments to see which slice. Three glances, then a routed question. That is the whole review, and a tree on the wall is what makes it possible.</p>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>One number, three glances<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The instinct under pressure is to propose a fix immediately - relaunch the page, cut the price, call the customer. But a fix chosen before the tree points is a guess with a budget attached. The habit that beats it is deliberately slow for about ninety seconds: one glance at the root for the magnitude, one at the branches for the lever, one at the segments for the slice. By the third glance you have a routed question, and only then does a fix belong in the conversation. Slow the first ninety seconds and the next ninety days get cheaper.</p>
+        <ul>
+          <li><strong>Glance one - the root:</strong> how big is the move, and against what baseline?</li>
+          <li><strong>Glance two - the branches:</strong> which lever moved? Multiplicative in percent, additive in dollars, bridge in flows.</li>
+          <li><strong>Glance three - the segments:</strong> which channel, region, or cohort is dragging the guilty branch?</li>
+          <li><strong>Then, and only then:</strong> route it to the owner and discuss a fix.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>The five-minute revenue drop.</strong> Two teams, same bad number. The first spent an hour trading theories and left with a to-do to "investigate." The second had the driver tree on the wall: root down 6%, conversion the guilty branch, and within conversion one paid channel that had broken its checkout. Five minutes, one routed question to the owner, meeting over. The difference was not talent or data - it was that the second team had decomposed the metric before the crisis, so the crisis had somewhere to land.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>The cadence makes it a habit<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Three glances only becomes reflexive if you do it on a rhythm. The Amazon Weekly Business Review is exactly this ritual institutionalised: the same trees, read the same way, every week, so that reading a drop is muscle memory rather than a scramble. You will build that cadence in a5 for the weekly review and a6 for the monthly roll-up. For now, notice that the diagnosis walk is not a crisis tool you reach for once a quarter - it is a weekly habit that keeps crises small by catching them at three glances.</p>
+        <ul>
+          <li><strong>Same trees every week</strong> so the pattern is familiar before the drop arrives.</li>
+          <li><strong>Read, do not admire.</strong> A review that only displays numbers is a dashboard, not a diagnosis.</li>
+          <li><strong>Next sessions:</strong> a5 builds the weekly review, a6 the monthly summit.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Resist the fix until the tree points<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Worth saying plainly because it is the hardest part to hold in a room full of senior people who want to act: a fix proposed before the tree points is not decisiveness, it is a gamble dressed as leadership. The tree costs you ninety seconds. A wrong fix costs you a sprint, a budget line, and the credibility of the next diagnosis. The most valuable thing a leader does in a drop review is often to say, gently, "before we fix it - which branch moved?" and hold the room there until the tree answers.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ HOMEWORK ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Take it to your team</span>
+      <h2>Five things to raise this week <span class="tag exercise">◐ discussion prompts</span></h2>
+    </div>
+    <ul>
+      <li>Name the shape of your top-line tree - multiplicative, additive, or bridge. If it is mixed, say which shape each major branch is. Reading a fall wrong starts with mis-naming the shape.</li>
+      <li>Take your last real drop and re-run the four questions in order. At which step did the true answer actually live - and how many steps did the team skip to get there the first time?</li>
+      <li>Ask how often your "drops" turn out to be noise, a reporting lag, or seasonality. If nobody knows, you are probably running fire drills that question one would have prevented.</li>
+      <li>Check what baseline your reviews default to. A team that always compares to last week will call every seasonal dip a crisis; agree the right baseline before the next drop, not during it.</li>
+      <li>Bring your six top-line trees to a4 - we will line up ecommerce, marketing, branding, traffic, SaaS, and B2G side by side and read them as one exec view.</li>
+    </ul>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Framework sources</span>
+      <h2>Frameworks this session draws on</h2>
+    </div>
+    <p class="lede">Metric decomposition has no single certificate - it is a craft distilled from a handful of durable frameworks. This leader track teaches the thinking core of these, applied to the decisions you make. This page draws on:</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">DuPont analysis - the multiplicative decomposition heritage</span><span class="note">Part 1 · the multiplicative shape, and switching to a bridge for ARR</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Lean Analytics (Croll &amp; Yoskovitz) - read the metric that matters, per model</span><span class="note">Parts 1-2 · which shape and which baseline fit your business</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Amazon Weekly Business Review - reading trees on a cadence</span><span class="note">Part 3 preview · three glances as a weekly habit; full ritual in a5</span></div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">1 · ARR = start + new - churn. Which decomposition pattern is that?</p>
+      <button class="qopt" type="button">A · Multiplicative - you read it in percentages</button>
+      <button class="qopt" type="button">B · Additive - a simple sum of regions</button>
+      <button class="qopt" type="button">C · A bridge (flow) - read the ins and outs; a fall is weaker adds or heavier losses</button>
+      <p class="qwhy">A bridge is a flow: start plus what came in, minus what went out. You diagnose it by asking whether new business slowed or churn spiked - a different reading than a multiplicative or additive tree.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">2 · What is the correct order of the diagnosis walk when a metric drops?</p>
+      <button class="qopt" type="button">A · Is it real? → which branch moved? → which segment inside it? → versus what baseline?</button>
+      <button class="qopt" type="button">B · Propose a fix → check the baseline → tell the board</button>
+      <button class="qopt" type="button">C · Which segment? → is it real? → which branch? → fix it</button>
+      <p class="qwhy">Order is the trick. Ruling out noise and seasonality first kills half the fire drills; then the tree points at the branch, segmentation finds the slice, and the baseline confirms it is a real drop.</p>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">3 · Why did the second team diagnose a revenue drop in five minutes?</p>
+      <button class="qopt" type="button">A · They had more analysts and better data</button>
+      <button class="qopt" type="button">B · The driver tree was on the wall before the crisis, so the drop had somewhere to land</button>
+      <button class="qopt" type="button">C · They proposed a fix immediately and moved on</button>
+      <p class="qwhy">The advantage was preparation, not talent. With the tree already decomposed, three glances found the guilty branch, then the guilty channel, then a routed question - no theory-trading required.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Leader session 3 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>Multiplicative (x)</b><span>Rate x volume, like GMV = traffic x conversion x AOV. Read in percentages - a percent drop in a leaf passes straight up.</span></div>
+      <div class="cheat-item"><b>Additive (+)</b><span>A sum of segments or regions. Read in absolute contribution - the biggest dollar loss is the culprit.</span></div>
+      <div class="cheat-item"><b>Bridge (flow)</b><span>Start + adds - losses, like ARR. Read the flows - a fall is weaker new business or heavier churn.</span></div>
+      <div class="cheat-item"><b>Name the shape first</b><span>The shape decides the reading. Most real trees mix shapes - name it fresh at each branch.</span></div>
+      <div class="cheat-item"><b>The four questions</b><span>Is it real? → which branch moved? → which segment inside it? → versus what baseline? Always in that order.</span></div>
+      <div class="cheat-item"><b>Is it real, first</b><span>Rule out noise, reporting lag, and seasonality before any meeting. Half of all "drops" die here.</span></div>
+      <div class="cheat-item"><b>The baseline trap</b><span>The same number is a crisis vs plan and fine vs last year. State the baseline out loud before anyone reacts.</span></div>
+      <div class="cheat-item"><b>One number, three glances</b><span>Root for size, branches for lever, segments for slice - then a routed question. Resist the fix until the tree points.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Leader session 3 of 6 · learn-metric-decomposition-with-phoebe · by Phoebe Fu &nbsp;·&nbsp; 📚 <a href="https://phoebefu6.github.io/learn-with-phoebe/">Learn with Phoebe ↗</a></span>
+    <span><a href="a2-leading-vs-lagging.html">← Prev: Leading vs lagging</a> &nbsp;·&nbsp; <a href="a4-six-domains-side-by-side.html">Next: The six domains side by side →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

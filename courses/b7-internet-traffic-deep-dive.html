@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Builder session 7 · Internet and traffic deep dive - learn metric decomposition with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-metric-decomposition-with-phoebe</a> / Builder session 7 of 10</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Metric Decomposition with Phoebe · Builder track · Session 7 of 10</div>
+    <h1><span class="accent">Internet</span> and traffic deep dive</h1>
+    <p class="sub">An ad-supported internet business runs on two top-lines that most teams confuse - engagement (how much people use the product) and monetization (how much that use earns). Ad revenue decomposes into impressions times fill rate times price, and impressions themselves decompose into the engagement loop underneath. Today you build both as live trees - a two-level ad-revenue product and a DAU flow bridge - and trace a revenue drop back to whether it was people or price.</p>
+    <div class="chip-row">
+      <span class="chip level">🟡 Builder track</span>
+      <span class="chip audience">Analysts · PMs · founders · ops</span>
+      <span class="chip audience">Live tree simulator + SQL</span>
+      <span class="chip time">45 min</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Recap</span>
+      <span class="a2" style="flex:4">3-20 · Ad revenue &amp; the DAU loop</span>
+      <span class="a3" style="flex:5">20-42 · Diagnose a revenue drop</span>
+      <span class="a4" style="flex:1">42-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Where we are</h2>
+    </div>
+    <p class="lede">You have decomposed a purchase funnel (ecommerce, b4), a spend funnel (marketing, b5), and a perception funnel (branding, b6). Internet and traffic is different: the top-line is not a purchase at all, it is <strong>attention sold to advertisers</strong>. That splits the session into two trees that connect - a monetization product (ad revenue) sitting on top of an engagement bridge (DAU). Learning to hold both, and to see where they meet, is the whole point of today.</p>
+    <div class="legend">
+      <span class="pill solid">Live - presented in session</span>
+      <span class="pill light">Self-study - read after class</span>
+      <span class="pill peach">▶ Live tree - editable &amp; runnable</span>
+      <span class="pill inkpill">Framework sources covered</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with today</strong>
+      Ad revenue written as Impressions x Fill rate x price-per-impression, with impressions themselves broken into DAU x sessions x ad-slots; a DAU flow bridge (Start + New + Resurrected - Churned); and the reflex to trace an ad-revenue drop to either the engagement side (fewer impressions) or the price side (fill rate, eCPM).
+    </div>
+  </section>
+
+  <!-- ============ PART 1: AD REVENUE ============ -->
+  <section class="section" id="ad-revenue">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers the multiplicative pattern, two levels deep</span>
+      <h2>Ad revenue is engagement times price <span class="tag concept">7 min live</span></h2>
+    </div>
+    <p class="lede">The top-line of an ad-supported product is <strong>Ad revenue = Impressions x Fill rate x price</strong>. Fill rate is the share of ad slots that actually get sold; price is what each impression earns. But impressions are not a raw input - they are produced by the engagement loop: <strong>Impressions = DAU x sessions per user x ad slots per session</strong>. So the tree is two levels deep, and that second level is where all the interesting drops hide.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ad revenue decomposed into impressions, fill rate, and price, with impressions split into DAU, sessions, and slots">
+        <style>
+          .arT { font: 800 14px Inter, sans-serif; fill: #FFFFFF; }
+          .arV { font: 700 12px Inter, sans-serif; fill: #16241E; }
+          .arL { font: 700 12px Inter, sans-serif; fill: #16241E; }
+          .arC { font: 400 11px Inter, sans-serif; fill: #566A61; }
+          .arN { font: 600 12.5px Inter, sans-serif; fill: #431105; }
+          .arLine { stroke: #B8DFCD; stroke-width: 2; fill: none; }
+        </style>
+        <rect x="350" y="20" width="180" height="48" rx="10" fill="#2F7D5B"/>
+        <text class="arT" x="440" y="42" text-anchor="middle">Ad revenue</text>
+        <text class="arT" x="440" y="60" text-anchor="middle" style="font-size:12px">$204K / day</text>
+
+        <path class="arLine" d="M440,68 L440,86 M180,86 L700,86 M180,86 L180,104 M440,86 L440,104 M700,86 L700,104"/>
+
+        <rect x="90" y="104" width="180" height="52" rx="10" fill="#E9F5EF" stroke="#B8DFCD"/>
+        <text class="arL" x="180" y="126" text-anchor="middle">Impressions</text>
+        <text class="arV" x="180" y="144" text-anchor="middle">24,000,000</text>
+        <rect x="350" y="104" width="180" height="52" rx="10" fill="#E9F5EF" stroke="#B8DFCD"/>
+        <text class="arL" x="440" y="126" text-anchor="middle">Fill rate</text>
+        <text class="arV" x="440" y="144" text-anchor="middle">85%</text>
+        <rect x="610" y="104" width="180" height="52" rx="10" fill="#E9F5EF" stroke="#B8DFCD"/>
+        <text class="arL" x="700" y="126" text-anchor="middle">Rev / impression</text>
+        <text class="arV" x="700" y="144" text-anchor="middle">$0.01</text>
+
+        <text class="arC" x="310" y="98" text-anchor="middle">x</text>
+        <text class="arC" x="570" y="98" text-anchor="middle">x</text>
+
+        <path class="arLine" d="M180,156 L180,174 M70,174 L290,174 M70,174 L70,192 M180,174 L180,192 M290,174 L290,192"/>
+        <rect x="20" y="192" width="100" height="48" rx="9" fill="#B8DFCD"/>
+        <text class="arL" x="70" y="212" text-anchor="middle" style="font-size:11px">DAU</text>
+        <text class="arV" x="70" y="228" text-anchor="middle" style="font-size:11px">2.0M</text>
+        <rect x="130" y="192" width="100" height="48" rx="9" fill="#B8DFCD"/>
+        <text class="arL" x="180" y="212" text-anchor="middle" style="font-size:11px">Sessions / user</text>
+        <text class="arV" x="180" y="228" text-anchor="middle" style="font-size:11px">3</text>
+        <rect x="240" y="192" width="100" height="48" rx="9" fill="#B8DFCD"/>
+        <text class="arL" x="290" y="212" text-anchor="middle" style="font-size:11px">Slots / session</text>
+        <text class="arV" x="290" y="228" text-anchor="middle" style="font-size:11px">4</text>
+
+        <text class="arN" x="20" y="278">2.0M x 3 x 4 = 24M impressions. x 85% fill x $0.01 per impression ($10 eCPM per 1,000) = $204K/day.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - ad revenue over impressions, fill, and price, with impressions split into the engagement loop</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>The three drivers, and the eCPM footnote<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Read the top level first, then the sub-level.</p>
+        <ul>
+          <li><strong>Impressions</strong> - how many ad slots were shown. Produced entirely by engagement (the sub-tree).</li>
+          <li><strong>Fill rate</strong> - the share of those slots that got sold to an advertiser. Below 100% means unsold inventory - demand-side, not engagement.</li>
+          <li><strong>Price per impression</strong> - what each sold impression earns.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>The /1000 trap - read this</strong>
+          Advertisers quote <strong>eCPM</strong> - earnings per <em>thousand</em> impressions - so an eCPM of $10 is $0.01 per single impression. The tree multiplies impressions by the <em>per-impression</em> price, so we store $0.01, not $10. If you ever plug an eCPM straight into an impression count, you will be off by 1,000x. Keep the units matched: per-impression price against an impression count.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Why impressions get their own sub-tree<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>You could treat impressions as a single leaf, but then a revenue drop would only ever point at "impressions fell" - true but useless. Splitting impressions into DAU x sessions x slots tells you <em>why</em> they fell: fewer people, fewer visits each, or fewer ad slots shown per visit. Each has a different owner and a different fix. The depth of a tree is the resolution of your diagnosis - go one level deeper and a vague answer becomes an ownable one.</p>
+        <ul>
+          <li><strong>DAU down</strong> - a retention or acquisition problem. Product and growth own it.</li>
+          <li><strong>Sessions per user down</strong> - an engagement or habit problem. Product owns it.</li>
+          <li><strong>Slots per session down</strong> - an ad-load or layout change. Monetization owns it, and it trades against user experience.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2: DAU BRIDGE ============ -->
+  <section class="section" id="dau-bridge">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers the flow-bridge pattern, leading vs lagging</span>
+      <h2>The engagement loop behind DAU <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">DAU is not a multiplicative product - it is a <strong>flow bridge</strong>. Each period's active users are last period's users, plus new and resurrected users, minus the ones who churned: <strong>DAU = Start + New + Resurrected - Churned</strong>. The bridge pattern from b2, applied to people. And this is the leading side of the whole business - engagement moves first, ad revenue follows.</p>
+
+    <div class="treebox" data-caption="A flow bridge: Churned carries sign -1. Edit the flows and watch ending DAU move. Note: 'Simulate a drop' cuts a random leaf - if it cuts Churned, DAU rises.">
+      <pre class="tree-src">{
+  "root": {
+    "label": "Ending DAU", "op": "bridge",
+    "children": [
+      { "label": "Start DAU",    "value": 2000000, "unit": "users" },
+      { "label": "New",          "value": 180000,  "unit": "users" },
+      { "label": "Resurrected",  "value": 40000,   "unit": "users" },
+      { "label": "Churned",      "value": 220000,  "unit": "users", "sign": -1 }
+    ]
+  }
+}</pre>
+    </div>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Leading engagement, lagging revenue<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>At baseline the bridge nets to 2,000,000 - inflows (180K new + 40K resurrected) exactly offset the 220K churned, so DAU holds flat. That is the number that feeds the impressions sub-tree in Part 1. The bridge is <strong>leading</strong>: churn rising this week is an early warning that impressions, and therefore ad revenue, will fall in the weeks ahead. Ad revenue is the <strong>lagging</strong> confirmation.</p>
+        <div class="callout tip">
+          <strong>Watch the flows, not just the level</strong>
+          A flat DAU can hide a business quietly falling apart - churn and new-user inflow both climbing, netting to the same level while the base rots underneath. The bridge shows the flows the level conceals. Steer by the inflow and churn leaves, not the DAU total.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 3: CLASSIC DROPS ============ -->
+  <section class="section" id="classic-drops">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · covers the diagnosis playbook, symptom to branch</span>
+      <h2>The classic internet drops <span class="tag concept">4 min live</span></h2>
+    </div>
+    <p class="lede">An ad-revenue drop always resolves to one of two sides - the <strong>engagement</strong> side (fewer impressions) or the <strong>price</strong> side (fill rate or eCPM). Here is the field guide.</p>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Symptom to branch to cause<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <ul>
+          <li><strong>DAU falls</strong> - fewer people, so fewer impressions. Retention slipping or acquisition drying up. Branch: Impressions to DAU. Engagement side.</li>
+          <li><strong>Sessions or slots fall</strong> - same users, fewer impressions each. A habit change, or an ad-load cut. Branch: Impressions to sessions or slots. Engagement side.</li>
+          <li><strong>Fill rate falls</strong> - impressions held but fewer sold. Weak ad demand, a seasonal lull, or ad-blocker adoption. Branch: Fill rate. Price side.</li>
+          <li><strong>eCPM falls</strong> - impressions sold but each earns less. Seasonality (post-holiday cliff), a mix shift to cheaper geos, or a soft ad market. Branch: price. Price side.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>Two top-lines, one business.</strong> Engagement (DAU) and monetization (ad revenue) connect at exactly one node - impressions. A product team can be winning on DAU while revenue falls because eCPM collapsed in a soft ad market; a sales team can be winning on price while revenue falls because the base is shrinking. The two-level tree is what lets the two teams stop blaming each other and point at the actual branch.</p>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO 1 ============ -->
+  <section class="section" id="demo-1">
+    <div class="section-kicker">
+      <span class="klabel">Demo 1 of 2</span>
+      <h2>Diagnose an ad-revenue drop <span class="tag demo">★ 12 min · everyone builds</span></h2>
+    </div>
+    <p class="lede">Here is the full two-level ad-revenue tree. Read the baseline, then press <strong>Simulate a drop</strong> - one leaf falls and its path up to Ad revenue lights coral. Your job: say whether the drop was on the <em>engagement</em> side (a leaf inside Impressions) or the <em>price</em> side (fill rate or price-per-impression).</p>
+
+    <div class="treebox" data-caption="Impressions is itself a product of DAU x sessions x slots. Simulate a drop, then trace whether it was engagement or price.">
+      <pre class="tree-src">{
+  "unit": "$",
+  "root": {
+    "label": "Ad revenue / day", "op": "x",
+    "children": [
+      { "label": "Impressions", "op": "x",
+        "children": [
+          { "label": "DAU",             "value": 2000000, "unit": "users" },
+          { "label": "Sessions / user", "value": 3 },
+          { "label": "Ad slots / session", "value": 4 }
+        ]
+      },
+      { "label": "Fill rate",         "value": 0.85, "pct": true },
+      { "label": "Rev / impression",  "value": 0.01, "unit": "$" }
+    ]
+  }
+}</pre>
+    </div>
+
+    <div class="steps">
+      <div class="step"><p>Read the baseline: 2.0M DAU x 3 x 4 = 24M impressions, x 85% fill x $0.01 = about $204K/day.</p></div>
+      <div class="step"><p>Press <strong>Simulate a drop</strong>. Follow the coral trail. Did it start inside Impressions, or at Fill rate or Rev/impression?</p></div>
+      <div class="step"><p>Name the side: a leaf inside Impressions is the <em>engagement</em> side (people or usage); Fill or price is the <em>price</em> side (ad market).</p></div>
+      <div class="step"><p>Say it: "Ad revenue fell X% - it was the [engagement / price] side, specifically [leaf]." Press Reset and repeat.</p></div>
+    </div>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>An engagement proxy from the events table<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The store's <code>events</code> table logs user actions with a date - the closest thing to an engagement signal in the seed. Run this to count distinct active users per week, the store-scale analogue of a DAU trend.</p>
+        <div class="sqlbox" data-caption="Swap the week bucket for event_type to see which action is driving activity.">
+          <pre class="sql-src">SELECT strftime(CAST(event_date AS DATE), '%Y-W%W')  AS week,
+       COUNT(DISTINCT customer_id)                  AS active_users,
+       COUNT(*)                                     AS events
+FROM events
+GROUP BY week
+ORDER BY week;</pre>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO 2 ============ -->
+  <section class="section" id="demo-2">
+    <div class="section-kicker">
+      <span class="klabel">Demo 2 of 2</span>
+      <h2>Your turn <span class="tag demo">★ 10 min · everyone builds</span></h2>
+    </div>
+    <p class="lede">Three tasks: edit the DAU bridge, run an engagement query, then a short thinking exercise.</p>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Q1 · Double the churn on the DAU bridge<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Go back to the DAU bridge in Part 2. Edit Churned from 220,000 up to 440,000. Ending DAU falls from 2.0M to about 1.78M - the inflows can no longer offset the losses. Now trace it forward in your head: fewer DAU means fewer impressions in Part 1, which (holding fill and price) means ad revenue falls by the same percentage. One churn number, felt two trees down.</p>
+        <div class="callout tip">
+          <strong>Why edit, not simulate</strong>
+          On the bridge, "Simulate a drop" cuts a random leaf by 15-35%. If it happens to cut Churned, DAU <em>rises</em> - because less churn is good. For a churn <em>increase</em>, edit the leaf up by hand. Losses are the one place a "drop" in the input is a gain in the output.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Q2 · Active users by event type<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Build an engagement breakdown: for each event type, how many distinct users performed it and how many times. On a real ad product this is how you spot which action is carrying engagement - and which is quietly a churn signal (support tickets, cancel surveys).</p>
+        <div class="sqlbox" data-caption="Which event types look like healthy engagement, and which look like churn risk?">
+          <pre class="sql-src">SELECT event_type,
+       COUNT(DISTINCT customer_id)  AS users,
+       COUNT(*)                     AS events
+FROM events
+GROUP BY event_type
+ORDER BY users DESC;</pre>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Q3 · Ad revenue flat but DAU down - what rose?<span class="mini">take home</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Ad revenue held flat this quarter, but DAU is clearly down. Write a paragraph: what must have risen to compensate, and is that healthy? Work it from the tree - if impressions fell (fewer DAU) yet revenue held, then fill rate or price per impression must have risen to offset it. That can happen for good reasons (a stronger ad market, better ad targeting lifting eCPM) or fragile ones (cramming more ad slots per session, which degrades the experience and accelerates the very churn dragging DAU down). Argue whether the compensation is durable or a short-term patch that borrows revenue from the future by taxing the user experience.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ HOMEWORK ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>Try it yourself - this week <span class="tag exercise">◐ 20-30 min total</span></h2>
+    </div>
+    <ul>
+      <li>Write your product's engagement-to-money tree. If you are ad-supported, use ad revenue; if you are usage-billed, the same two-level shape works (usage x price).</li>
+      <li>Build your own DAU (or WAU/MAU) bridge: start, new, resurrected, churned. Fill in real numbers for last period and see whether a flat level is hiding busy flows.</li>
+      <li>Find your two top-lines and name the single node where they connect. For an ad product it is impressions; for yours it may be sessions, API calls, or transactions.</li>
+      <li>Check your units once, on purpose: is any price quoted per-thousand (eCPM, CPM) while you multiply it by a raw count? That is the 1,000x bug waiting to happen.</li>
+      <li>Bring your engagement bridge to b8 - B2B SaaS, where the same churn flow drives ARR instead of impressions.</li>
+    </ul>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Framework sources</span>
+      <h2>Frameworks this session draws on</h2>
+    </div>
+    <p class="lede">Internet metrics blend the ad-tech revenue identity with the engagement-loop thinking that product teams live by. This page draws on:</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Ad-revenue identity (impressions x fill x eCPM) - the ad-tech monetization canon</span><span class="note">Part 1 · the two-level revenue product and the eCPM /1000 discipline</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Amplitude North Star Playbook - the engagement loop and DAU accounting</span><span class="note">Part 2 · the flow bridge of new, resurrected, and churned users</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Lean Analytics (Croll &amp; Yoskovitz) - the metrics of a media / user-generated business</span><span class="note">Part 3 · engagement top-line versus monetization top-line</span></div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">1 · Ad revenue decomposes as...</p>
+      <button class="qopt" type="button">A · DAU minus churn, times price</button>
+      <button class="qopt" type="button">B · Impressions x Fill rate x price per impression - and impressions = DAU x sessions x slots</button>
+      <button class="qopt" type="button">C · Spend x ROAS</button>
+      <p class="qwhy">Ad revenue is a multiplicative product of impressions, fill rate, and price per impression, with impressions themselves a product of DAU, sessions per user, and ad slots per session. That second level is where a vague "impressions fell" becomes an ownable diagnosis.</p>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">2 · DAU = Start + New + Resurrected - Churned is which decomposition pattern?</p>
+      <button class="qopt" type="button">A · Multiplicative - the flows multiply</button>
+      <button class="qopt" type="button">B · A ratio</button>
+      <button class="qopt" type="button">C · A flow bridge - inflows added, churn subtracted, to move from a starting level to an ending level</button>
+      <p class="qwhy">A bridge moves from a starting stock to an ending stock via signed flows: new and resurrected add, churned subtracts. It is the pattern for any level driven by inflows and outflows - users, subscribers, cash.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">3 · Ad revenue is flat but DAU fell. What must have happened?</p>
+      <button class="qopt" type="button">A · Fill rate or price per impression rose to offset the lost impressions - possibly healthy, possibly a fragile ad-load grab</button>
+      <button class="qopt" type="button">B · Nothing - the numbers are unrelated</button>
+      <button class="qopt" type="button">C · Churn must have gone to zero</button>
+      <p class="qwhy">Fewer DAU means fewer impressions, so for revenue to hold, fill rate or eCPM must have risen. That can be a stronger ad market (durable) or cramming more ad slots per session (fragile - it taxes the experience and can feed the churn dragging DAU down).</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Builder session 7 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>Ad revenue</b><span>Impressions x Fill rate x price per impression. A two-level multiplicative tree.</span></div>
+      <div class="cheat-item"><b>Impressions sub-tree</b><span>Impressions = DAU x sessions per user x ad slots per session. Depth = diagnosis resolution.</span></div>
+      <div class="cheat-item"><b>eCPM /1000 trap</b><span>eCPM is per 1,000 impressions. $10 eCPM = $0.01 per impression. Match units or be off 1,000x.</span></div>
+      <div class="cheat-item"><b>DAU bridge</b><span>DAU = Start + New + Resurrected - Churned. A flow bridge; churn carries sign -1.</span></div>
+      <div class="cheat-item"><b>Two top-lines</b><span>Engagement (DAU) and monetization (ad revenue). They connect at one node: impressions.</span></div>
+      <div class="cheat-item"><b>Engagement vs price side</b><span>DAU/sessions/slots = engagement side. Fill rate/eCPM = price side. Trace which one moved.</span></div>
+      <div class="cheat-item"><b>Watch flows, not level</b><span>A flat DAU can hide climbing churn and inflow. The bridge shows what the level conceals.</span></div>
+      <div class="cheat-item"><b>Running skill</b><span>Build the two-level tree and the DAU bridge, trace people vs price. Next: b8, B2B SaaS.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Builder session 7 of 10 · learn-metric-decomposition-with-phoebe · by Phoebe Fu &nbsp;·&nbsp; 📚 <a href="https://phoebefu6.github.io/learn-with-phoebe/">Learn with Phoebe ↗</a></span>
+    <span><a href="b6-branding-deep-dive.html">← Prev: Branding deep dive</a> &nbsp;·&nbsp; <a href="b8-b2b-saas-deep-dive.html">Next: B2B SaaS deep dive →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/metric-seed.js?v=1"></script>
+<script src="../assets/duck-live.js?v=1"></script>
+<script src="../assets/tree-live.js?v=3"></script>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

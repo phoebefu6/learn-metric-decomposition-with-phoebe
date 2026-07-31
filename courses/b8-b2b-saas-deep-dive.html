@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Builder session 8 · B2B SaaS deep dive - learn metric decomposition with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-metric-decomposition-with-phoebe</a> / Builder session 8 of 10</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Metric Decomposition with Phoebe · Builder track · Session 8 of 10</div>
+    <h1><span class="accent">B2B SaaS</span> deep dive</h1>
+    <p class="sub">SaaS has the friendliest top line to decompose and the easiest one to misread. ARR looks like a single number on a slide, but it is really a flow - a bank balance that fills from new and expansion and drains from contraction and churn. Today you build ARR as a bridge, split new ARR into its own multiplicative tree, and learn to watch the gross flows instead of the net, because two companies with identical net growth can be in completely different health.</p>
+    <div class="chip-row">
+      <span class="chip level">🟡 Builder track</span>
+      <span class="chip audience">Analysts · PMs · founders · ops</span>
+      <span class="chip audience">Live tree simulator + SQL</span>
+      <span class="chip time">45 min</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Recap</span>
+      <span class="a2" style="flex:4">3-20 · ARR as a bridge</span>
+      <span class="a3" style="flex:5">20-42 · Diagnose an ARR miss</span>
+      <span class="a4" style="flex:1">42-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Where we are: from patterns to a domain</h2>
+    </div>
+    <p class="lede">You already own the three decomposition patterns from b2 - <strong>multiplicative</strong> (rate x volume), <strong>additive</strong> (sum of parts), and the <strong>flow bridge</strong> (a balance that fills and drains). You have applied them to ecommerce (b4), marketing (b5), branding (b6), and internet traffic (b7). This is the fifth of six domains, and it is where the flow bridge finally gets its flagship example: recurring revenue. b9 does B2G, then b10 is the capstone.</p>
+    <div class="legend">
+      <span class="pill solid">Live - presented in session</span>
+      <span class="pill light">Self-study - read after class</span>
+      <span class="pill peach">▶ Live tree - editable &amp; runnable</span>
+      <span class="pill inkpill">Framework sources covered</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with today</strong>
+      The ability to write ARR as Start + New + Expansion - Contraction - Churn, to read an ARR miss as either a new-business shortfall or a retention leak, and to compute NRR in your head from the same five flows. You will run a live ARR bridge, knock a flow, and route the miss to its owner.
+    </div>
+  </section>
+
+  <!-- ============ PART 1: ARR AS A BRIDGE ============ -->
+  <section class="section" id="arr-bridge">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers domain canon, Lean Analytics (SaaS chapter)</span>
+      <h2>ARR is not a number, it is a bridge <span class="tag concept">8 min live</span></h2>
+    </div>
+    <p class="lede">Annual recurring revenue is a <strong>balance</strong>, and every balance is a flow bridge: you start the period at some ARR, add the new logos you closed, add expansion from customers who grew, then subtract contraction from customers who shrank and churn from customers who left. Ending ARR is what survives all five. The mistake juniors make is staring at the net move; the skill is managing the individual flows, because that is where the levers actually are.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ARR bridge from starting ARR through new, expansion, contraction, churn to ending ARR">
+        <style>
+          .arbT { font: 800 14px Inter, sans-serif; fill: #FFFFFF; }
+          .arbL { font: 700 12px Inter, sans-serif; fill: #16241E; }
+          .arbV { font: 700 12px Inter, sans-serif; fill: #16241E; }
+          .arbN { font: 600 12px Inter, sans-serif; fill: #431105; }
+          .arbC { font: 400 11px Inter, sans-serif; fill: #566A61; }
+        </style>
+        <!-- start bar -->
+        <rect x="40" y="150" width="120" height="120" rx="8" fill="#2F7D5B"/>
+        <text class="arbT" x="100" y="205" text-anchor="middle">Start</text>
+        <text class="arbT" x="100" y="223" text-anchor="middle" style="font-size:11px">$1.00M</text>
+        <!-- new (up) -->
+        <rect x="190" y="128" width="110" height="22" rx="5" fill="#4FA37E"/>
+        <text class="arbL" x="245" y="120" text-anchor="middle">+ New</text>
+        <text class="arbV" x="245" y="143" text-anchor="middle" style="fill:#FFFFFF;font-size:11px">$180K</text>
+        <!-- expansion (up) -->
+        <rect x="330" y="117" width="110" height="11" rx="4" fill="#B8DFCD"/>
+        <text class="arbL" x="385" y="109" text-anchor="middle">+ Expansion</text>
+        <text class="arbV" x="385" y="126" text-anchor="middle" style="font-size:10px">$90K</text>
+        <!-- contraction (down) -->
+        <rect x="470" y="128" width="110" height="12" rx="4" fill="#E9F5EF" stroke="#E4572E"/>
+        <text class="arbL" x="525" y="120" text-anchor="middle" style="fill:#431105">- Contraction</text>
+        <text class="arbV" x="525" y="137" text-anchor="middle" style="font-size:10px;fill:#431105">$40K</text>
+        <!-- churn (down) -->
+        <rect x="610" y="140" width="110" height="30" rx="5" fill="#E4572E"/>
+        <text class="arbL" x="665" y="132" text-anchor="middle" style="fill:#431105">- Churn</text>
+        <text class="arbV" x="665" y="160" text-anchor="middle" style="fill:#FFFFFF;font-size:11px">$120K</text>
+        <!-- ending bar -->
+        <rect x="750" y="140" width="110" height="130" rx="8" fill="#1E5240"/>
+        <text class="arbT" x="805" y="198" text-anchor="middle">Ending</text>
+        <text class="arbT" x="805" y="216" text-anchor="middle" style="font-size:11px">$1.11M</text>
+        <line x1="160" y1="150" x2="750" y2="150" stroke="#DCEAE2" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <rect x="40" y="292" width="14" height="14" rx="3" fill="#E4572E"/>
+        <text class="arbN" x="64" y="304">Ending ARR = 1.00M + 180K + 90K - 40K - 120K = 1.11M. You manage the five flows, not the net move.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - ARR is a balance that fills from new and expansion, drains from contraction and churn</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>The five flows, and why gross beats net<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Net new ARR - the single number on the board slide - is <strong>New + Expansion - Contraction - Churn</strong>. It can look healthy while hiding a fire. A company can post +$110K net while gross churn quietly doubles, as long as new sales sprint to cover it. The bridge forces the gross flows into the open so you cannot hide a retention leak behind a strong sales quarter.</p>
+        <ul>
+          <li><strong>New</strong> - ARR from brand-new logos. Sales and marketing own it.</li>
+          <li><strong>Expansion</strong> - existing customers buying more (seats, upsell, usage). Customer success and product own it.</li>
+          <li><strong>Contraction</strong> - existing customers buying less. A downgrade, not a departure. A loss flow, sign negative.</li>
+          <li><strong>Churn</strong> - customers who leave entirely. The other loss flow, sign negative, and usually the most expensive.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>Net Revenue Retention is just four of these flows.</strong> NRR = (Start + Expansion - Contraction - Churn) / Start - it deliberately ignores New, because it measures whether your existing base grows on its own. In the numbers above that is (1.00M + 90K - 40K - 120K) / 1.00M = <strong>93%</strong>. Below 100% means the installed base is shrinking and New has to run just to stand still. The best SaaS companies run NRR above 120%.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Build the ARR bridge live<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Here is the same bridge as a live tree. The two loss flows carry <code>"sign": -1</code> so the simulator subtracts them. Edit any flow and watch ending ARR recompute. This is the flagship example of the <strong>bridge</strong> operator you met in b2.</p>
+        <div class="treebox" data-caption="Contraction and Churn carry sign -1, so they drain the balance. Edit a flow and ending ARR recomputes.">
+          <pre class="tree-src">{
+  "unit": "$",
+  "root": {
+    "label": "Ending ARR", "op": "bridge",
+    "children": [
+      { "label": "Start ARR",   "value": 1000000, "unit": "$" },
+      { "label": "New",         "value": 180000,  "unit": "$" },
+      { "label": "Expansion",   "value": 90000,   "unit": "$" },
+      { "label": "Contraction", "value": 40000,   "unit": "$", "sign": -1 },
+      { "label": "Churn",       "value": 120000,  "unit": "$", "sign": -1 }
+    ]
+  }
+}</pre>
+        </div>
+        <div class="callout tip">
+          <strong>The sign is the whole trick</strong>
+          In a bridge, a bigger loss leaf means a smaller top line. When the simulator knocks Churn "down" it makes churn smaller, so ending ARR rises - the opposite of a bad month. To model a real churn spike, edit Churn <em>up</em> by hand and watch ending ARR and NRR both fall.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2: NEW ARR IS MULTIPLICATIVE ============ -->
+  <section class="section" id="new-arr">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers the multiplicative pattern, leading vs lagging</span>
+      <h2>New ARR is its own multiplicative tree <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">One flow in the bridge - New - is not a leaf you control directly either. It is a product: <strong>New ARR = Leads x Win-rate x ACV</strong>. That means a bridge sits on top of a multiplicative tree, and the same pass-through rule applies: win-rate down 10% with everything else held drops new ARR 10%. And the earliest warning of all lives one step further out - pipeline coverage, weeks ahead of any booking.</p>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>New = Leads x Win-rate x ACV<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Split the New flow into its drivers. Marketing owns leads, sales owns win-rate, packaging and pricing own ACV. Now a "new-business shortfall" stops being vague and becomes one of three named levers.</p>
+        <div class="treebox" data-caption="600 leads x 10% win-rate x $3,000 ACV = $180K new ARR - the same New flow that feeds the bridge above.">
+          <pre class="tree-src">{
+  "unit": "$",
+  "root": {
+    "label": "New ARR", "op": "x",
+    "children": [
+      { "label": "Leads",    "value": 600, "unit": "leads" },
+      { "label": "Win-rate", "value": 0.10, "pct": true },
+      { "label": "ACV",      "value": 3000, "unit": "$" }
+    ]
+  }
+}</pre>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Leading vs lagging in SaaS<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Ending ARR and NRR are <strong>lagging</strong> - they close the book on a period that already happened. To steer, you watch the flows and the inputs to the flows, which lead by weeks or quarters.</p>
+        <ul>
+          <li><strong>Leading:</strong> pipeline coverage (pipeline / target), trial-to-paid rate, product-qualified leads, usage trend inside accounts. These warn early.</li>
+          <li><strong>Lagging:</strong> ending ARR, net new ARR, NRR, gross churn dollars. These report late but are what the board sees.</li>
+          <li><strong>The rule:</strong> if pipeline coverage falls below about 3x this quarter, next quarter's New flow is already in trouble - long before ARR shows it.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 3: THE CLASSIC DROPS ============ -->
+  <section class="section" id="drops">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · covers the diagnosis map, Amplitude inputs (partial)</span>
+      <h2>The three classic SaaS drops <span class="tag concept">4 min live</span></h2>
+    </div>
+    <p class="lede">Almost every ARR miss lands on one of three flows. Learn the symptom-to-leaf map once and diagnosis becomes a reflex: hear the symptom, name the flow, route to the owner.</p>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Symptom to bridge leaf<span class="mini">2 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <ul>
+          <li><strong>Churn spike</strong> (a retention problem) -&gt; the <em>Churn</em> flow grows. Owner: customer success. Deeper cause is usually onboarding, value delivery, or a competitor.</li>
+          <li><strong>Expansion stalls</strong> (a product-value problem) -&gt; the <em>Expansion</em> flow shrinks, and often Contraction grows with it. Owner: product and CS. Customers are not finding more to buy.</li>
+          <li><strong>New falls</strong> (a pipeline or win-rate problem) -&gt; the <em>New</em> flow shrinks. Owner: marketing (leads) or sales (win-rate). Check pipeline coverage first - it warned you weeks ago.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>Simulate it</strong>
+          On the ARR bridge above, hand-edit Churn from $120K up to $240K - churn doubling. Watch ending ARR fall and imagine NRR dropping from 93% toward 81%. Same net-new headline could still look fine if New sprinted to cover it - which is exactly why you read the gross flow, not the net.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO 1 ============ -->
+  <section class="section" id="demo-1">
+    <div class="section-kicker">
+      <span class="klabel">Demo 1 of 2</span>
+      <h2>Diagnose an ARR miss live <span class="tag demo">★ 12 min · everyone builds</span></h2>
+    </div>
+    <p class="lede">The board asks why ARR came in light. You have the bridge. Press <strong>Simulate a drop</strong>, read the coral trail to the flow that moved, and name it: was this a <em>new-business shortfall</em> (the New flow fell) or a <em>retention leak</em> (a loss flow grew)? Then confirm the retention story in SQL against the subscription base.</p>
+
+    <div class="treebox" data-caption="Simulate a drop, read the coral path, and say out loud: new-business shortfall or retention leak?">
+      <pre class="tree-src">{
+  "unit": "$",
+  "root": {
+    "label": "Ending ARR", "op": "bridge",
+    "children": [
+      { "label": "Start ARR",   "value": 1000000, "unit": "$" },
+      { "label": "New",         "value": 180000,  "unit": "$" },
+      { "label": "Expansion",   "value": 90000,   "unit": "$" },
+      { "label": "Contraction", "value": 40000,   "unit": "$", "sign": -1 },
+      { "label": "Churn",       "value": 120000,  "unit": "$", "sign": -1 }
+    ]
+  }
+}</pre>
+    </div>
+
+    <div class="steps">
+      <div class="step"><p>Read the baseline: Start $1.00M plus New and Expansion, minus Contraction and Churn, ends at $1.11M. NRR is 93%.</p></div>
+      <div class="step"><p>Press <strong>Simulate a drop</strong>. A flow moves and its path to Ending ARR lights coral. Note which flow and by how much.</p></div>
+      <div class="step"><p>Classify it: if New fell, it is a new-business shortfall - go to marketing or sales. If a loss flow is the story, it is a retention leak - go to CS.</p></div>
+      <div class="step"><p>Confirm the retention side in the seed data below: how many subscriptions are still active versus cancelled, and where do the cancellations concentrate?</p></div>
+    </div>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>Churn proxy - active vs cancelled subscriptions<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The seed has a small subscription base. A cancelled subscription (a non-null <code>cancel_date</code>) is a churned account - the raw material of the Churn flow. Run this to see how many are still active versus gone.</p>
+        <div class="sqlbox" data-caption="cancel_date IS NULL means still active. Flip the FILTER to see who is still paying.">
+          <pre class="sql-src">SELECT
+  COUNT(*) FILTER (WHERE cancel_date IS NULL)     AS active_subs,
+  COUNT(*) FILTER (WHERE cancel_date IS NOT NULL) AS churned_subs,
+  ROUND(100.0 * COUNT(*) FILTER (WHERE cancel_date IS NOT NULL)
+        / COUNT(*), 1)                            AS churn_rate_pct
+FROM subscriptions;</pre>
+        </div>
+        <div class="callout tip">
+          <strong>The diagnosis chain, SaaS edition</strong>
+          Bridge points at the flow (Churn grew) -&gt; SQL splits the churn by segment -&gt; the segment that concentrates the cancellations is your lead. Tree first, SQL second - always.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO 2 ============ -->
+  <section class="section" id="demo-2">
+    <div class="section-kicker">
+      <span class="klabel">Demo 2 of 2</span>
+      <h2>Your turn <span class="tag demo">★ 10 min · everyone builds</span></h2>
+    </div>
+    <p class="lede">Three tasks: one edits the bridge, one runs SQL, one is a judgment call you write in prose. Do all three - the third is the one that separates an analyst from a diagnostician.</p>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Q1 · Halve Expansion, watch ending ARR and NRR<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>On the ARR bridge in Demo 1, edit <strong>Expansion from $90K down to $45K</strong>. Ending ARR falls by $45K to about $1.065M. More importantly, feel NRR drop: (1.00M + 45K - 40K - 120K) / 1.00M = <strong>88.5%</strong>. Expansion is the flow that pushes NRR above 100% - halve it and the installed base leaks faster. Say why a product team, not sales, owns this miss.</p>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Q2 · Count active vs churned subscriptions by plan<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Split the churn proxy by plan. Join <code>subscriptions</code> to <code>customers</code> for the plan, then count active versus cancelled in each. Watch where every cancellation lands.</p>
+        <div class="sqlbox" data-caption="Expect the churn to concentrate entirely in one plan - that is your segment lead.">
+          <pre class="sql-src">SELECT c.plan,
+       COUNT(*) FILTER (WHERE s.cancel_date IS NULL)     AS active_subs,
+       COUNT(*) FILTER (WHERE s.cancel_date IS NOT NULL) AS churned_subs
+FROM subscriptions s
+JOIN customers c ON s.customer_id = c.customer_id
+GROUP BY c.plan
+ORDER BY churned_subs DESC;</pre>
+        </div>
+        <div class="callout example">
+          <span class="ex-pill">Read the result</span>
+          <p>Every cancellation sits on the <strong>Basic</strong> plan; all Pro subscriptions are still active. That is a segment lead you can act on: the retention leak is not company-wide, it is a Basic-plan problem. Now the fix is scoped - look at Basic onboarding and value, not the whole book.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Q3 · Same net growth, two very different companies<span class="mini">3 min think</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Two SaaS companies both grow net ARR by the same $110K this year. Company A does it with <strong>low churn and modest new sales</strong>. Company B does it with <strong>high churn masked by aggressive new sales</strong>. Which is healthier, and why?</p>
+        <ul>
+          <li><strong>Company A is healthier.</strong> Low churn means its NRR is near or above 100% - the existing base compounds, so next year starts from a higher, sturdier floor and every new logo adds on top rather than backfilling a leak.</li>
+          <li><strong>Company B is running on a treadmill.</strong> High churn means a low NRR; new sales are spent replacing lost revenue, not growing it. The moment new-sales momentum stalls, the leak shows and net growth collapses. It also costs far more - acquiring a new logo is dearer than keeping one.</li>
+          <li><strong>The lesson:</strong> net ARR growth is a headline; the gross flows are the diagnosis. Low churn compounds, high new sales rents.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ HOMEWORK ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>Try it yourself - this week <span class="tag exercise">◐ 20-30 min total</span></h2>
+    </div>
+    <ul>
+      <li>Write your product's ARR bridge for last quarter: Start, New, Expansion, Contraction, Churn, Ending. If you cannot find the gross flows, that gap is the finding - your finance and CS teams may only report the net.</li>
+      <li>Compute NRR from four of those flows. Is your installed base growing on its own, or is New doing all the work?</li>
+      <li>Split New into Leads x Win-rate x ACV and name the owner of each. Then find your current pipeline coverage - is it above 3x?</li>
+      <li>Next time someone says "ARR came in light", ask "which flow?" before "why?" - and check whether New masked a churn spike.</li>
+      <li>Bring your bridge to b10 - the capstone drop could be a SaaS one.</li>
+    </ul>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Framework sources</span>
+      <h2>Frameworks this session draws on</h2>
+    </div>
+    <p class="lede">The SaaS metric canon is remarkably settled - ARR bridge, NRR, and the gross-versus-net discipline appear in nearly every operator's playbook. This page draws on:</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Domain canon - the ARR bridge and Net Revenue Retention</span><span class="note">Part 1 · the five flows and NRR from four of them</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Lean Analytics (Croll &amp; Yoskovitz) - SaaS chapter, the metrics that matter</span><span class="note">Parts 1-2 · new, expansion, churn as the levers of recurring revenue</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Amplitude North Star Playbook - inputs that lead the output</span><span class="note">Part 2 · pipeline coverage and trials as leading indicators</span></div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">1 · Ending ARR = Start + New + Expansion - Contraction - Churn. Which decomposition pattern is that?</p>
+      <button class="qopt" type="button">A · Multiplicative - a product of rates</button>
+      <button class="qopt" type="button">B · Additive - a plain sum of equal parts</button>
+      <button class="qopt" type="button">C · A flow bridge - a balance that fills from some flows and drains from others</button>
+      <p class="qwhy">A bridge is a running balance: positive flows (new, expansion) add, negative flows (contraction, churn) subtract. The loss flows carry a negative sign - that is what makes it a bridge and not a plain sum.</p>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">2 · What does Net Revenue Retention actually measure?</p>
+      <button class="qopt" type="button">A · Total ARR including every new logo you closed</button>
+      <button class="qopt" type="button">B · Whether your existing base grows on its own - (Start + Expansion - Contraction - Churn) / Start, ignoring New</button>
+      <button class="qopt" type="button">C · How many leads converted to paid this quarter</button>
+      <p class="qwhy">NRR deliberately excludes New. It asks: if you closed zero new logos, would the installed base grow, hold, or shrink? Above 100% means expansion outruns losses - the base compounds by itself.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">3 · Why watch the gross flows instead of just net new ARR?</p>
+      <button class="qopt" type="button">A · Net can look healthy while a churn spike hides behind strong new sales - gross flows expose the leak</button>
+      <button class="qopt" type="button">B · Gross flows are easier to calculate</button>
+      <button class="qopt" type="button">C · The board only ever asks for gross numbers</button>
+      <p class="qwhy">Two companies with identical net growth can be in opposite health. Only the gross flows tell you whether growth came from durable retention or from new sales sprinting to backfill a leak.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Builder session 8 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>ARR bridge</b><span>Ending ARR = Start + New + Expansion - Contraction - Churn. A flow bridge, not a single number.</span></div>
+      <div class="cheat-item"><b>The five flows</b><span>New and Expansion fill; Contraction and Churn drain (sign -1). Start is where the period opens.</span></div>
+      <div class="cheat-item"><b>NRR</b><span>(Start + Expansion - Contraction - Churn) / Start. Ignores New. Above 100% = base compounds on its own.</span></div>
+      <div class="cheat-item"><b>New is multiplicative</b><span>New ARR = Leads x Win-rate x ACV. A product tree sitting inside one flow of the bridge.</span></div>
+      <div class="cheat-item"><b>Gross beats net</b><span>Net new ARR hides a churn spike behind strong sales. Always read the gross flows.</span></div>
+      <div class="cheat-item"><b>Three classic drops</b><span>Churn spike (CS owns), expansion stalls (product owns), new falls (marketing/sales own).</span></div>
+      <div class="cheat-item"><b>Leading vs lagging</b><span>Pipeline coverage and trials lead; ending ARR and NRR lag. Steer by coverage above 3x.</span></div>
+      <div class="cheat-item"><b>Running skill</b><span>Bridge names the flow, SQL segments the churn. Next: b9, B2G bookings and the mission-vs-money tension.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Builder session 8 of 10 · learn-metric-decomposition-with-phoebe · by Phoebe Fu &nbsp;·&nbsp; 📚 <a href="https://phoebefu6.github.io/learn-with-phoebe/">Learn with Phoebe ↗</a></span>
+    <span><a href="b7-internet-traffic-deep-dive.html">← Prev: Internet traffic deep dive</a> &nbsp;·&nbsp; <a href="b9-b2g-deep-dive.html">Next: B2G deep dive →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/metric-seed.js?v=1"></script>
+<script src="../assets/duck-live.js?v=1"></script>
+<script src="../assets/tree-live.js?v=3"></script>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

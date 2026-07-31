@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Builder session 6 · Branding deep dive - learn metric decomposition with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-metric-decomposition-with-phoebe</a> / Builder session 6 of 10</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Metric Decomposition with Phoebe · Builder track · Session 6 of 10</div>
+    <h1><span class="accent">Branding</span> deep dive</h1>
+    <p class="sub">Brand is the metric everyone calls unmeasurable, then quietly measures badly. It feels soft - awareness, preference, love - but it still decomposes. A reached population is filtered through awareness, consideration, preference, and intent until a fraction of it buys because of the brand. Today you build that brand funnel as a live tree, find the leading signal that predicts market share months early, and confront why brand metrics get gamed more than any other.</p>
+    <div class="chip-row">
+      <span class="chip level">🟡 Builder track</span>
+      <span class="chip audience">Analysts · PMs · founders · ops</span>
+      <span class="chip audience">Live tree simulator + SQL</span>
+      <span class="chip time">45 min</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Recap</span>
+      <span class="a2" style="flex:4">3-20 · The brand funnel</span>
+      <span class="a3" style="flex:5">20-42 · Leading signal &amp; the drop</span>
+      <span class="a4" style="flex:1">42-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Where we are</h2>
+    </div>
+    <p class="lede">In b5 you decomposed marketing revenue - the funnel that turns spend into won deals. Branding is the funnel that feeds the <em>top</em> of that one: it decides how much of the market even considers you before any campaign runs. It is the hardest deep-dive because the metric is soft, the lag to sales is long, and the temptation to game it is huge. If you can decompose brand, you can decompose anything.</p>
+    <div class="legend">
+      <span class="pill solid">Live - presented in session</span>
+      <span class="pill light">Self-study - read after class</span>
+      <span class="pill peach">▶ Live tree - editable &amp; runnable</span>
+      <span class="pill inkpill">Framework sources covered</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with today</strong>
+      A brand funnel written as Reached x awareness x consideration x preference x intent x purchase x value, a second live tree for Share of Search - the best-validated leading proxy for future market share - and a clear-eyed view of why brand metrics get gamed and how the long lag to sales invites Goodhart trouble.
+    </div>
+  </section>
+
+  <!-- ============ PART 1: THE BRAND FUNNEL ============ -->
+  <section class="section" id="brand-funnel">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers the multiplicative pattern applied to a soft metric</span>
+      <h2>Even brand decomposes <span class="tag concept">7 min live</span></h2>
+    </div>
+    <p class="lede">The hard case first. Brand feels like a single fuzzy quantity, but brand-driven revenue is a funnel just like marketing revenue - only the stages are mental states instead of ad events. A reached population is filtered stage by stage: how many are <strong>aware</strong>, of those how many <strong>consider</strong> you, then <strong>prefer</strong> you, then form <strong>intent</strong>, then actually <strong>purchase</strong> because of the brand. Multiply the survivors by deal value and you have brand-driven revenue.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A brand funnel from reached population down to brand-driven revenue">
+        <style>
+          .bfT { font: 800 13px Inter, sans-serif; fill: #16241E; }
+          .bfV { font: 700 12px Inter, sans-serif; fill: #16241E; }
+          .bfR { font: 700 11px Inter, sans-serif; fill: #431105; }
+          .bfN { font: 600 12.5px Inter, sans-serif; fill: #431105; }
+        </style>
+        <rect x="100" y="38"  width="680" height="34" rx="8" fill="#B8DFCD"/>
+        <text class="bfT" x="118" y="60">Reached</text>
+        <text class="bfV" x="762" y="60" text-anchor="end">5,000,000</text>
+
+        <rect x="160" y="80"  width="560" height="34" rx="8" fill="#B8DFCD"/>
+        <text class="bfT" x="178" y="102">Aware</text>
+        <text class="bfV" x="702" y="102" text-anchor="end">2,000,000</text>
+
+        <rect x="220" y="122" width="440" height="34" rx="8" fill="#4FA37E"/>
+        <text class="bfT" x="238" y="144" fill="#FFFFFF">Consider</text>
+        <text class="bfV" x="642" y="144" text-anchor="end" fill="#FFFFFF">500,000</text>
+
+        <rect x="270" y="164" width="340" height="34" rx="8" fill="#2F7D5B"/>
+        <text class="bfT" x="288" y="186" fill="#FFFFFF">Prefer</text>
+        <text class="bfV" x="592" y="186" text-anchor="end" fill="#FFFFFF">150,000</text>
+
+        <rect x="320" y="206" width="240" height="34" rx="8" fill="#1E5240"/>
+        <text class="bfT" x="338" y="228" fill="#FFFFFF">Intent</text>
+        <text class="bfV" x="542" y="228" text-anchor="end" fill="#FFFFFF">30,000</text>
+
+        <rect x="360" y="248" width="160" height="34" rx="8" fill="#E4572E"/>
+        <text class="bfT" x="378" y="270" fill="#FFFFFF">Buy</text>
+        <text class="bfV" x="502" y="270" text-anchor="end" fill="#FFFFFF">3,000</text>
+
+        <text class="bfR" x="792" y="97">x 40%</text>
+        <text class="bfR" x="792" y="139">x 25%</text>
+        <text class="bfR" x="792" y="181">x 30%</text>
+        <text class="bfR" x="792" y="223">x 20%</text>
+        <text class="bfR" x="792" y="265">x 10%</text>
+
+        <text class="bfN" x="100" y="26">Each band is the survivors of the rate above. 3,000 brand-driven buyers x $150 value = $450K brand revenue.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the brand funnel filters a reached population down to brand-driven buyers</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>What each stage really means<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The stages are mental states, and each maps to a real-world signal you can actually measure - which is what stops brand from being hand-waving.</p>
+        <ul>
+          <li><strong>Reached</strong> - the population your media and presence physically touched. Impressions, distribution, footfall.</li>
+          <li><strong>Aware</strong> - they know you exist. Aided and unaided awareness surveys, search interest.</li>
+          <li><strong>Consider</strong> - you make their shortlist. Consideration surveys, add-to-comparison, category search including your name.</li>
+          <li><strong>Prefer</strong> - you are their first choice. Preference surveys, branded-search share, direct traffic.</li>
+          <li><strong>Intent</strong> - they mean to buy. Cart adds, demo requests, quote requests, wishlist saves.</li>
+          <li><strong>Buy</strong> - they purchase because of the brand, not a discount. Branded-organic conversions, direct sales.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>The leak is almost never at the top.</strong> Big brands pour money into Reached and Aware, then lose most of it at Consider and Prefer - a huge audience that knows you and still would not pick you. Decomposing brand exposes exactly that: awareness without preference is a bucket with a hole in the middle.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Why brand is still multiplicative<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Every stage is a conditional rate - the fraction who consider you <em>given</em> they are aware, the fraction who prefer you <em>given</em> they consider you. Multiply the conditional rates and you get the share of the reached population that survives to purchase. Soft inputs, hard arithmetic. The pass-through rule from b2 holds exactly: preference falls 20%, brand-driven revenue falls 20%, no matter how strong awareness is.</p>
+        <ul>
+          <li><strong>Conditional rates multiply</strong> - each is a "given the last stage" probability.</li>
+          <li><strong>The weakest stage caps the funnel</strong> - a great awareness number cannot rescue a broken consideration rate.</li>
+          <li><strong>Soft does not mean unmeasurable</strong> - it means each stage needs a named proxy signal, not a survey alone.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2: LEADING SIGNAL ============ -->
+  <section class="section" id="share-of-search">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers leading indicators for a lagging metric</span>
+      <h2>Share of Search: the leading signal <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">Brand-driven sales lag by months, and awareness surveys lag too and cost a fortune. The best-validated <strong>leading</strong> proxy is <strong>Share of Search</strong> - your brand's share of all category search volume. When people start searching your name more, relative to rivals, market share tends to follow months later. It is cheap, daily, and hard to fake at scale.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Share of search rising months before market share follows">
+        <style>
+          .ssAx { stroke: #DCEAE2; stroke-width: 1.5; }
+          .ssLead { stroke: #2F7D5B; stroke-width: 3; fill: none; }
+          .ssLag { stroke: #E4572E; stroke-width: 3; fill: none; stroke-dasharray: 6 5; }
+          .ssL { font: 700 12px Inter, sans-serif; fill: #16241E; }
+          .ssC { font: 400 11px Inter, sans-serif; fill: #566A61; }
+          .ssN { font: 600 12.5px Inter, sans-serif; fill: #431105; }
+        </style>
+        <line class="ssAx" x1="90" y1="40" x2="90" y2="210"/>
+        <line class="ssAx" x1="90" y1="210" x2="810" y2="210"/>
+        <path class="ssLead" d="M110,180 C 240,178 300,120 400,110 C 500,100 560,70 680,60"/>
+        <path class="ssLag" d="M110,192 C 300,190 380,182 500,150 C 600,124 680,100 780,86"/>
+        <circle cx="400" cy="110" r="4" fill="#2F7D5B"/>
+        <circle cx="640" cy="115" r="4" fill="#E4572E"/>
+        <text class="ssL" x="690" y="52" fill="#2F7D5B">Share of Search (leads)</text>
+        <text class="ssL" x="620" y="132" fill="#E4572E">Market share (lags)</text>
+        <text class="ssC" x="400" y="98" text-anchor="middle">search rises here</text>
+        <text class="ssC" x="640" y="135" text-anchor="middle">share follows here</text>
+        <text class="ssC" x="450" y="228" text-anchor="middle">time (months) -&gt;</text>
+        <text class="ssN" x="90" y="30">The search line turns up months before the share line - an early-warning proxy you can read weekly.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - Share of Search turns up months before market share follows</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Why search leads and surveys lag<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Search captures <em>demand as it forms</em> - the moment someone thinks of your category and types your name is upstream of the moment they buy. A survey asks people to recall a mental state after the fact; search records it in the act. And because search is a share (your volume divided by the whole category), it self-corrects for seasonality and market growth - a rising tide lifts everyone, but your <em>share</em> only moves when your relative brand strength moves.</p>
+        <div class="callout tip">
+          <strong>Share, not volume</strong>
+          Watch your <em>share</em> of category search, never your raw search volume. Raw volume rises every holiday season for the whole category and tells you nothing about your brand. Share strips that out and leaves the signal that actually leads market share.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 3: GAMED AND MISREAD ============ -->
+  <section class="section" id="gamed">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · covers Goodhart risk, vanity metrics</span>
+      <h2>Why brand metrics get gamed <span class="tag concept">4 min live</span></h2>
+    </div>
+    <p class="lede">Brand is the most gamed funnel because the top stages are cheap to inflate and the payoff (sales) is far away, so nobody is caught for months. Knowing the traps is half of reading brand honestly.</p>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>The three traps<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <ul>
+          <li><strong>Vanity reach</strong> - buying enormous cheap impressions to make Reached and Aware soar, while consideration and preference flatline. A big top with no middle.</li>
+          <li><strong>Awareness without consideration</strong> - being known but never shortlisted. The stage-to-stage rate from Aware to Consider quietly collapses and the top-line looks fine because awareness carries it.</li>
+          <li><strong>The long-lag Goodhart trap</strong> - because sales lag brand by months, a team can hit its brand target this quarter with tactics that never convert, and the bill only arrives later. When a proxy becomes the target, it stops being a good proxy.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>The defence</strong>
+          Watch the <em>stage-to-stage rates</em>, not just the top of the funnel. A healthy brand grows Consider and Prefer, not only Reached and Aware. And triangulate the leading signal (Share of Search) against the lagging one (sales) - if search share is flat while awareness spend soars, you are buying vanity, not brand.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO 1 ============ -->
+  <section class="section" id="demo-1">
+    <div class="section-kicker">
+      <span class="klabel">Demo 1 of 2</span>
+      <h2>Diagnose a brand-funnel drop <span class="tag demo">★ 12 min · everyone builds</span></h2>
+    </div>
+    <p class="lede">Here is the brand funnel as a live tree. Read the baseline, then press <strong>Simulate a drop</strong> - one stage falls and its path up to brand revenue lights coral. Name the stage that fell, and say which real-world signal you would check to confirm it.</p>
+
+    <div class="treebox" data-caption="Edit any rate and brand revenue recomputes. Simulate a drop, then read the coral path back to the stage that fell.">
+      <pre class="tree-src">{
+  "unit": "$",
+  "root": {
+    "label": "Brand-driven revenue", "op": "x",
+    "children": [
+      { "label": "Reached",       "value": 5000000, "unit": "people" },
+      { "label": "Awareness",     "value": 0.40, "pct": true },
+      { "label": "Consideration", "value": 0.25, "pct": true },
+      { "label": "Preference",    "value": 0.30, "pct": true },
+      { "label": "Intent",        "value": 0.20, "pct": true },
+      { "label": "Purchase",      "value": 0.10, "pct": true },
+      { "label": "Value / buyer", "value": 150, "unit": "$" }
+    ]
+  }
+}</pre>
+    </div>
+
+    <div class="steps">
+      <div class="step"><p>Read the baseline: 5,000,000 reached, filtered stage by stage to 3,000 brand-driven buyers, x $150 = about $450K.</p></div>
+      <div class="step"><p>Press <strong>Simulate a drop</strong>. One stage falls. Follow the coral trail - is it awareness, consideration, preference, intent?</p></div>
+      <div class="step"><p>Map the stage to a signal: awareness to search interest and surveys, consideration to shortlist and branded search, preference to direct traffic and preference surveys.</p></div>
+      <div class="step"><p>Say it: "Brand revenue fell X% because [stage] fell Y% - I would confirm it with [signal]." Press Reset and repeat.</p></div>
+    </div>
+
+    <div class="callout example">
+      <span class="ex-pill">Real world</span>
+      <p><strong>A famous pattern: awareness holds, consideration cracks.</strong> A well-known brand can stay top-of-mind for years while quietly falling off shortlists as a fresher rival appears. The top-line brand number looks stable because awareness is sticky - but the Aware-to-Consider rate is bleeding, and sales follow a year later. The tree catches it the moment you look at the stage rates instead of the top.</p>
+    </div>
+  </section>
+
+  <!-- ============ DEMO 2 ============ -->
+  <section class="section" id="demo-2">
+    <div class="section-kicker">
+      <span class="klabel">Demo 2 of 2</span>
+      <h2>Your turn <span class="tag demo">★ 10 min · everyone builds</span></h2>
+    </div>
+    <p class="lede">Three tasks: edit the brand funnel, build a Share-of-Search tree, then a short thinking exercise.</p>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Q1 · Awareness up, consideration down<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>In the tree above, raise Awareness from 40% to 55% and drop Consideration from 25% to 15%. Watch brand revenue. Even though more people now <em>know</em> you, fewer <em>shortlist</em> you, and because the stages multiply, the funnel shrinks. This is the "reached but not converting" brand: loud, familiar, and losing - the exact shape vanity spend produces.</p>
+        <div class="callout tip">
+          <strong>The point</strong>
+          A rising top stage cannot rescue a falling middle stage in a multiplicative funnel. Awareness is the cheapest stage to buy and the easiest to fool yourself with. Preference is where brands are actually won or lost.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Q2 · Build a Share-of-Search tree<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Share of Search is your search volume as a fraction of the whole category. You cannot divide inside the tree, so model the category as an <strong>additive</strong> tree - total category search is the sum of every brand's searches, and yours is one leaf. Read your share by eye: your leaf over the total. Edit your leaf up and watch your slice of the category grow.</p>
+        <div class="treebox" data-caption="Your share of search = your leaf / the total. Raise your searches and watch your slice of the category climb.">
+          <pre class="tree-src">{
+  "root": {
+    "label": "Category searches / mo", "op": "+",
+    "children": [
+      { "label": "Your brand",     "value": 90000,  "unit": "searches" },
+      { "label": "Competitor A",   "value": 140000, "unit": "searches" },
+      { "label": "Competitor B",   "value": 110000, "unit": "searches" },
+      { "label": "Long-tail rest", "value": 60000,  "unit": "searches" }
+    ]
+  }
+}</pre>
+        </div>
+        <p>At baseline your share is 90,000 / 400,000 = about 23%. Push your leaf to 130,000 and your share crosses 30% - the signal that tends to precede a market-share gain months later.</p>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Q3 · Why does Share of Search lead market share?<span class="mini">take home</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Write a paragraph explaining why a rise in Share of Search tends to <em>precede</em> a rise in market share, rather than just reflecting it. Ground your answer in the funnel: search is an upstream mental act - it captures demand at the moment it forms, before it converts into a purchase weeks or months later. Because it is measured as a share of the whole category, it strips out seasonality and market growth, isolating the change in your <em>relative</em> brand strength. That relative strength is what eventually shows up as share of wallet - so watching search share is watching the funnel fill before the sales register rings.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ HOMEWORK ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>Try it yourself - this week <span class="tag exercise">◐ 20-30 min total</span></h2>
+    </div>
+    <ul>
+      <li>Write your own brand funnel. Name the real signal you would use to measure each stage - not "awareness" the concept, but the specific number you could pull.</li>
+      <li>Find one stage-to-stage rate you have never measured. That gap is where brand problems hide unseen.</li>
+      <li>Estimate your Share of Search: your branded search volume over the sum of you plus your top rivals. Even a rough number is a leading signal you did not have before.</li>
+      <li>Audit for the vanity trap: is any of your brand spend inflating Reached and Aware while the middle stages stay flat? Name it out loud.</li>
+      <li>Bring your leakiest brand stage to b7 - internet and traffic, where reach itself becomes the top-line to decompose.</li>
+    </ul>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Framework sources</span>
+      <h2>Frameworks this session draws on</h2>
+    </div>
+    <p class="lede">Brand measurement borrows from marketing science and the metrics-design literature. This page draws on:</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Brand funnel &amp; Share of Search (marketing-science canon) - reach to preference to purchase, and the leading search proxy</span><span class="note">Parts 1-2 · the brand funnel and its best-validated leading signal</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Goodhart's law - when a measure becomes a target it stops being a good measure</span><span class="note">Part 3 · why the long lag invites gaming</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Amplitude North Star Playbook - leading inputs versus lagging outputs</span><span class="note">Part 2 · search leads, sales lag</span></div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">1 · The brand funnel (Reached x awareness x consideration x preference x intent x purchase x value) is which pattern?</p>
+      <button class="qopt" type="button">A · A flow bridge of inflows and outflows</button>
+      <button class="qopt" type="button">B · Multiplicative - conditional rates multiply, so the weakest stage caps the funnel</button>
+      <button class="qopt" type="button">C · Additive - the stages sum to brand revenue</button>
+      <p class="qwhy">Each stage is a conditional rate (consider given aware, prefer given consider). They multiply, which is why a rise in one stage cannot rescue a fall in another and the weakest stage caps the whole funnel.</p>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">2 · Which is the best-validated leading proxy for future market share?</p>
+      <button class="qopt" type="button">A · Total category search volume</button>
+      <button class="qopt" type="button">B · Quarterly awareness survey scores</button>
+      <button class="qopt" type="button">C · Share of Search - your brand's share of category search volume</button>
+      <p class="qwhy">Share of Search captures demand as it forms and, being a share, strips out seasonality and market growth. It tends to turn up months before market share. Raw volume moves with the whole category; surveys lag and cost more.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">3 · Why do brand metrics lag sales and invite gaming?</p>
+      <button class="qopt" type="button">A · Brand builds mental states months before they convert, so a proxy can be inflated now and only fail to convert later</button>
+      <button class="qopt" type="button">B · Because brand cannot be measured at all</button>
+      <button class="qopt" type="button">C · Because sales are always random</button>
+      <p class="qwhy">The top stages are cheap to inflate and the payoff (sales) arrives months later, so gaming is not caught for a long time. That long lag is exactly the Goodhart trap - the defence is watching stage-to-stage rates and triangulating leading against lagging signals.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Builder session 6 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>Brand funnel</b><span>Reached x awareness x consideration x preference x intent x purchase x value = brand-driven revenue.</span></div>
+      <div class="cheat-item"><b>Soft, still multiplicative</b><span>Stages are conditional rates. They multiply, so the weakest stage caps the funnel.</span></div>
+      <div class="cheat-item"><b>Each stage has a signal</b><span>Awareness = search + surveys · Consider = shortlist · Prefer = direct traffic · Intent = cart or demo.</span></div>
+      <div class="cheat-item"><b>Share of Search</b><span>Your share of category search. The best-validated leading proxy for future market share.</span></div>
+      <div class="cheat-item"><b>Share, not volume</b><span>Raw search rises every season for everyone. Only your share isolates relative brand strength.</span></div>
+      <div class="cheat-item"><b>The vanity trap</b><span>Buying Reached and Aware while Consider and Prefer flatline. A big top, no middle.</span></div>
+      <div class="cheat-item"><b>Long-lag Goodhart</b><span>Sales lag brand by months, so a gamed proxy is not caught until later. Watch stage-to-stage rates.</span></div>
+      <div class="cheat-item"><b>Running skill</b><span>Build the brand funnel, find the leading signal, spot the gaming. Next: b7, internet and traffic.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Builder session 6 of 10 · learn-metric-decomposition-with-phoebe · by Phoebe Fu &nbsp;·&nbsp; 📚 <a href="https://phoebefu6.github.io/learn-with-phoebe/">Learn with Phoebe ↗</a></span>
+    <span><a href="b5-marketing-deep-dive.html">← Prev: Marketing deep dive</a> &nbsp;·&nbsp; <a href="b7-internet-traffic-deep-dive.html">Next: Internet and traffic deep dive →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/metric-seed.js?v=1"></script>
+<script src="../assets/duck-live.js?v=1"></script>
+<script src="../assets/tree-live.js?v=3"></script>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

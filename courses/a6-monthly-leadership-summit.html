@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leader session 6 · The monthly leadership summit review - learn metric decomposition with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-metric-decomposition-with-phoebe</a> / Leader session 6 of 6</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Metric Decomposition with Phoebe · Leader track · Session 6 of 6</div>
+    <h1>The monthly leadership <span class="accent">summit</span></h1>
+    <p class="sub">The weekly review keeps the operators sharp. The monthly summit is where the metric system meets the strategy - where a month of driver detail becomes a decision-grade narrative for leadership. This final leader session is about running that room well, about governing the metrics so they cannot be gamed, and about the one law every measurement system eventually runs into: the moment a measure becomes a target, it starts to lie. Get this right and the whole tree earns its keep.</p>
+    <div class="chip-row">
+      <span class="chip level">🔵 Leader track</span>
+      <span class="chip audience">Leaders: CxO · VPs · founders</span>
+      <span class="chip audience">No code - thinking mode</span>
+      <span class="chip time">45 min</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Welcome</span>
+      <span class="a2" style="flex:5">3-22 · The monthly roll-up</span>
+      <span class="a3" style="flex:5">22-42 · Governance and Goodhart</span>
+      <span class="a4" style="flex:1">42-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>From weekly detail to a strategic story</h2>
+    </div>
+    <p class="lede">Where the weekly review is operational and driver-level, the monthly leadership summit is strategic and narrative. It does not re-walk every branch - it rolls the month of weekly detail up into a story leadership can decide on: are we on plan, what moved and why, what we are doing about it, and what we need from the room above. This session closes the leader track by covering how to run that summit, how to govern your metrics so they stay honest, and where to go next once the whole system is running.</p>
+    <div class="legend">
+      <span class="pill solid">Live - presented in session</span>
+      <span class="pill light">Self-study - read after class</span>
+      <span class="pill inkpill">Framework sources covered</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with today</strong>
+      A clear shape for the monthly summit - narrative over dashboards, decisions over updates - the governance habits that keep a metric honest (one definition, an owner, a guardrail), a working grasp of Goodhart's Law and how to defend against it, and a map of where to go next once your metric system is live.
+    </div>
+  </section>
+
+  <!-- ============ PART 1: THE MONTHLY ROLL-UP ============ -->
+  <section class="section" id="roll-up">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers the monthly roll-up</span>
+      <h2>Roll the drivers up into a narrative <span class="tag concept">9 min live</span></h2>
+    </div>
+    <p class="lede">The monthly summit takes a month of weekly driver trees and rolls them into one <strong>strategic narrative</strong>. The four questions leadership actually needs answered are simple: <strong>are we on plan, what moved and why, what are we doing about it, and what do we need from you?</strong> The weekly detail is the evidence; the monthly story is the argument. Narrative wins over dashboards here, because leadership decides on stories, not on two hundred tiles.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Weekly driver trees rolling up into one monthly top-line narrative">
+        <style>
+          .ruT { font: 700 11px Inter, sans-serif; fill: #16241E; }
+          .ruBig { font: 800 14px Inter, sans-serif; fill: #FFFFFF; }
+          .ruS { font: 400 11px Inter, sans-serif; fill: #E9F5EF; }
+          .ruN { font: 600 12px Inter, sans-serif; fill: #431105; }
+          .ruLine { stroke: #4FA37E; stroke-width: 2.5; fill: none; }
+        </style>
+        <text class="ruT" x="130" y="34" text-anchor="middle" style="fill:#566A61">Four weeks of driver detail</text>
+        <rect x="30" y="46" width="200" height="34" rx="8" fill="#E9F5EF" stroke="#DCEAE2"/>
+        <text class="ruT" x="130" y="68" text-anchor="middle">Week 1 tree</text>
+        <rect x="30" y="90" width="200" height="34" rx="8" fill="#E9F5EF" stroke="#DCEAE2"/>
+        <text class="ruT" x="130" y="112" text-anchor="middle">Week 2 tree</text>
+        <rect x="30" y="134" width="200" height="34" rx="8" fill="#E9F5EF" stroke="#DCEAE2"/>
+        <text class="ruT" x="130" y="156" text-anchor="middle">Week 3 tree</text>
+        <rect x="30" y="178" width="200" height="34" rx="8" fill="#E9F5EF" stroke="#DCEAE2"/>
+        <text class="ruT" x="130" y="200" text-anchor="middle">Week 4 tree</text>
+
+        <path class="ruLine" d="M232,63 C300,63 300,120 360,120 M232,107 C300,107 300,125 360,125 M232,151 C300,151 300,130 360,130 M232,195 C300,195 300,135 360,135" marker-end="url(#ruHead)"/>
+
+        <rect x="370" y="70" width="230" height="118" rx="12" fill="#2F7D5B"/>
+        <text class="ruBig" x="485" y="108" text-anchor="middle">Monthly narrative</text>
+        <text class="ruS" x="485" y="132" text-anchor="middle">On plan? What moved + why?</text>
+        <text class="ruS" x="485" y="150" text-anchor="middle">Doing about it? Need from you?</text>
+
+        <path class="ruLine" d="M602,129 L648,129" marker-end="url(#ruHead)"/>
+
+        <rect x="655" y="82" width="195" height="94" rx="12" fill="#1E5240"/>
+        <text class="ruBig" x="752" y="122" text-anchor="middle">Decisions</text>
+        <text class="ruS" x="752" y="144" text-anchor="middle">logged, owned, dated</text>
+
+        <rect x="30" y="230" width="14" height="14" rx="3" fill="#E4572E"/>
+        <text class="ruN" x="54" y="242">Weekly detail is the evidence; the monthly story is the argument leadership decides on.</text>
+
+        <defs>
+          <marker id="ruHead" markerWidth="8" markerHeight="8" refX="5.5" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#4FA37E"/>
+          </marker>
+        </defs>
+      </svg>
+      <figcaption>🔍 Click to zoom - four weeks of driver trees roll up into one monthly narrative and its decisions</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>The four questions leadership needs answered<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>A monthly summit is not a status meeting. Strip it down to the four questions leadership genuinely has to decide on, and answer them with the driver evidence the weekly cadence already produced.</p>
+        <ul>
+          <li><strong>Are we on plan?</strong> - top line versus target, with the trailing trend, not a single dot.</li>
+          <li><strong>What moved and why?</strong> - the one or two drivers that explain the gap, named from the tree.</li>
+          <li><strong>What are we doing about it?</strong> - the actions already underway, each with an owner and a date.</li>
+          <li><strong>What do we need from you?</strong> - the decisions that require the room above to unblock.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Narrative over dashboards, decisions over updates<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Two failure modes kill a monthly summit. The first is the wall of dashboards - two hundred tiles, no story, leadership left to guess what matters. The second is the update parade - everyone reports that work happened, nobody asks for a decision. A good summit inverts both: a written narrative that argues a position, and an agenda built around the handful of decisions that actually need leadership. The dashboard is the appendix, not the meeting.</p>
+        <ul>
+          <li><strong>Narrative over dashboards</strong> - a story leadership can decide on, with charts as evidence beneath it.</li>
+          <li><strong>Decisions over updates</strong> - the meeting exists to decide, not to inform; informing can be a pre-read.</li>
+          <li><strong>The tree stays underneath</strong> - every claim in the narrative traces to a driver, so it can be challenged with numbers.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Where the weekly evidence pays off<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The reason a good monthly summit feels effortless is that the weekly review already did the work. The driver moves are already named, the segments already found, the actions already owned and dated. The monthly summit is not investigation - it is synthesis. If your monthly meetings feel like archaeology, the problem is upstream: your weekly cadence is not producing the record the monthly needs.</p>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>The pre-read is what makes it fast.</strong> Teams that write a short narrative memo and circulate it before the summit spend the meeting deciding, not presenting. The room reads in silence, then goes straight to the exceptions and the asks. It is the same instinct behind the weekly review - the document does the informing so the meeting can do the deciding.</p>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2: GOVERNANCE AND GOODHART ============ -->
+  <section class="section" id="governance">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers Goodhart's Law, OKRs</span>
+      <h2>Governance, guardrails, and Goodhart <span class="tag concept">8 min live</span></h2>
+    </div>
+    <p class="lede">A metric system is only as trustworthy as its governance. Three habits keep it honest: <strong>one definition per metric</strong> (owned and documented, so nobody argues about what the number means), <strong>guardrail metrics</strong> (so you cannot optimise one number into harming another), and a working respect for <strong>Goodhart's Law</strong> - the moment a measure becomes a target, it stops being a good measure. Metrics get gamed, they go vain, and the defence is designed, not hoped for.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A target metric paired with a guardrail metric that must not be harmed">
+        <style>
+          .grT { font: 800 14px Inter, sans-serif; fill: #FFFFFF; }
+          .grS { font: 400 11px Inter, sans-serif; fill: #FFFFFF; }
+          .grL { font: 700 12px Inter, sans-serif; fill: #16241E; }
+          .grN { font: 600 12px Inter, sans-serif; fill: #431105; }
+          .grLink { font: 700 12px Inter, sans-serif; fill: #431105; }
+        </style>
+        <rect x="40" y="50" width="330" height="96" rx="12" fill="#2F7D5B"/>
+        <text class="grT" x="205" y="86" text-anchor="middle">Target: grow signups</text>
+        <text class="grS" x="205" y="112" text-anchor="middle">the number you are pushing up</text>
+
+        <text class="grLink" x="440" y="94" text-anchor="middle">WITHOUT</text>
+        <text class="grLink" x="440" y="112" text-anchor="middle">harming</text>
+
+        <rect x="510" y="50" width="330" height="96" rx="12" fill="#E4572E"/>
+        <text class="grT" x="675" y="86" text-anchor="middle">Guardrail: activation rate</text>
+        <text class="grS" x="675" y="112" text-anchor="middle">must not fall while signups rise</text>
+
+        <rect x="40" y="186" width="14" height="14" rx="3" fill="#E4572E"/>
+        <text class="grN" x="64" y="198">A target without a guardrail invites gaming: buy junk signups, hit the number, wreck activation.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - every target metric needs a guardrail it is not allowed to harm</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Goodhart's Law, in one sentence<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Goodhart's Law: <strong>when a measure becomes a target, it stops being a good measure.</strong> The instant you tie rewards or pressure to a single number, people optimise the number rather than the thing it was meant to represent - and the two quietly come apart. Push signups as a target and someone buys junk traffic. Push tickets-closed and quality craters. The metric still goes up; the outcome it stood for does not.</p>
+        <ul>
+          <li><strong>Gaming</strong> - the number is hit by shortcuts that do not serve the goal (junk signups, closed-but-unresolved tickets).</li>
+          <li><strong>Vanity</strong> - a number that always goes up and never informs a decision (cumulative totals, raw pageviews).</li>
+          <li><strong>The defence</strong> - pair every target with a guardrail, watch the pair, and rotate what you target as the constraint shifts.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Guardrail metrics, by design<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>A guardrail is a metric you commit not to harm while you push a target. Grow signups <em>without</em> letting activation fall. Cut cost <em>without</em> letting quality drop. Speed up delivery <em>without</em> raising the defect rate. The guardrail is what stops a driver tree from being weaponised - because any single lever can be pushed to an extreme that helps its own number and quietly damages the business. You design the pair before you set the target, not after someone games it.</p>
+        <div class="callout tip">
+          <strong>One definition per metric</strong>
+          Half of all metric fights are definition fights - two teams reporting "active users" and meaning different things. Give every metric one owner and one written definition. A number nobody has defined is a number everyone can argue with, and governance dies there.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Where OKRs fit - and where they bite<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>OKRs connect the metric system to strategy: an objective is the direction, key results are the measurable drivers you will move. The tree and the OKR are the same shape - a top-line ambition broken into levers. But OKRs are exactly where Goodhart bites hardest, because a key result is a metric turned into a target by design. That is why mature OKR practice pairs stretch key results with guardrails ("grow activation to 40% without lifting churn") and treats a gamed key result as a failure even when the number was hit.</p>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>The signups-versus-activation trap is the classic.</strong> A growth team is targeted on signups and hits it by pouring in low-intent traffic. Signups soar, the OKR turns green, and activation quietly collapses because none of the new accounts were real prospects. With activation set as a guardrail from the start, the team would have been forced to grow signups that actually activate - which was the point all along.</p>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 3: SUMMIT DONE RIGHT + WHERE NEXT ============ -->
+  <section class="section" id="done-right">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · the summit done right, and where to go next</span>
+      <h2>The summit done right, then onward <span class="tag concept">6 min live</span></h2>
+    </div>
+    <p class="lede">A monthly summit done right has three features: a <strong>pre-read</strong> so the room arrives informed, an <strong>exceptions-only agenda</strong> so time goes to what moved rather than what did not, and <strong>decisions logged with owners</strong> so nothing dissolves on the way out the door. This is where the metric system connects to strategy and OKRs - and where this course hands you off to the siblings that build the machinery underneath the numbers.</p>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Pre-read, exceptions-only, decisions logged<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Three habits carry most of the value. The <strong>pre-read</strong> - a short narrative circulated ahead - means the meeting starts informed and can go straight to judgement. The <strong>exceptions-only agenda</strong> means you spend the hour on the branches that deviated, not the ones that behaved. And <strong>decisions logged with owners and dates</strong> mean the summit produces commitments, not just conversation. Skip any one and the summit slides back into a status parade.</p>
+        <ul>
+          <li><strong>Pre-read</strong> - the document informs so the meeting can decide.</li>
+          <li><strong>Exceptions only</strong> - on-plan branches get a line; off-plan branches get the room.</li>
+          <li><strong>Decisions logged</strong> - owner and date on every decision, or it did not happen.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Where to go next<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>You now have the leader's half of metric decomposition: read a tree, run the weekly review, run the monthly summit, govern the numbers. The natural next steps build the machinery beneath the numbers you have learned to read.</p>
+        <ul>
+          <li><strong>learn-business-intelligence</strong> - build the dashboards and reports that show these trees on a cadence.</li>
+          <li><strong>learn-data-warehouse</strong> - understand where the numbers under the tree actually come from.</li>
+          <li><strong>learn-strategic-thinking</strong> - connect the metric system to the strategy and OKRs it is meant to serve.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>An honest note on scope.</strong> This course taught you to read and decompose metrics - the thinking, the cadence, the governance. It did not teach you to build the data platform under them: the pipelines, the models, the dashboards. That is a genuine, separate discipline, and it is exactly what the sibling courses above cover. Knowing which half you have is itself a piece of good judgement.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>The whole leader track, in one line<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Six sessions, one arc. You learned what a driver tree is, how to spot leading indicators, how to trace a drop, how the method transfers across six domains, how to run the weekly operational review, and now how to run the monthly strategic summit and govern the system so it stays honest. The builder track (b1-b10) takes the same thinking into hands-on trees, SQL, and a capstone diagnosis - a good next stop if you want to feel the mechanics, not just direct them.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ HOMEWORK ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>Try it yourself - this week <span class="tag exercise">◐ 20-30 min total</span></h2>
+    </div>
+    <ul>
+      <li>Draft the four-question narrative for your unit this month: are we on plan, what moved and why, what are we doing about it, what do we need from leadership. Keep it to one page.</li>
+      <li>Take your most-pushed metric and write its guardrail - the number you are not allowed to harm while you grow it. If you cannot name one, you are inviting a gamed result.</li>
+      <li>Pick one metric your org reports and check it has a single written definition and one owner. Definition fights are governance failures hiding in plain sight.</li>
+      <li>Audit one OKR key result for Goodhart risk: could someone hit the number without serving the goal? If yes, add a guardrail before next quarter.</li>
+      <li>Choose your next course - learn-business-intelligence, learn-data-warehouse, or learn-strategic-thinking - depending on whether your gap is dashboards, data sources, or strategy.</li>
+    </ul>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Framework sources</span>
+      <h2>Frameworks this session draws on</h2>
+    </div>
+    <p class="lede">This closing session leans on the frameworks that keep a metric system honest and connected to strategy. This page draws on:</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Goodhart's Law - when a measure becomes a target it stops being a good measure</span><span class="note">Part 2 · gaming, vanity, and guardrails as the defence</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">OKRs / Measure What Matters (Doerr) - objectives and measurable key results</span><span class="note">Part 2 &amp; 3 · connecting the tree to strategy, pairing key results with guardrails</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Amazon Weekly Business Review - the weekly detail that the monthly rolls up</span><span class="note">Part 1 · the weekly evidence feeding the monthly narrative; full treatment in a5</span></div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">1 · How does the monthly summit differ from the weekly review?</p>
+      <button class="qopt" type="button">A · It walks every driver branch again in more detail</button>
+      <button class="qopt" type="button">B · It rolls the weekly driver detail up into a strategic narrative - on plan, what moved, what we are doing, what we need</button>
+      <button class="qopt" type="button">C · It replaces the weekly review entirely</button>
+      <p class="qwhy">The weekly is operational and driver-level. The monthly synthesises a month of that detail into a decision-grade story for leadership - narrative over dashboards, decisions over updates.</p>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">2 · What does Goodhart's Law warn a leader about?</p>
+      <button class="qopt" type="button">A · That multiplicative trees pass percentages through cleanly</button>
+      <button class="qopt" type="button">B · That lagging metrics report too late</button>
+      <button class="qopt" type="button">C · That when a measure becomes a target, people optimise the number rather than the outcome, and the two come apart</button>
+      <p class="qwhy">Tie pressure to a single number and it gets gamed or goes vain. The defence is designed: pair every target with a guardrail metric it is not allowed to harm.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">3 · You are pushing signups hard as an OKR. What keeps it honest?</p>
+      <button class="qopt" type="button">A · A guardrail metric like activation rate that must not fall while signups rise</button>
+      <button class="qopt" type="button">B · Reporting signups as a cumulative total so it always grows</button>
+      <button class="qopt" type="button">C · Removing the definition so teams can interpret it freely</button>
+      <p class="qwhy">A target without a guardrail invites gaming - buy junk signups, hit the number, wreck activation. Pairing the target with a guardrail forces growth that actually serves the goal.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Leader session 6 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>Monthly summit</b><span>Rolls the weekly driver detail into a strategic narrative. Operational weekly feeds strategic monthly.</span></div>
+      <div class="cheat-item"><b>The four questions</b><span>Are we on plan, what moved and why, what are we doing about it, what do we need from you?</span></div>
+      <div class="cheat-item"><b>Narrative over dashboards</b><span>A story leadership decides on, with charts as evidence beneath it. Decisions over updates.</span></div>
+      <div class="cheat-item"><b>One definition per metric</b><span>Every metric gets one owner and one written definition. Undefined numbers breed endless argument.</span></div>
+      <div class="cheat-item"><b>Guardrail metrics</b><span>Grow signups WITHOUT harming activation. Design the pair before you set the target, not after it is gamed.</span></div>
+      <div class="cheat-item"><b>Goodhart's Law</b><span>When a measure becomes a target it stops being a good measure. Watch for gaming and vanity.</span></div>
+      <div class="cheat-item"><b>Summit done right</b><span>Pre-read so the room arrives informed, exceptions-only agenda, decisions logged with owners and dates.</span></div>
+      <div class="cheat-item"><b>Where next</b><span>learn-business-intelligence (dashboards), learn-data-warehouse (sources), learn-strategic-thinking (strategy).</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Leader session 6 of 6 · learn-metric-decomposition-with-phoebe · by Phoebe Fu &nbsp;·&nbsp; 📚 <a href="https://phoebefu6.github.io/learn-with-phoebe/">Learn with Phoebe ↗</a></span>
+    <span><a href="a5-weekly-business-review.html">← Prev: The weekly business review</a> &nbsp;·&nbsp; <a href="b1-first-driver-tree.html">Continue: Builder track session 1 →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Builder session 9 · B2G deep dive - learn metric decomposition with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-metric-decomposition-with-phoebe</a> / Builder session 9 of 10</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Metric Decomposition with Phoebe · Builder track · Session 9 of 10</div>
+    <h1><span class="accent">B2G</span> deep dive</h1>
+    <p class="sub">Selling to government looks like B2B SaaS with the clock slowed down and a second scoreboard bolted on. The revenue top line is contract bookings - a long-cycle multiplicative tree - but a public-sector program is also judged on a top line that has nothing to do with money: people served, cost per outcome, service levels met. Today you decompose both, learn why pipeline coverage is the only honest leading indicator when deals take quarters, and sit with the tension when bookings hit and outcomes miss.</p>
+    <div class="chip-row">
+      <span class="chip level">🟡 Builder track</span>
+      <span class="chip audience">Analysts · PMs · founders · ops</span>
+      <span class="chip audience">Live tree simulator + SQL</span>
+      <span class="chip time">45 min</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Recap</span>
+      <span class="a2" style="flex:4">3-20 · Two top lines</span>
+      <span class="a3" style="flex:5">20-42 · Diagnose a bookings miss</span>
+      <span class="a4" style="flex:1">42-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Where we are: the last domain</h2>
+    </div>
+    <p class="lede">This is the sixth and final domain deep dive. You have the three patterns (b2), the leading-indicator and diagnosis playbook (b3), and five domains behind you - ecommerce, marketing, branding, internet traffic, and B2B SaaS. B2G reuses the <strong>multiplicative</strong> tree for bookings and adds one idea unique to the public sector: a second, non-revenue top line that can move in the opposite direction from the money. Next is b10, the capstone, where a real metric drops and you diagnose it end to end.</p>
+    <div class="legend">
+      <span class="pill solid">Live - presented in session</span>
+      <span class="pill light">Self-study - read after class</span>
+      <span class="pill peach">▶ Live tree - editable &amp; runnable</span>
+      <span class="pill inkpill">Framework sources covered</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with today</strong>
+      The ability to write government-sector bookings as Qualified pipeline x Win rate x Avg contract value, to steer a long-cycle business by pipeline coverage instead of lagging bookings, and to hold two top lines at once - money and mission - without pretending they are the same number.
+    </div>
+  </section>
+
+  <!-- ============ PART 1: TWO TOP LINES ============ -->
+  <section class="section" id="two-top-lines">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers domain canon, the multiplicative pattern</span>
+      <h2>Two top lines: bookings and outcomes <span class="tag concept">8 min live</span></h2>
+    </div>
+    <p class="lede">A government contractor answers to two scoreboards. The <strong>money top line</strong> is contract bookings: <strong>Bookings = Qualified pipeline x Win rate x Avg contract value</strong> - a familiar multiplicative tree, just with a procurement cycle measured in quarters. The <strong>mission top line</strong> is a program-outcome KPI: people served, cost per outcome, SLA attainment. Both decompose; neither substitutes for the other; and the honest work is refusing to let a good number on one hide a bad number on the other.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Contract bookings decomposed into qualified pipeline, win rate, and average contract value, beside a mission outcome top line">
+        <style>
+          .bgT { font: 800 14px Inter, sans-serif; fill: #FFFFFF; }
+          .bgL { font: 700 12px Inter, sans-serif; fill: #16241E; }
+          .bgV { font: 700 12px Inter, sans-serif; fill: #16241E; }
+          .bgC { font: 400 11px Inter, sans-serif; fill: #566A61; }
+          .bgN { font: 600 12px Inter, sans-serif; fill: #431105; }
+          .bgLine { stroke: #B8DFCD; stroke-width: 2; fill: none; }
+        </style>
+        <rect x="60" y="24" width="200" height="50" rx="10" fill="#2F7D5B"/>
+        <text class="bgT" x="160" y="46" text-anchor="middle">Contract bookings</text>
+        <text class="bgT" x="160" y="64" text-anchor="middle" style="font-size:11px">$2.5M</text>
+        <path class="bgLine" d="M160,74 L160,94 M60,94 L260,94 M60,94 L60,114 M160,94 L160,114 M260,94 L260,114"/>
+        <rect x="10" y="114" width="130" height="58" rx="9" fill="#E9F5EF" stroke="#B8DFCD"/>
+        <text class="bgL" x="75" y="137" text-anchor="middle">Qualified</text>
+        <text class="bgV" x="75" y="155" text-anchor="middle">40 opps</text>
+        <rect x="150" y="114" width="120" height="58" rx="9" fill="#E9F5EF" stroke="#B8DFCD"/>
+        <text class="bgL" x="210" y="137" text-anchor="middle">Win rate</text>
+        <text class="bgV" x="210" y="155" text-anchor="middle">25%</text>
+        <rect x="280" y="114" width="130" height="58" rx="9" fill="#E9F5EF" stroke="#B8DFCD"/>
+        <text class="bgL" x="345" y="137" text-anchor="middle">Avg contract</text>
+        <text class="bgV" x="345" y="155" text-anchor="middle">$250K</text>
+        <text class="bgC" x="145" y="150" text-anchor="middle">x</text>
+        <text class="bgC" x="275" y="150" text-anchor="middle">x</text>
+        <!-- mission top line -->
+        <rect x="560" y="24" width="230" height="50" rx="10" fill="#E4572E"/>
+        <text class="bgT" x="675" y="46" text-anchor="middle">Program outcome</text>
+        <text class="bgT" x="675" y="64" text-anchor="middle" style="font-size:11px">people served · cost/outcome · SLA</text>
+        <rect x="560" y="114" width="230" height="58" rx="9" fill="#E9F5EF" stroke="#B8DFCD"/>
+        <text class="bgL" x="675" y="140" text-anchor="middle">A second, non-revenue scoreboard</text>
+        <text class="bgC" x="675" y="158" text-anchor="middle">can move opposite to bookings</text>
+        <rect x="10" y="252" width="14" height="14" rx="3" fill="#E4572E"/>
+        <text class="bgN" x="34" y="264">40 opps x 25% x $250K = $2.5M bookings. The mission top line is judged separately - and can disagree.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the money top line multiplies out; the mission top line is a separate scoreboard</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>Bookings as a long-cycle multiplicative tree<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The bookings tree is the same shape as the ecommerce GMV tree from b1, but every leaf moves on a government clock. Qualified pipeline is built over months of capture work; win rate turns on a proposal and an evaluation panel; average contract value is set by the scope of a solicitation you often cannot change. A percentage change in any one leaf still passes straight to bookings - the multiplicative rule does not care how slow the cycle is.</p>
+        <div class="treebox" data-caption="40 qualified opportunities x 25% win rate x $250K average contract = $2.5M in bookings.">
+          <pre class="tree-src">{
+  "unit": "$",
+  "root": {
+    "label": "Contract bookings", "op": "x",
+    "children": [
+      { "label": "Qualified pipeline", "value": 40, "unit": "opps" },
+      { "label": "Win rate",           "value": 0.25, "pct": true },
+      { "label": "Avg contract value", "value": 250000, "unit": "$" }
+    ]
+  }
+}</pre>
+        </div>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>The mission top line rarely fits one formula.</strong> "People served" might decompose additively across programs; "cost per outcome" is a ratio (total cost / outcomes delivered); "SLA attainment" is a percentage of tickets met on time. What they share is that none of them is revenue - a contractor can bank the bookings and still fail the citizens the contract exists to serve.</p>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2: PIPELINE COVERAGE ============ -->
+  <section class="section" id="coverage">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers leading vs lagging, Lean Analytics (partial)</span>
+      <h2>Pipeline coverage: the only honest leading indicator <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">In a business where a deal takes three to six quarters, bookings tell you about work you did last year. You cannot steer by them. The leading indicator is <strong>pipeline coverage = qualified pipeline value / bookings target</strong>. If you need $2.5M and you are carrying $7.5M of qualified pipeline, coverage is 3x - comfortable, given government win rates. Watch coverage monthly and you see the shortfall two or three quarters before bookings do.</p>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Leading vs lagging in B2G<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The long cycle sharpens the leading-versus-lagging split more than any other domain. The further left you look, the earlier the warning.</p>
+        <ul>
+          <li><strong>Leading:</strong> pipeline coverage (pipeline / target), number of proposals submitted, capture rate on pursued deals. These move quarters ahead.</li>
+          <li><strong>Lagging:</strong> bookings, obligations (funds actually committed), and program outcomes - all of which close the book on decisions made long ago.</li>
+          <li><strong>The rule:</strong> if coverage slips under about 3x this quarter, next year's bookings are already at risk - and no amount of end-of-year selling can rebuild a pipeline that takes months to qualify.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>Coverage is a ratio, so model the pieces</strong>
+          A driver tree multiplies or sums; it does not divide. To put coverage in a tree, model the numerator - total qualified pipeline summed across stages - and compare it to your target by eye. You will build exactly that in Demo 2.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 3: B2G DROPS + HONESTY ============ -->
+  <section class="section" id="drops">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · covers the diagnosis map, Goodhart (partial)</span>
+      <h2>The B2G-specific drops, and the honesty problem <span class="tag concept">4 min live</span></h2>
+    </div>
+    <p class="lede">Bookings misses in government have their own signatures, and there is one failure mode no other domain has: hitting the money top line while missing the mission one.</p>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Symptom to bookings leaf - plus the mission tension<span class="mini">2 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <ul>
+          <li><strong>A re-compete lost</strong> -&gt; the <em>Win rate</em> leaf drops. An incumbent contract went to a competitor at renewal. Owner: capture and proposal teams.</li>
+          <li><strong>Budget delays</strong> (a continuing resolution, an appropriations slip) -&gt; the <em>Qualified pipeline</em> slips right - deals do not vanish, they move to a later quarter. Owner: capture, and honestly, Congress.</li>
+          <li><strong>Scope cuts</strong> -&gt; the <em>Avg contract value</em> leaf shrinks. The agency de-scoped the solicitation. Owner: the customer, but pricing and solutioning respond.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>Mission versus money</strong>
+          A program can hit bookings while missing outcomes - and Goodhart warns why. Optimize purely for the number you are measured on (bookings) and the number you are not (outcomes) drifts. If a team is rewarded on bookings alone, "people served" quietly slides. The fix is decomposing and watching both top lines, not just the one that pays. On the bookings tree, press Simulate a drop to see which leaf a given miss lands on.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO 1 ============ -->
+  <section class="section" id="demo-1">
+    <div class="section-kicker">
+      <span class="klabel">Demo 1 of 2</span>
+      <h2>Diagnose a bookings shortfall live <span class="tag demo">★ 12 min · everyone builds</span></h2>
+    </div>
+    <p class="lede">Bookings came in under target and leadership wants to know why. You have the tree. Press <strong>Simulate a drop</strong>, read the coral trail, and name it: was this a <em>pipeline</em> problem (too few qualified opportunities), a <em>win-rate</em> problem (you lost the ones you pursued), or an <em>ACV</em> problem (deals got smaller)? Each routes to a different team.</p>
+
+    <div class="treebox" data-caption="Simulate a drop, then say which leaf moved: qualified pipeline, win rate, or average contract value.">
+      <pre class="tree-src">{
+  "unit": "$",
+  "root": {
+    "label": "Contract bookings", "op": "x",
+    "children": [
+      { "label": "Qualified pipeline", "value": 40, "unit": "opps" },
+      { "label": "Win rate",           "value": 0.25, "pct": true },
+      { "label": "Avg contract value", "value": 250000, "unit": "$" }
+    ]
+  }
+}</pre>
+    </div>
+
+    <div class="steps">
+      <div class="step"><p>Read the baseline: 40 qualified opportunities x 25% win rate x $250K = $2.5M in bookings at rest.</p></div>
+      <div class="step"><p>Press <strong>Simulate a drop</strong>. One leaf falls and its path to bookings lights coral. Note which and by how much.</p></div>
+      <div class="step"><p>Name the cause: pipeline down means capture stalled; win rate down means a re-compete or weak proposals; ACV down means scope cuts.</p></div>
+      <div class="step"><p>Now argue the counterfactual: if you had watched pipeline coverage, would this shortfall have surprised you? Almost never - a pipeline or win-rate slide shows in coverage two to three quarters earlier.</p></div>
+    </div>
+
+    <div class="callout example">
+      <span class="ex-pill">Real world</span>
+      <p><strong>Coverage is the warning bookings cannot give.</strong> A capture lead who reviews pipeline coverage every month sees the qualified-pipeline leaf thinning long before it reaches the bookings line. By the time bookings miss, the story is a quarter old. The whole point of the leading indicator is to make the bookings miss boring - because you already knew.</p>
+    </div>
+  </section>
+
+  <!-- ============ DEMO 2 ============ -->
+  <section class="section" id="demo-2">
+    <div class="section-kicker">
+      <span class="klabel">Demo 2 of 2</span>
+      <h2>Your turn <span class="tag demo">★ 10 min · everyone builds</span></h2>
+    </div>
+    <p class="lede">Three tasks: edit the bookings tree, build a small pipeline-coverage tree, then write a judgment call in prose about which top line matters.</p>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Q1 · Drop win rate 5 points, watch bookings<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>On the bookings tree in Demo 1, edit <strong>Win rate from 25% down to 20%</strong> - a five-point drop, the kind a single lost re-compete can cause. Bookings fall from $2.5M to $2.0M, a 20% hit from a five-point move, because 5 points is one-fifth of 25. That is the multiplicative pass-through: a proportional change in one leaf is a proportional change in the top line. Say which team owns win rate and what a five-point recovery would take.</p>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Q2 · Build a pipeline-coverage tree<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Coverage is a ratio, so model the numerator as a tree and read it against the target. Here is qualified pipeline summed across stages - an <strong>additive</strong> tree. Total it, then compare to the $2.5M bookings target to get coverage.</p>
+        <div class="treebox" data-caption="Sum the stages to get total qualified pipeline, then divide by the $2.5M target: 7.5M / 2.5M = 3x coverage.">
+          <pre class="tree-src">{
+  "unit": "$",
+  "root": {
+    "label": "Qualified pipeline", "op": "+",
+    "children": [
+      { "label": "Prospect",    "value": 4000000, "unit": "$" },
+      { "label": "Proposal",    "value": 2500000, "unit": "$" },
+      { "label": "Negotiation", "value": 1000000, "unit": "$" }
+    ]
+  }
+}</pre>
+        </div>
+        <div class="callout tip">
+          <strong>Read the coverage</strong>
+          Total pipeline is $7.5M against a $2.5M target - that is 3x coverage, comfortable for government win rates near 25%. Now edit the Prospect stage down to $1.5M: total falls to $5.0M, coverage drops to 2x, and next year's bookings are already at risk. That is the warning, months early.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Q3 · Bookings on plan, outcomes down - which matters?<span class="mini">3 min think</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Your program hits its bookings target exactly, but the mission top line slides - fewer people served, cost per outcome up, an SLA missed. Which top line matters more, and to whom?</p>
+        <ul>
+          <li><strong>It depends on who is asking, and both are true at once.</strong> To the contractor's finance team and shareholders, bookings are the number that keeps the company solvent. To the agency, the taxpayer, and the citizen the program exists to serve, the mission outcome is the entire point - bookings are just the means.</li>
+          <li><strong>The honest answer refuses the trade.</strong> A program that banks the money and fails the mission is failing, even with green bookings. Sustained outcome misses also cost future bookings: agencies remember, and re-competes are won or lost on past performance.</li>
+          <li><strong>The lesson:</strong> decompose and report both top lines side by side. The moment you optimize only the one that pays, Goodhart takes the other. Mission and money are two scoreboards, and a mature team keeps its eyes on both.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ HOMEWORK ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>Try it yourself - this week <span class="tag exercise">◐ 20-30 min total</span></h2>
+    </div>
+    <ul>
+      <li>Write your (or a public-sector client's) bookings tree: Qualified pipeline x Win rate x Avg contract value. Find the real numbers if you can.</li>
+      <li>Compute pipeline coverage against this year's target. Is it above 3x? If not, this year's bookings are already telling you a story.</li>
+      <li>Name the mission top line the program is actually judged on, and decompose it - additively, as a ratio, or as an attainment percentage.</li>
+      <li>Ask: are bookings and outcomes measured by the same team on the same slide? If not, that is where Goodhart hides.</li>
+      <li>Bring both top lines to b10 - the capstone teaches you to write the one-paragraph narrative that reports them together.</li>
+    </ul>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Framework sources</span>
+      <h2>Frameworks this session draws on</h2>
+    </div>
+    <p class="lede">Public-sector metric practice borrows the multiplicative bookings tree from B2B and adds the mission-versus-money discipline unique to serving citizens. This page draws on:</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Domain canon - contract bookings and pipeline coverage for long-cycle sales</span><span class="note">Parts 1-2 · bookings as a multiplicative tree, coverage as the leading indicator</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Lean Analytics (Croll &amp; Yoskovitz) - the metric that matters for your model</span><span class="note">Part 1 · picking the right top line, and holding a non-revenue one beside it</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Goodhart's Law - when a measure becomes a target</span><span class="note">Part 3 · optimizing bookings alone lets outcomes drift</span></div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">1 · How does the money top line for a government contractor decompose?</p>
+      <button class="qopt" type="button">A · Bookings = Start + New - Churn, a flow bridge</button>
+      <button class="qopt" type="button">B · Bookings = Qualified pipeline x Win rate x Avg contract value, a multiplicative tree</button>
+      <button class="qopt" type="button">C · Bookings = people served / cost per outcome</button>
+      <p class="qwhy">Contract bookings multiply out just like GMV: the count of qualified opportunities times the rate you win them times the average size of a won deal. Long cycle, same pattern.</p>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">2 · In a long-cycle B2G business, what is the honest leading indicator?</p>
+      <button class="qopt" type="button">A · This quarter's bookings</button>
+      <button class="qopt" type="button">B · Program outcomes delivered last year</button>
+      <button class="qopt" type="button">C · Pipeline coverage - qualified pipeline value divided by the bookings target, watched monthly</button>
+      <p class="qwhy">Bookings and outcomes both lag by quarters. Coverage moves first: a thinning pipeline shows two to three quarters before bookings miss, which is the only warning you can actually act on.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">3 · A program hits its bookings target but misses its mission outcomes. What does that tell you?</p>
+      <button class="qopt" type="button">A · The two top lines can move apart - and optimizing only the money one lets outcomes drift (Goodhart)</button>
+      <button class="qopt" type="button">B · Nothing - bookings are the only number that matters</button>
+      <button class="qopt" type="button">C · The bookings tree must be wrong</button>
+      <p class="qwhy">Money and mission are two separate scoreboards. A team rewarded on bookings alone will let the outcome metric slide - the classic Goodhart failure. Mature teams decompose and report both.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Builder session 9 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>Two top lines</b><span>B2G is judged on money (bookings) and mission (outcomes) at once. Decompose both; substitute neither.</span></div>
+      <div class="cheat-item"><b>Bookings tree</b><span>Bookings = Qualified pipeline x Win rate x Avg contract value. A multiplicative tree on a government clock.</span></div>
+      <div class="cheat-item"><b>Mission top line</b><span>People served, cost per outcome, SLA attainment. Not revenue - a program can bank money and fail the mission.</span></div>
+      <div class="cheat-item"><b>Pipeline coverage</b><span>Coverage = pipeline / target. The leading indicator; watch it monthly, keep it above ~3x.</span></div>
+      <div class="cheat-item"><b>Coverage is a ratio</b><span>Trees multiply and sum, never divide. Model the numerator (pipeline summed by stage) and read it against target.</span></div>
+      <div class="cheat-item"><b>Three B2G drops</b><span>Re-compete lost (win rate), budget delay (pipeline slips right), scope cut (ACV shrinks).</span></div>
+      <div class="cheat-item"><b>Mission vs money</b><span>Goodhart: reward bookings alone and outcomes drift. Report both scoreboards side by side.</span></div>
+      <div class="cheat-item"><b>Running skill</b><span>Bookings names the leaf, coverage warns early, both top lines get told. Next: b10, the capstone.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Builder session 9 of 10 · learn-metric-decomposition-with-phoebe · by Phoebe Fu &nbsp;·&nbsp; 📚 <a href="https://phoebefu6.github.io/learn-with-phoebe/">Learn with Phoebe ↗</a></span>
+    <span><a href="b8-b2b-saas-deep-dive.html">← Prev: B2B SaaS deep dive</a> &nbsp;·&nbsp; <a href="b10-capstone.html">Next: Capstone - diagnose the drop →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/metric-seed.js?v=1"></script>
+<script src="../assets/duck-live.js?v=1"></script>
+<script src="../assets/tree-live.js?v=3"></script>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

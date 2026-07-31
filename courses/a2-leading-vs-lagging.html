@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leader session 2 · Leading vs lagging - learn metric decomposition with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-metric-decomposition-with-phoebe</a> / Leader session 2 of 6</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Metric Decomposition with Phoebe · Leader track · Session 2 of 6</div>
+    <h1><span class="accent">Leading</span> vs lagging</h1>
+    <p class="sub">Some metrics tell you where you have been; others tell you where you are going. Revenue and ARR are rear-view mirrors - accurate, board-facing, and far too late to steer by. Sign-ups, pipeline, and traffic are the road ahead - noisier, closer to the team, but they warn you weeks before the outcome does. This session gives you the distinction every leader eventually learns the hard way: you steer by the leading metrics and you report the lagging ones, and confusing the two is how quarters get surprised.</p>
+    <div class="chip-row">
+      <span class="chip level">🔵 Leader track</span>
+      <span class="chip audience">Leaders: CxO · VPs · founders</span>
+      <span class="chip audience">No code - thinking mode</span>
+      <span class="chip time">45 min</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Welcome</span>
+      <span class="a2" style="flex:5">3-20 · The two kinds</span>
+      <span class="a3" style="flex:6">20-42 · Steer vs report</span>
+      <span class="a4" style="flex:1">42-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Where this sits</h2>
+    </div>
+    <p class="lede">Session a1 gave you the driver-tree mindset: a top-line number is a lagging outcome, and behind it sits a tree of levers. Today we sort those levers by <em>when</em> they move. A metric near the root moves late and reports the score; a metric near the leaves moves early and warns you it is coming. Get this right and your operating reviews change character - you stop reacting to last quarter and start steering the next one. Get it wrong and you are always managing by the rear-view mirror.</p>
+    <div class="legend">
+      <span class="pill solid">Live - presented in session</span>
+      <span class="pill light">Self-study - read after class</span>
+      <span class="pill inkpill">Framework sources covered</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with today</strong>
+      A clean split between leading and lagging indicators, the rule that you steer by leading and report by lagging, and the two-part test for a leading metric worth watching - it must be both predictive of the outcome and controllable by a team. A leading metric that fails either test is decoration.
+    </div>
+  </section>
+
+  <!-- ============ PART 1: THE TWO KINDS ============ -->
+  <section class="section" id="two-kinds">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers Amplitude North Star Playbook</span>
+      <h2>The two kinds of indicator <span class="tag concept">8 min live</span></h2>
+    </div>
+    <p class="lede">A <strong>lagging</strong> indicator is an outcome - revenue, ARR, market share. It moves late, it is what the board sees, and by the time it has moved the cause is weeks in the past. A <strong>leading</strong> indicator is an input - sign-ups, pipeline created, traffic, trials started. It moves early, it is what a team works on day to day, and it warns you that the outcome is about to move. The Amplitude North Star framing puts one lagging output at the top and a handful of leading inputs beneath it, on exactly this logic: inputs move first.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A timeline where the leading metric drops in week 3 and the lagging metric follows in week 6">
+        <style>
+          .a2tlAx { stroke: #DCEAE2; stroke-width: 2; }
+          .a2tlGrid { stroke: #DCEAE2; stroke-width: 1; stroke-dasharray: 3 4; }
+          .a2tlLead { stroke: #E4572E; stroke-width: 3; fill: none; }
+          .a2tlLag { stroke: #2F7D5B; stroke-width: 3; fill: none; }
+          .a2tlMark { stroke: #566A61; stroke-width: 1.5; stroke-dasharray: 4 4; }
+          .a2tlL { font: 700 12px Inter, sans-serif; fill: #16241E; }
+          .a2tlC { font: 400 11px Inter, sans-serif; fill: #566A61; }
+          .a2tlLd { font: 700 11px Inter, sans-serif; fill: #E4572E; }
+          .a2tlLg { font: 700 11px Inter, sans-serif; fill: #2F7D5B; }
+          .a2tlN { font: 600 12.5px Inter, sans-serif; fill: #431105; }
+        </style>
+        <line class="a2tlAx" x1="80" y1="250" x2="820" y2="250"/>
+        <line class="a2tlAx" x1="80" y1="60" x2="80" y2="250"/>
+        <line class="a2tlMark" x1="370" y1="60" x2="370" y2="250"/>
+        <line class="a2tlMark" x1="640" y1="60" x2="640" y2="250"/>
+
+        <polyline class="a2tlLead" points="100,92 190,92 280,96 370,150 460,196 550,202 640,206 730,208 820,208"/>
+        <polyline class="a2tlLag" points="100,116 190,116 280,118 370,120 460,124 550,128 640,186 730,222 820,226"/>
+
+        <text class="a2tlLd" x="150" y="82">Leading: sign-ups</text>
+        <text class="a2tlLg" x="150" y="240">Lagging: revenue</text>
+        <text class="a2tlL" x="370" y="52" text-anchor="middle">week 3</text>
+        <text class="a2tlL" x="640" y="52" text-anchor="middle">week 6</text>
+        <text class="a2tlLd" x="370" y="272" text-anchor="middle">leading warns here</text>
+        <text class="a2tlLg" x="640" y="272" text-anchor="middle">lagging confirms here</text>
+        <text class="a2tlC" x="505" y="292" text-anchor="middle">3 weeks of lead time</text>
+
+        <rect x="80" y="298" width="14" height="14" rx="3" fill="#E4572E"/>
+        <text class="a2tlN" x="104" y="310">Leading moves first; lagging confirms weeks later. That gap is your warning.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the leading metric turns in week 3, the lagging one not until week 6</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>The rear-view mirror and the road ahead<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Lagging metrics are honest but late. By the time revenue confirms a problem, the sign-ups that would have become that revenue stopped weeks ago - so the confirmation arrives exactly when it is least useful. Leading metrics are the opposite: earlier, noisier, and steerable. The North Star Playbook is built on this: choose one lagging output that captures the value you deliver, then a small set of leading inputs that a team can push and that reliably pull the output along behind them.</p>
+        <ul>
+          <li><strong>Lagging = outcome.</strong> Revenue, ARR, market share, retention. Late, board-facing, slow to move.</li>
+          <li><strong>Leading = input.</strong> Sign-ups, pipeline, traffic, trials. Early, team-facing, quick to move and quick to warn.</li>
+          <li><strong>Same tree, sorted by time.</strong> Roots lag, leaves lead. The distinction is not a new tree - it is reading the one you have by when each level moves.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>The team that only watched revenue.</strong> A sales org reviewed one number every week: closed revenue. It looked fine right up until it did not, and then every quarter ended in the same surprise. The fix was not more discipline on revenue - it was watching pipeline created and stage-conversion, the leading inputs that had been quietly sliding for six weeks before revenue ever flinched. They had been reading the scoreboard and calling it forecasting.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>North Star output and its inputs<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Amplitude's framing is worth internalising. The North Star is a single lagging output metric that expresses the value customers get - not revenue directly, but the thing that produces it (for a marketplace, say, weekly transacting users). Beneath it sit three to five input metrics that teams can move, chosen because moving them reliably moves the North Star. The output keeps everyone aligned on the same destination; the inputs are where the work actually happens.</p>
+        <ul>
+          <li><strong>One output.</strong> Lagging, singular, the shared destination. Too many North Stars and you have none.</li>
+          <li><strong>A few inputs.</strong> Leading, controllable, each owned. The inputs are the steering wheel.</li>
+          <li><strong>The link must be real.</strong> An input earns its place only if moving it actually moves the output.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2: STEER VS REPORT ============ -->
+  <section class="section" id="steer-report">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers Amplitude North Star, Lean Analytics</span>
+      <h2>Steer by leading, report by lagging <span class="tag concept">7 min live</span></h2>
+    </div>
+    <p class="lede">Here is the rule that reorganises how you run a team: <strong>you manage the leaves and you report the root</strong>. The deeper into the tree a metric sits, the earlier it warns - so operating conversations should live near the leaves, where you can still change the outcome, while the board conversation lives at the root, where you account for it. A leading metric only earns that role if it is both <strong>predictive</strong> (it actually forecasts the outcome) and <strong>controllable</strong> (a team can move it). Miss either and it is just noise on a chart.</p>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>The predictive-and-controllable test<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>A leading metric that is predictive but not controllable - like a macro index that forecasts your demand but that you cannot touch - is useful context, not a lever. A metric that is controllable but not predictive - one a team can move all day without the outcome ever budging - is a vanity dial, and worse, an invitation to game. A metric worth steering by has to be both: pull it, and the outcome reliably follows. That double test is what separates a real leading indicator from a number that merely looks busy.</p>
+        <ul>
+          <li><strong>Predictive:</strong> when this moves, the outcome moves after it, reliably enough to trust.</li>
+          <li><strong>Controllable:</strong> a named team can actually move it with the work they do.</li>
+          <li><strong>Both, or it is out.</strong> Predictive-only is context; controllable-only is theatre. Steer only by metrics that pass both.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>Steer near the leaves</strong>
+          If your weekly review only looks at the root, you are always one step too late to change it. Push the conversation down the tree to the leading leaves - that is the only place the outcome is still in play.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Manage the leaves, report the root<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>This is why the two audiences of a metric tree are different. Teams live at the leaves: they have weekly targets on pipeline, traffic, activation - the inputs they can push this week. The board lives at the root: it wants the outcome, the trend, the story. A well-run company does not show the board a wall of leading inputs, and it does not ask a team to steer by a lagging outcome it can only influence indirectly. Match the metric to the altitude of the person reading it.</p>
+        <ul>
+          <li><strong>Team review:</strong> leading inputs, weekly, with owners and targets.</li>
+          <li><strong>Board review:</strong> lagging outcome, the trend and the narrative behind it.</li>
+          <li><strong>The bridge:</strong> the tree, which shows how the leaves the team pulls become the root the board reads.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Deeper leaves warn earlier<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>A subtle payoff of decomposition: the further down the tree you push, the earlier the signal. GMV lags. Traffic leads GMV. And "ad impressions" or "email sign-ups" lead traffic. Each level down buys you a little more warning time, because it sits earlier in the chain of cause. That is the real reason to decompose past the obvious - not for tidiness, but because the deep leaves are your earliest alarms. Push the tree until the leaves warn you soon enough to act.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 3: CHOOSING LEADING METRICS ============ -->
+  <section class="section" id="choosing">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · covers metric-selection discipline</span>
+      <h2>Choosing your leading metrics <span class="tag concept">7 min live</span></h2>
+    </div>
+    <p class="lede">Not every early number is a good leading metric. The ones worth putting on the wall clear four bars: they are <strong>predictive</strong> of the outcome, they arrive <strong>early</strong> enough to act on, they are <strong>controllable</strong> by a team, and they are <strong>owned</strong> by a named person. The most common trap is the fourth crossed with the third: a leading metric that looks great on a slide but that nobody can actually influence. That is a weather report, not a steering wheel.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A checklist strip: a good leading metric is predictive, early, controllable, and owned">
+        <style>
+          .a2ckBox { fill: #E9F5EF; stroke: #B8DFCD; }
+          .a2ckDot { fill: #2F7D5B; }
+          .a2ckT { font: 800 14px Inter, sans-serif; fill: #16241E; }
+          .a2ckC { font: 400 11px Inter, sans-serif; fill: #566A61; }
+          .a2ckMk { font: 800 13px Inter, sans-serif; fill: #FFFFFF; }
+          .a2ckN { font: 600 12.5px Inter, sans-serif; fill: #431105; }
+        </style>
+        <rect class="a2ckBox" x="30" y="24" width="190" height="96" rx="12"/>
+        <circle class="a2ckDot" cx="58" cy="52" r="13"/>
+        <text class="a2ckMk" x="58" y="57" text-anchor="middle">✓</text>
+        <text class="a2ckT" x="82" y="57">Predictive</text>
+        <text class="a2ckC" x="50" y="88">it forecasts the</text>
+        <text class="a2ckC" x="50" y="104">outcome ahead</text>
+
+        <rect class="a2ckBox" x="240" y="24" width="190" height="96" rx="12"/>
+        <circle class="a2ckDot" cx="268" cy="52" r="13"/>
+        <text class="a2ckMk" x="268" y="57" text-anchor="middle">✓</text>
+        <text class="a2ckT" x="292" y="57">Early</text>
+        <text class="a2ckC" x="260" y="88">it moves in time</text>
+        <text class="a2ckC" x="260" y="104">to still act on</text>
+
+        <rect class="a2ckBox" x="450" y="24" width="190" height="96" rx="12"/>
+        <circle class="a2ckDot" cx="478" cy="52" r="13"/>
+        <text class="a2ckMk" x="478" y="57" text-anchor="middle">✓</text>
+        <text class="a2ckT" x="502" y="57">Controllable</text>
+        <text class="a2ckC" x="470" y="88">a team can</text>
+        <text class="a2ckC" x="470" y="104">actually move it</text>
+
+        <rect class="a2ckBox" x="660" y="24" width="190" height="96" rx="12"/>
+        <circle class="a2ckDot" cx="688" cy="52" r="13"/>
+        <text class="a2ckMk" x="688" y="57" text-anchor="middle">✓</text>
+        <text class="a2ckT" x="712" y="57">Owned</text>
+        <text class="a2ckC" x="680" y="88">a named person</text>
+        <text class="a2ckC" x="680" y="104">watches it</text>
+
+        <rect x="30" y="160" width="14" height="14" rx="3" fill="#E4572E"/>
+        <text class="a2ckN" x="54" y="172">A leading metric you cannot move is not a signal - it is just noise.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - four bars a leading metric must clear before it earns a place on the wall</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Lead time, correlation, and can-we-move-it<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Three practical questions pick your leading metrics. First, lead time: how far ahead of the outcome does it move? A signal that arrives one day early is barely worth watching. Second, correlation: when it moved in the past, did the outcome reliably follow? A leading metric with no track record is a guess. Third, and most often skipped, can we move it: is there a team with a real lever on it? The trap is a metric that scores well on the first two and fails the third - fascinating to watch, impossible to act on.</p>
+        <ul>
+          <li><strong>Lead time:</strong> enough runway to change the outcome, not just to brace for it.</li>
+          <li><strong>Correlation to the outcome:</strong> a real, repeated link, not a one-off coincidence.</li>
+          <li><strong>Can we move it:</strong> a named owner with an actual lever - otherwise it is a barometer, not a control.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>The beautiful metric nobody could touch.</strong> A leadership team fell in love with a leading index that predicted demand weeks ahead - and spent two quarters reporting it before someone asked the obvious question: what do we do when it drops? Nothing, it turned out. No team owned a lever on it. It was an accurate weather forecast for a business with no roof to fix. They kept it as context and went back to the inputs they could actually pull.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>The trap of the uncontrollable leader<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>It is worth naming why the uncontrollable leading metric is so seductive. It is often the most predictive number you have, which makes it feel like the most important. But importance for a leader is predictive-times-controllable, not predictive alone. A metric you cannot move belongs in the context section of the review, next to the macro climate and the competitor news - useful to know, never something to steer by. Keep your steering metrics to the ones a team can actually turn.</p>
+        <ul>
+          <li><strong>Predictive but uncontrollable:</strong> context. Watch it, plan around it, do not steer by it.</li>
+          <li><strong>Controllable but not predictive:</strong> vanity, and a gaming risk. Retire it.</li>
+          <li><strong>Both:</strong> a steering metric. These, and only these, belong on the team's weekly wall.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ HOMEWORK ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Take it to your team</span>
+      <h2>Five things to raise this week <span class="tag exercise">◐ discussion prompts</span></h2>
+    </div>
+    <ul>
+      <li>Take the top-line tree from a1 and label every lever leading or lagging. How far up the tree do you have to go before a metric stops warning you and starts just keeping score?</li>
+      <li>Look at what your team reviews weekly. Is it leading inputs you can still act on, or a lagging outcome you can only report? If it is the latter, you are managing by rear-view mirror.</li>
+      <li>Pick your single most-watched leading metric. Does it pass both tests - predictive of the outcome and controllable by a team? If it fails either, ask why it is still on the wall.</li>
+      <li>Find a number your leadership loves that nobody can actually move. Decide honestly whether it belongs in "steering" or "context" - most such numbers are context wearing a steering badge.</li>
+      <li>Bring one drop to a3. We will walk the diagnosis together - is it real, which branch moved, which segment inside it, and against what baseline.</li>
+    </ul>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Framework sources</span>
+      <h2>Frameworks this session draws on</h2>
+    </div>
+    <p class="lede">Metric decomposition has no single certificate - it is a craft distilled from a handful of durable frameworks. This leader track teaches the thinking core of these, applied to the decisions you make. This page draws on:</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Amplitude North Star Playbook - one lagging output, a few leading inputs</span><span class="note">Parts 1-3 · steer by leading inputs, report the lagging output</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Lean Analytics (Croll &amp; Yoskovitz) - the one metric that matters</span><span class="note">Part 2 · the root as the shared destination, inputs as the work</span></div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">1 · What is the defining difference between a leading and a lagging indicator?</p>
+      <button class="qopt" type="button">A · Leading metrics are more accurate than lagging ones</button>
+      <button class="qopt" type="button">B · Leading indicators (inputs) move early and warn ahead; lagging indicators (outcomes) move late and report the score</button>
+      <button class="qopt" type="button">C · Lagging metrics are for teams, leading metrics are for the board</button>
+      <p class="qwhy">Leading inputs like sign-ups and pipeline move first and give you warning; lagging outcomes like revenue confirm the result weeks later. The gap between them is your window to act.</p>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">2 · What is the rule for using the two kinds of metric?</p>
+      <button class="qopt" type="button">A · Steer by lagging, report by leading</button>
+      <button class="qopt" type="button">B · Only ever watch the lagging outcome</button>
+      <button class="qopt" type="button">C · Steer by leading (manage the leaves), report by lagging (account for the root)</button>
+      <p class="qwhy">Operating conversations live near the leaves, where you can still change the outcome. The board conversation lives at the root. Manage the leaves, report the root.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">3 · A leading metric must pass which two tests to be worth steering by?</p>
+      <button class="qopt" type="button">A · Predictive of the outcome AND controllable by a team</button>
+      <button class="qopt" type="button">B · Cheap to collect AND easy to chart</button>
+      <button class="qopt" type="button">C · Board-approved AND quarterly</button>
+      <p class="qwhy">Predictive-only is context you cannot act on; controllable-only is a vanity dial that invites gaming. A steering metric has to be both - pull it and the outcome reliably follows.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Leader session 2 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>Lagging indicator</b><span>An outcome - revenue, ARR, market share. Moves late, board-facing, the score after the game.</span></div>
+      <div class="cheat-item"><b>Leading indicator</b><span>An input - sign-ups, pipeline, traffic, trials. Moves early, team-facing, warns before the outcome does.</span></div>
+      <div class="cheat-item"><b>Steer vs report</b><span>Manage the leaves (leading inputs you can still change), report the root (lagging outcome). Match metric to altitude.</span></div>
+      <div class="cheat-item"><b>Deeper leaves warn earlier</b><span>Each level down the tree sits earlier in the chain of cause, so it gives more warning time. Push the tree until leaves alarm in time to act.</span></div>
+      <div class="cheat-item"><b>The two-part test</b><span>A steering metric must be predictive (forecasts the outcome) AND controllable (a team can move it). Both, or it is out.</span></div>
+      <div class="cheat-item"><b>Predictive-only = context</b><span>An accurate metric nobody can move belongs next to the macro climate. Watch it, plan around it, never steer by it.</span></div>
+      <div class="cheat-item"><b>North Star shape</b><span>One lagging output that captures value, a few leading inputs teams push. The link input-to-output must be real.</span></div>
+      <div class="cheat-item"><b>Running skill</b><span>Sort every lever by when it moves. Steer by leading, report by lagging. Next: a3, reading a real drop.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Leader session 2 of 6 · learn-metric-decomposition-with-phoebe · by Phoebe Fu &nbsp;·&nbsp; 📚 <a href="https://phoebefu6.github.io/learn-with-phoebe/">Learn with Phoebe ↗</a></span>
+    <span><a href="a1-why-a-number-needs-a-tree.html">← Prev: Why a number needs a tree</a> &nbsp;·&nbsp; <a href="a3-decompose-and-read-a-drop.html">Next: Decompose and read a drop →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

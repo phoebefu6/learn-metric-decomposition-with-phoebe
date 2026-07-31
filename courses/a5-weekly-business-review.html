@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leader session 5 · The weekly business performance review - learn metric decomposition with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-metric-decomposition-with-phoebe</a> / Leader session 5 of 6</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Metric Decomposition with Phoebe · Leader track · Session 5 of 6</div>
+    <h1>The weekly <span class="accent">business review</span></h1>
+    <p class="sub">A driver tree on a wall is a diagram. A driver tree walked every single week, by name, with an owner speaking to each branch, is a management system. This session is about the ritual that turns decomposition into a habit: the weekly business review. It is unglamorous, it is repetitive, and it is the single practice that separates teams who catch problems in week one from teams who explain them to the board in month three.</p>
+    <div class="chip-row">
+      <span class="chip level">🔵 Leader track</span>
+      <span class="chip audience">Leaders: CxO · VPs · founders</span>
+      <span class="chip audience">No code - thinking mode</span>
+      <span class="chip time">45 min</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Welcome</span>
+      <span class="a2" style="flex:5">3-22 · What a WBR is</span>
+      <span class="a3" style="flex:5">22-42 · Running it with trees</span>
+      <span class="a4" style="flex:1">42-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Why a weekly cadence beats heroics</h2>
+    </div>
+    <p class="lede">Most organisations run on heroics: a metric slips quietly for two months, nobody notices, and then a scramble erupts when the quarter closes short. The weekly business review replaces the scramble with a boring, reliable rhythm. Every week the team walks the same metric trees, each owner narrates the branch that moved, and small deviations get caught while they are still small. This is the discipline behind Amazon's famous operating cadence, and it works because a problem the size of a pebble in week one is far cheaper to fix than the boulder it becomes by quarter-end.</p>
+    <div class="legend">
+      <span class="pill solid">Live - presented in session</span>
+      <span class="pill light">Self-study - read after class</span>
+      <span class="pill inkpill">Framework sources covered</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with today</strong>
+      A clear picture of what a weekly business review actually is, the four questions every owner answers when their branch moves, the anti-patterns that turn a review into theatre, and the reason weekly cadence catches disasters that a monthly one never sees coming.
+    </div>
+  </section>
+
+  <!-- ============ PART 1: WHAT A WBR IS ============ -->
+  <section class="section" id="what-wbr">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers the Amazon Weekly Business Review</span>
+      <h2>The weekly business review, defined <span class="tag concept">9 min live</span></h2>
+    </div>
+    <p class="lede">A weekly business review is a <strong>standing meeting that walks the metric trees every week</strong>. Not a status update, not a slide parade - a disciplined read of the same numbers, in the same order, on a fixed cadence. The data is shown <strong>trailing-twelve-weeks</strong> and <strong>year-over-year</strong> so a move is always seen against its own history and its own seasonality. And every branch has an <strong>owner who narrates it</strong> - not the leader guessing, the owner explaining what moved and why.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Weekly business review flow from dashboard to owner narration to decision">
+        <style>
+          .wfT { font: 800 14px Inter, sans-serif; fill: #FFFFFF; }
+          .wfS { font: 400 11px Inter, sans-serif; fill: #E9F5EF; }
+          .wfL { font: 700 12px Inter, sans-serif; fill: #16241E; }
+          .wfSub { font: 400 10.5px Inter, sans-serif; fill: #566A61; }
+          .wfN { font: 600 12px Inter, sans-serif; fill: #431105; }
+          .wfArrow { stroke: #4FA37E; stroke-width: 3; fill: none; }
+        </style>
+        <rect x="30" y="50" width="230" height="90" rx="12" fill="#2F7D5B"/>
+        <text class="wfT" x="145" y="88" text-anchor="middle">1 · The dashboard</text>
+        <text class="wfS" x="145" y="110" text-anchor="middle">trees, trailing 12 wks + YoY</text>
+
+        <path class="wfArrow" d="M262,95 L318,95" marker-end="url(#wfHead)"/>
+
+        <rect x="325" y="50" width="230" height="90" rx="12" fill="#4FA37E"/>
+        <text class="wfT" x="440" y="82" text-anchor="middle">2 · Owner narrates</text>
+        <text class="wfS" x="440" y="104" text-anchor="middle">the branch that moved,</text>
+        <text class="wfS" x="440" y="120" text-anchor="middle">by name, versus baseline</text>
+
+        <path class="wfArrow" d="M557,95 L613,95" marker-end="url(#wfHead)"/>
+
+        <rect x="620" y="50" width="230" height="90" rx="12" fill="#E4572E"/>
+        <text class="wfT" x="735" y="82" text-anchor="middle">3 · Decision / action</text>
+        <text class="wfS" x="735" y="104" text-anchor="middle">with an owner and a date,</text>
+        <text class="wfS" x="735" y="120" text-anchor="middle">logged before you leave</text>
+
+        <rect x="30" y="188" width="14" height="14" rx="3" fill="#E4572E"/>
+        <text class="wfN" x="54" y="200">Same trees, same order, every week. The cadence is the product - not any single meeting.</text>
+
+        <defs>
+          <marker id="wfHead" markerWidth="9" markerHeight="9" refX="6" refY="4.5" orient="auto">
+            <path d="M0,0 L9,4.5 L0,9 Z" fill="#4FA37E"/>
+          </marker>
+        </defs>
+      </svg>
+      <figcaption>🔍 Click to zoom - dashboard to owner narration to a logged decision, every week</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>Trailing-twelve-weeks and year-over-year, always<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>A single week's number tells you almost nothing - it could be noise, a holiday, a one-off. The review always shows a metric two ways: <strong>trailing-twelve-weeks</strong> so you see the recent trend, and <strong>year-over-year</strong> so you see it against the same week last year and strip out seasonality. A number that looks alarming in isolation often looks perfectly normal against last December. Context is not a nicety here; it is what makes the read trustworthy.</p>
+        <ul>
+          <li><strong>Trailing 12 weeks</strong> shows the shape of the recent trend, not a single dot.</li>
+          <li><strong>Year-over-year</strong> controls for seasonality - retail in December, B2B in summer.</li>
+          <li><strong>Both together</strong> let you separate a real deviation from a predictable rhythm before anyone panics.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Owners narrate their own branch<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The most important rule of a weekly review is that the person who owns a branch speaks to it. The leader does not narrate; the leader listens and asks. When conversion moved, the product owner explains it. When churn moved, the retention owner explains it. This does two things: it puts the explanation in the hands of the person closest to the number, and it makes ownership real - you cannot own a driver you never have to explain.</p>
+        <ul>
+          <li><strong>Every branch has one owner</strong> who narrates when it moves.</li>
+          <li><strong>Silence on a moved branch is a finding</strong> - it means the driver is unowned or unwatched.</li>
+          <li><strong>The leader's job is the question</strong>, not the answer - which driver, which segment, versus what baseline.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Where the WBR came from<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Amazon made the weekly business review famous: a metrics-first meeting where the deck is mostly charts, the tone is direct, and the discussion follows the numbers rather than a narrative someone wanted to tell. The genius is not the format, it is the frequency. By reading the trees every week against trailing and year-over-year context, deviations surface while they are cheap. Many operating companies have since adopted the rhythm because it converts metric decomposition from a one-time diagram into a living habit.</p>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>The cadence is the product.</strong> No single weekly review changes a business. What changes it is fifty of them in a row - the compounding of small corrections, each one catching a pebble before it becomes a boulder. Leaders who skip the review "because nothing changed this week" are the ones surprised by the quarter.</p>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2: RUNNING IT WELL ============ -->
+  <section class="section" id="running-it">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers running the review with trees</span>
+      <h2>How to run one well <span class="tag concept">8 min live</span></h2>
+    </div>
+    <p class="lede">A weekly review is easy to run badly. The difference between a sharp one and a waste of an hour comes down to a handful of habits: lead with the tree, not the slide; give every metric an owner who speaks to it; ask the same three-part question every time; separate signal from noise; and end every deviation with an action that has an owner and a date. Get those right and the review pays for itself in the first caught problem.</p>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Lead with the tree, not the slide<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The slide tells the story someone wanted to tell. The tree shows the story the numbers are actually telling. Start from the top-line metric, walk down the branch that moved, and let the tree route the conversation - not a pre-written narrative. When a metric moves, ask the same three-part question every single time: <strong>which driver, which segment, versus what baseline?</strong> That question is the whole method, applied out loud.</p>
+        <ul>
+          <li><strong>Which driver</strong> - use the tree to name the lever that moved.</li>
+          <li><strong>Which segment</strong> - split that driver to find where: which channel, region, cohort.</li>
+          <li><strong>Versus what baseline</strong> - is this a real deviation from trend and seasonality, or noise?</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Separate signal from noise<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Not every wiggle deserves a discussion. A metric that bounces inside its normal range is noise; a metric that steps outside it is signal. Good reviews use simple control limits and known seasonality to decide which is which, so the hour is spent on the two branches that genuinely moved rather than the twenty that jiggled. Chasing noise is as costly as missing signal - it trains the room to ignore the dashboard.</p>
+        <div class="callout tip">
+          <strong>The discipline</strong>
+          Every deviation you decide to act on gets an action with a named owner and a date, logged before the meeting ends. "We should look into that" with no owner and no date is not an action - it is how a problem survives to the next review unchanged.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>The four anti-patterns<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Most failed reviews fail the same four ways. Name them out loud in your own review and they lose their grip.</p>
+        <ul>
+          <li><strong>Status theatre</strong> - everyone reports that things are fine, nobody reads the tree, the hour produces no decision.</li>
+          <li><strong>No baselines</strong> - numbers shown as single dots with no trailing trend or year-over-year, so nobody can tell signal from noise.</li>
+          <li><strong>No owner</strong> - a branch moves and the room looks around; if nobody speaks, nobody owns it.</li>
+          <li><strong>Admiring the problem</strong> - twenty minutes discussing why a metric is down and zero minutes deciding what to do, with whom, by when.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>A churn spike caught six weeks early.</strong> A SaaS operator ran a weekly review where net revenue retention was on the wall every Monday. One week the expansion branch softened and gross churn ticked up - small, but outside the normal band. The retention owner narrated it, they segmented to one at-risk customer cohort, and shipped a fix. By the time that cohort would have hit the quarterly board number, the spike was already flat. A monthly-only cadence would have shown the board the crater, not the crack.</p>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 3: WEEKLY VS MONTHLY ============ -->
+  <section class="section" id="weekly-vs-monthly">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · sets up the monthly summit (a6)</span>
+      <h2>Weekly is operational, monthly is strategic <span class="tag concept">6 min live</span></h2>
+    </div>
+    <p class="lede">The weekly review is not the only cadence you need - it is the operational one. It works at the <strong>driver level</strong>, catches deviations fast, and drives quick corrections. The monthly leadership review, which we cover in a6, works at a higher altitude: it rolls the weekly driver detail up into a <strong>strategic narrative</strong> for leadership. Two cadences, two jobs. Confuse them and you either drown the board in driver noise or leave the operators without fast feedback.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Weekly versus monthly cadence, operational versus strategic">
+        <style>
+          .cdT { font: 800 14px Inter, sans-serif; fill: #FFFFFF; }
+          .cdL { font: 700 12px Inter, sans-serif; fill: #16241E; }
+          .cdO { font: 400 11px Inter, sans-serif; fill: #566A61; }
+          .cdN { font: 600 12px Inter, sans-serif; fill: #431105; }
+        </style>
+        <rect x="30" y="40" width="390" height="120" rx="12" fill="#2F7D5B"/>
+        <text class="cdT" x="225" y="72" text-anchor="middle">Weekly review</text>
+        <text class="cdL" x="225" y="100" text-anchor="middle" style="fill:#FFFFFF">Operational · driver level</text>
+        <text class="cdO" x="225" y="124" text-anchor="middle" style="fill:#E9F5EF">Fast correction · owners narrate branches</text>
+        <text class="cdO" x="225" y="142" text-anchor="middle" style="fill:#E9F5EF">Catches small deviations early</text>
+
+        <rect x="460" y="40" width="390" height="120" rx="12" fill="#1E5240"/>
+        <text class="cdT" x="655" y="72" text-anchor="middle">Monthly summit</text>
+        <text class="cdL" x="655" y="100" text-anchor="middle" style="fill:#FFFFFF">Strategic · roll-up</text>
+        <text class="cdO" x="655" y="124" text-anchor="middle" style="fill:#B8DFCD">Narrative for leadership · on plan or not</text>
+        <text class="cdO" x="655" y="142" text-anchor="middle" style="fill:#B8DFCD">Decisions that need the room above</text>
+
+        <rect x="30" y="184" width="14" height="14" rx="3" fill="#E4572E"/>
+        <text class="cdN" x="54" y="196">Weekly feeds monthly: the driver detail rolls up into the strategic story. Full treatment in a6.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - weekly drives correction, monthly drives narrative</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>The weekly feeds the monthly<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>These two cadences are not competitors - they are a pipeline. The weekly review generates a running record of what moved, what was decided, and what is still open. The monthly summit consumes that record and rolls it up: instead of re-litigating every driver, it tells leadership the strategic story - are we on plan, what moved and why, what we are doing about it. If the weekly is done well, the monthly writes itself.</p>
+        <ul>
+          <li><strong>Weekly</strong> - driver-level, operational, fast; catch and correct deviations.</li>
+          <li><strong>Monthly</strong> - top-line, strategic, narrative; roll the weekly detail into a decision-grade story.</li>
+          <li><strong>The handoff</strong> - a clean weekly cadence is the raw material for a sharp monthly summit. Skip the weekly and the monthly becomes archaeology.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Match the cadence to the metric's speed<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>A useful rule: review a metric on the cadence at which it can actually move and be acted on. Fast, driver-level leaves - traffic, add-to-cart, pipeline coverage - reward a weekly look because you can act on them within days. Slow, strategic roots - market share, ARR trajectory, program outcomes - suit a monthly altitude because a weekly wiggle is mostly noise. Watching a slow metric weekly breeds panic; watching a fast one monthly breeds blindness.</p>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>The two cadences protect each other.</strong> The weekly keeps the monthly honest - leadership cannot be told a rosy story when the weekly record shows a driver slipping for six weeks. And the monthly keeps the weekly aimed - it reminds the operators which of the fifty small corrections actually served the strategy. a6 is where we run the monthly summit end to end.</p>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ HOMEWORK ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>Try it yourself - this week <span class="tag exercise">◐ 20-30 min total</span></h2>
+    </div>
+    <ul>
+      <li>Look at your team's current weekly meeting. Ask honestly: does it walk the metric tree, or does it walk a slide deck? If it is slides, you have found your first change.</li>
+      <li>Pick your top-line metric and check whether it is shown trailing-twelve-weeks and year-over-year. If it is a single number with no history, it cannot be read as signal or noise.</li>
+      <li>For each of your top three drivers, write the owner's name. In the next review, make the owner - not you - narrate any branch that moved.</li>
+      <li>Score your last review against the four anti-patterns: status theatre, no baselines, no owner, admiring the problem. Which one bites you most?</li>
+      <li>Bring one open action from your weekly record to a6 - we will roll the weekly detail up into a monthly strategic narrative.</li>
+    </ul>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Framework sources</span>
+      <h2>Frameworks this session draws on</h2>
+    </div>
+    <p class="lede">This session is built on the operating cadence that makes metric decomposition a habit rather than a diagram. This page draws on:</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Amazon Weekly Business Review - reading trees on a weekly cadence, trailing-12-weeks and YoY</span><span class="note">Parts 1 &amp; 2 · the ritual, the owner-narrates rule, the anti-patterns</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Amplitude North Star Playbook - inputs that lead the output, watched frequently</span><span class="note">Part 3 · fast leading drivers reward a weekly look; full treatment in b3</span></div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">1 · Why does a weekly business review show metrics trailing-twelve-weeks and year-over-year?</p>
+      <button class="qopt" type="button">A · To fill the slide with more charts</button>
+      <button class="qopt" type="button">B · Because the board prefers annual views</button>
+      <button class="qopt" type="button">C · So a move is judged against its own recent trend and its own seasonality - to tell signal from noise</button>
+      <p class="qwhy">A single week's number could be noise or a holiday. Trailing-12-weeks shows the trend; year-over-year strips out seasonality. Together they make the read trustworthy.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">2 · A branch moves in the review. What is the leader's job?</p>
+      <button class="qopt" type="button">A · Ask the same three-part question - which driver, which segment, versus what baseline - and let the owner narrate</button>
+      <button class="qopt" type="button">B · Narrate the branch personally so it moves faster</button>
+      <button class="qopt" type="button">C · Move on if the number is roughly flat</button>
+      <p class="qwhy">The owner closest to the number narrates; the leader asks the question. Which driver, which segment, versus what baseline is the whole method applied out loud.</p>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">3 · What is the relationship between the weekly review and the monthly summit?</p>
+      <button class="qopt" type="button">A · They are the same meeting at different frequencies</button>
+      <button class="qopt" type="button">B · Weekly is operational and driver-level; monthly rolls that detail up into a strategic narrative for leadership</button>
+      <button class="qopt" type="button">C · The monthly replaces the weekly once a business matures</button>
+      <p class="qwhy">Weekly catches and corrects deviations at the driver level. Monthly consumes the weekly record and rolls it into a decision-grade story - two cadences, two jobs. a6 runs the monthly end to end.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Leader session 5 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>Weekly business review</b><span>A standing meeting that walks the metric trees every week. The cadence is the product, not any single meeting.</span></div>
+      <div class="cheat-item"><b>Trailing-12-weeks + YoY</b><span>Always show a metric against its recent trend and last year's same week. Context is what makes the read trustworthy.</span></div>
+      <div class="cheat-item"><b>Owners narrate branches</b><span>The person who owns a driver speaks to it when it moves. Silence on a moved branch is a finding.</span></div>
+      <div class="cheat-item"><b>Lead with the tree</b><span>Start from the top line, walk the branch that moved. The tree routes the meeting, not a pre-written slide.</span></div>
+      <div class="cheat-item"><b>The three-part question</b><span>Which driver, which segment, versus what baseline? Ask it of every metric that moves.</span></div>
+      <div class="cheat-item"><b>Signal vs noise</b><span>Act on moves outside the normal band; ignore the wiggles inside it. Chasing noise trains the room to ignore the dashboard.</span></div>
+      <div class="cheat-item"><b>Four anti-patterns</b><span>Status theatre, no baselines, no owner, admiring the problem. Every action gets an owner and a date.</span></div>
+      <div class="cheat-item"><b>Running skill</b><span>Cadence beats heroics - small deviations caught weekly never become quarterly disasters. Next: a6, the monthly summit.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Leader session 5 of 6 · learn-metric-decomposition-with-phoebe · by Phoebe Fu &nbsp;·&nbsp; 📚 <a href="https://phoebefu6.github.io/learn-with-phoebe/">Learn with Phoebe ↗</a></span>
+    <span><a href="a4-six-domains-side-by-side.html">← Prev: The six domains side by side</a> &nbsp;·&nbsp; <a href="a6-monthly-leadership-summit.html">Next: The monthly leadership summit →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

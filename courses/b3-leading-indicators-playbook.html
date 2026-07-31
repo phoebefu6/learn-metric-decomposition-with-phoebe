@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Builder session 3 · Leading indicators &amp; the diagnosis playbook - learn metric decomposition with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-metric-decomposition-with-phoebe</a> / Builder session 3 of 10</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Metric Decomposition with Phoebe · Builder track · Session 3 of 10</div>
+    <h1>Leading indicators &amp; the <span class="accent">playbook</span></h1>
+    <p class="sub">A tree tells you what a metric is made of. Two things turn that into a working diagnostic habit. First, <strong>leading indicators</strong> - the drivers near the leaves that move first and warn early, so you catch a fall before the board does. Second, a <strong>diagnosis playbook</strong> - the fixed four-step runbook you follow every time a top line drops, so you never freelance under pressure. Today you learn both and run them live on real store data.</p>
+    <div class="chip-row">
+      <span class="chip level">🟢 Builder track</span>
+      <span class="chip audience">Analysts · PMs · founders · ops</span>
+      <span class="chip audience">Live tree simulator + SQL</span>
+      <span class="chip time">45 min</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Recap</span>
+      <span class="a2" style="flex:4">3-16 · Leading indicators</span>
+      <span class="a3" style="flex:6">16-42 · The playbook, live</span>
+      <span class="a4" style="flex:1">42-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Recap, and today's job</h2>
+    </div>
+    <p class="lede">You can now build a tree (b1) and name its shape - product, sum, or bridge (b2). But a tree at rest is just a diagram. Its value shows up the morning a number is down and everyone is looking at you. This session gives you the two things that turn a static tree into a diagnostic reflex: <strong>leading indicators</strong> that warn you early from near the leaves, and a <strong>four-step playbook</strong> you run the same way every single time. By the end you will have diagnosed a live GMV drop end to end - tree, then SQL, then a named cause.</p>
+    <div class="legend">
+      <span class="pill solid">Live - presented in session</span>
+      <span class="pill light">Self-study - read after class</span>
+      <span class="pill peach">▶ Live tree - editable &amp; runnable</span>
+      <span class="pill inkpill">Framework sources covered</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with today</strong>
+      A test for whether a metric qualifies as a leading indicator (predictive, early, controllable), and the four-question playbook - is it real? which branch? which segment? cause confirmed? - run live from a coral tree trail into a GROUP BY.
+    </div>
+  </section>
+
+  <!-- ============ PART 1: LEADING INDICATORS ============ -->
+  <section class="section" id="leading">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers Amplitude's North Star, leading inputs</span>
+      <h2>Finding leading indicators <span class="tag concept">6 min live</span></h2>
+    </div>
+    <p class="lede">A top-line metric is lagging - it reports after the fact. A <strong>leading indicator</strong> is a driver that moves first, giving you lead time to act before the lagging number lands. But not every early number is useful. A good leading indicator passes three tests: it is <strong>predictive</strong> (it correlates with the future outcome), <strong>early</strong> (it moves with real lead time, not the same day), and <strong>controllable</strong> (a team can actually push it). Miss any one and you have a distraction, not a signal.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A timeline showing the leading indicator moving before the lagging outcome">
+        <style>
+          .leadT { font: 700 13px Inter, sans-serif; fill: #16241E; }
+          .leadS { font: 400 11px Inter, sans-serif; fill: #566A61; }
+          .leadV { font: 700 12px Inter, sans-serif; fill: #FFFFFF; }
+          .leadN { font: 600 12.5px Inter, sans-serif; fill: #431105; }
+          .leadAx { stroke: #DCEAE2; stroke-width: 2; }
+          .leadLead { stroke: #E4572E; stroke-width: 3; fill: none; }
+          .leadLag { stroke: #2F7D5B; stroke-width: 3; fill: none; }
+        </style>
+        <line class="leadAx" x1="70" y1="180" x2="820" y2="180"/>
+        <text class="leadS" x="70" y="200">Week 1</text>
+        <text class="leadS" x="300" y="200">Week 3</text>
+        <text class="leadS" x="540" y="200">Week 5</text>
+        <text class="leadS" x="760" y="200">Week 7</text>
+
+        <path class="leadLead" d="M80,120 L200,120 L320,150 L440,150 L560,150 L700,150"/>
+        <path class="leadLag" d="M80,90 L200,90 L320,90 L440,120 L560,120 L700,120"/>
+
+        <circle cx="320" cy="150" r="5" fill="#E4572E"/>
+        <circle cx="440" cy="120" r="5" fill="#2F7D5B"/>
+        <path class="leadAx" d="M320,150 L320,120" stroke-dasharray="4 4"/>
+        <path class="leadAx" d="M440,120 L440,90" stroke-dasharray="4 4"/>
+
+        <rect x="150" y="60" width="150" height="26" rx="7" fill="#2F7D5B"/>
+        <text class="leadV" x="225" y="78" text-anchor="middle">Lagging: GMV</text>
+        <rect x="150" y="128" width="180" height="26" rx="7" fill="#E4572E"/>
+        <text class="leadV" x="240" y="146" text-anchor="middle">Leading: add-to-cart rate</text>
+
+        <text class="leadS" x="330" y="168">leading dips at week 3...</text>
+        <text class="leadS" x="450" y="112">...lagging follows at week 4</text>
+
+        <rect x="70" y="222" width="14" height="14" rx="3" fill="#E4572E"/>
+        <text class="leadN" x="94" y="234">A real leading indicator moves first and predicts the fall - that gap is your reaction time.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the leading driver dips before the lagging outcome; the gap is lead time to act</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>The three tests: predictive, early, controllable<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Deeper in a tree, drivers get more leading. GMV lags; traffic is more leading than GMV; add-to-cart rate leads traffic's revenue effect; ad impressions lead all of it. But depth alone is not enough - a leading indicator earns its place only if you can act on it. Run every candidate through three tests.</p>
+        <ul>
+          <li><strong>Predictive:</strong> does last period's move in this metric actually forecast this period's outcome? If there is no correlation, it is noise.</li>
+          <li><strong>Early:</strong> does it move with real lead time - days or weeks before the outcome, not the same afternoon? Same-day is not a warning.</li>
+          <li><strong>Controllable:</strong> can a team change it on purpose? A weather index may predict sales but nobody owns the weather.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>Facebook's "7 friends in 10 days".</strong> The classic leading indicator: new users who added 7 friends within 10 days almost always stuck. It was predictive (it forecast retention), early (visible in week two, not month six), and controllable (onboarding could nudge it). Three tests, all passed - so the whole company steered by it.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Validating a leading indicator against your own data<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The predictive test is not a vibe - it is a query. Line up your candidate leading metric from last period next to the outcome this period, across many periods, and check whether they move together. If last month's add-to-cart rate reliably predicts this month's GMV, you have a real leading indicator. If the scatter is a cloud, you have a coincidence someone fell in love with.</p>
+        <ul>
+          <li><strong>Lag it:</strong> shift the candidate back one period and correlate with the outcome. A leading indicator correlates when lagged; a lagging one only correlates at zero lag.</li>
+          <li><strong>Hold it up over time:</strong> one lucky month proves nothing. Look for the relationship holding across a stretch of periods.</li>
+          <li><strong>Beware reverse causation:</strong> sometimes the outcome drives the "leading" metric, not the other way. Direction matters.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2: THE PLAYBOOK ============ -->
+  <section class="section" id="playbook">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers Amazon WBR, the diagnosis runbook</span>
+      <h2>The diagnosis playbook <span class="tag concept">7 min live</span></h2>
+    </div>
+    <p class="lede">When a top line drops, panic makes people freelance - they jump to a favourite theory and go hunting for confirming numbers. The playbook replaces that with a fixed order of four questions, run the same way every time: <strong>is it real, which branch, which segment, cause confirmed?</strong> The order matters. Skip "is it real?" and you fire-drill over noise. Skip "which branch?" and you segment the wrong driver. Discipline in the sequence is the whole edge.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The four-step diagnosis playbook as a narrowing funnel">
+        <style>
+          .plT { font: 800 14px Inter, sans-serif; fill: #FFFFFF; }
+          .plS { font: 400 11.5px Inter, sans-serif; fill: #16241E; }
+          .plK { font: 700 12px Inter, sans-serif; fill: #566A61; }
+          .plN { font: 600 12.5px Inter, sans-serif; fill: #431105; }
+        </style>
+        <rect x="120" y="40" width="640" height="42" rx="9" fill="#1E5240"/>
+        <text class="plT" x="150" y="66">1 · Is it real?</text>
+        <text class="plS" x="420" y="66">noise vs signal - check a baseline first</text>
+
+        <rect x="180" y="96" width="520" height="42" rx="9" fill="#2F7D5B"/>
+        <text class="plT" x="210" y="122">2 · Which branch?</text>
+        <text class="plS" x="440" y="122" fill="#FFFFFF">walk the tree, find the driver that moved</text>
+
+        <rect x="240" y="152" width="400" height="42" rx="9" fill="#4FA37E"/>
+        <text class="plT" x="270" y="178">3 · Which segment?</text>
+        <text class="plS" x="470" y="178">GROUP BY the guilty driver</text>
+
+        <rect x="300" y="208" width="280" height="42" rx="9" fill="#E4572E"/>
+        <text class="plT" x="330" y="234">4 · Cause confirmed?</text>
+
+        <path d="M440,82 L440,96 M440,138 L440,152 M440,194 L440,208" stroke="#B8DFCD" stroke-width="2"/>
+
+        <text class="plN" x="120" y="284">Each step narrows the question. Run them in order - skipping one is how diagnoses go wrong.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - four questions, narrowing from "is this even real?" to a confirmed cause</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Step 2 in the simulator: walk the tree to the moved driver<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Step 1 is judgement against a baseline (Part 3). Step 2 is mechanical: walk the tree and find the coral. Press <strong>Simulate a drop</strong> below - one driver falls, the path to GMV lights up, and step 2 is answered in a glance. That is the entire point of having built the tree in b1: the branch question becomes a five-second read instead of an argument.</p>
+        <div class="treebox" data-caption="Step 2 live. Simulate a drop, then read the coral path: which branch moved, and by what percent?">
+          <pre class="tree-src">{
+  "unit": "$",
+  "root": {
+    "label": "GMV", "op": "x",
+    "children": [
+      { "label": "Traffic",    "value": 120000, "unit": "visits" },
+      { "label": "Conversion", "value": 0.028,  "pct": true },
+      { "label": "AOV",        "value": 62,     "unit": "$" }
+    ]
+  }
+}</pre>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Step 3 in SQL: segment the guilty driver<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The tree named the driver. Step 3 splits it. If the tree pointed at conversion or revenue, the first cut is almost always by channel - it is cheap, it is owned, and it usually isolates the problem to one place. Run this to see revenue split by channel.</p>
+        <div class="sqlbox" data-caption="Swap channel for status or plan to slice the same drop a different way.">
+          <pre class="sql-src">SELECT o.channel,
+       COUNT(DISTINCT o.order_id)                 AS orders,
+       ROUND(SUM(oi.quantity * oi.unit_price), 0) AS revenue
+FROM orders o
+JOIN order_items oi ON o.order_id = oi.order_id
+WHERE o.status = 'completed'
+GROUP BY o.channel
+ORDER BY revenue DESC;</pre>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 3: BASELINES ============ -->
+  <section class="section" id="baselines">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · covers Amazon WBR baselining</span>
+      <h2>Baselines: is the drop even real? <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">Step 1 of the playbook - "is it real?" - lives and dies on the <strong>baseline</strong> you compare against. Week-over-week catches fast breaks but trips on weekly seasonality. Year-over-year controls for seasonality but hides recent trend. Versus-plan tells you if you are off target but not why. The classic trap is comparing a Monday to a Saturday and declaring a crisis. Pick the baseline that matches the metric's natural rhythm before you call anything a drop.</p>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Compare this period to a baseline period<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Before you diagnose a fall, prove it against a baseline. This query pulls completed revenue by month, then uses a window function to show each month's change against the prior month - the simplest real baseline. A dip that is just the usual month-to-month wobble is not a signal.</p>
+        <div class="sqlbox" data-caption="LAG gives the prior month as baseline. A drop only counts if it is bigger than the usual month-to-month swing.">
+          <pre class="sql-src">WITH monthly AS (
+  SELECT substr(o.order_date, 1, 7)          AS month,
+         SUM(oi.quantity * oi.unit_price)     AS revenue
+  FROM orders o
+  JOIN order_items oi ON o.order_id = oi.order_id
+  WHERE o.status = 'completed'
+  GROUP BY substr(o.order_date, 1, 7)
+)
+SELECT month,
+       ROUND(revenue, 0)                                      AS revenue,
+       ROUND(revenue - LAG(revenue) OVER (ORDER BY month), 0) AS vs_prior_month
+FROM monthly
+ORDER BY month;</pre>
+        </div>
+        <div class="callout tip">
+          <strong>Match the baseline to the rhythm</strong>
+          Daily metric with weekly seasonality? Compare same-day-of-week or use year-over-year. Slow monthly metric? Month-over-month is fine. Never compare across a seasonal boundary and call the gap a problem.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO 1 ============ -->
+  <section class="section" id="demo-1">
+    <div class="section-kicker">
+      <span class="klabel">Demo 1 of 2</span>
+      <h2>Run the playbook end to end <span class="tag demo">★ 12 min · everyone builds</span></h2>
+    </div>
+    <p class="lede">Now all four questions in one pass. Simulate a drop on the tree (steps 1 and 2), then segment the guilty driver in SQL (step 3), then read the outlier and name a cause (step 4). This is exactly the sequence you will run the next time a real dashboard is red - practise it until the order is muscle memory.</p>
+
+    <div class="treebox" data-caption="Steps 1-2. Simulate a drop, sanity-check it against a baseline in your head, then read the coral branch.">
+      <pre class="tree-src">{
+  "unit": "$",
+  "root": {
+    "label": "GMV", "op": "x",
+    "children": [
+      { "label": "Traffic",    "value": 120000, "unit": "visits" },
+      { "label": "Conversion", "value": 0.028,  "pct": true },
+      { "label": "AOV",        "value": 62,     "unit": "$" }
+    ]
+  }
+}</pre>
+    </div>
+
+    <div class="sqlbox" data-caption="Step 3. The tree flagged a driver; this splits revenue by channel to find the slice that fell.">
+      <pre class="sql-src">SELECT o.channel,
+       COUNT(DISTINCT o.order_id)                 AS orders,
+       ROUND(SUM(oi.quantity * oi.unit_price), 0) AS revenue,
+       ROUND(SUM(oi.quantity * oi.unit_price) * 1.0
+             / COUNT(DISTINCT o.order_id), 2)     AS avg_order_value
+FROM orders o
+JOIN order_items oi ON o.order_id = oi.order_id
+WHERE o.status = 'completed'
+GROUP BY o.channel
+ORDER BY revenue DESC;</pre>
+    </div>
+
+    <div class="steps">
+      <div class="step"><p><strong>Q1 is it real?</strong> Simulate a drop, then ask whether a fall this size would clear your baseline. A 2% wobble is noise; a 20% coral trail is a signal.</p></div>
+      <div class="step"><p><strong>Q2 which branch?</strong> Read the coral path from the moved leaf up to GMV. Say which driver moved and by what percent.</p></div>
+      <div class="step"><p><strong>Q3 which segment?</strong> Run the SQL. Split revenue and AOV by channel and find the channel that is dragging the total down.</p></div>
+      <div class="step"><p><strong>Q4 cause confirmed?</strong> Form a hypothesis ("app checkout broke") and name the one follow-up query that would confirm it. Reset and run the whole loop again.</p></div>
+    </div>
+
+    <div class="callout example">
+      <span class="ex-pill">Real world</span>
+      <p><strong>This is the Amazon weekly business review in miniature.</strong> The WBR ritual is not magic - it is this exact loop run on a cadence: is the number off its baseline, which input moved, which segment owns it, what is the corrective action. Teams that run it well are not smarter; they refuse to skip a step.</p>
+    </div>
+  </section>
+
+  <!-- ============ DEMO 2 ============ -->
+  <section class="section" id="demo-2">
+    <div class="section-kicker">
+      <span class="klabel">Demo 2 of 2</span>
+      <h2>Your turn: segment and baseline <span class="tag demo">★ 10 min · everyone builds</span></h2>
+    </div>
+    <p class="lede">Two live queries and one prose answer. First check whether a drop is concentrated in one channel, then check this period against a baseline, then define a leading indicator for a metric you actually own.</p>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>Q1 · Refund rate by channel - is the drop concentrated?<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>A GMV drop can hide in refunds, not just missing orders. Run this to see the refund-and-cancel rate by channel. If one channel refunds far more than the other, the fall is concentrated - and you have your lead.</p>
+        <div class="sqlbox" data-caption="FILTER (WHERE ...) counts only the bad statuses. A channel with a much higher rate is where to look first.">
+          <pre class="sql-src">SELECT channel,
+       COUNT(*)                                              AS all_orders,
+       COUNT(*) FILTER (WHERE status IN ('refunded','cancelled')) AS lost_orders,
+       ROUND(100.0 * COUNT(*) FILTER (WHERE status IN ('refunded','cancelled'))
+             / COUNT(*), 1)                                  AS lost_rate_pct
+FROM orders
+GROUP BY channel
+ORDER BY lost_rate_pct DESC;</pre>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Q2 · Revenue this month vs a baseline month<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Prove a drop before you chase it. This pulls completed revenue and distinct orders by month, so you can eyeball whether the latest month is genuinely below its recent baseline or just wobbling.</p>
+        <div class="sqlbox" data-caption="Read the trend down the months. Is the last row really below baseline, or within the normal swing?">
+          <pre class="sql-src">SELECT substr(o.order_date, 1, 7)               AS month,
+       COUNT(DISTINCT o.order_id)              AS orders,
+       ROUND(SUM(oi.quantity * oi.unit_price), 0) AS revenue
+FROM orders o
+JOIN order_items oi ON o.order_id = oi.order_id
+WHERE o.status = 'completed'
+GROUP BY substr(o.order_date, 1, 7)
+ORDER BY month;</pre>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Q3 · Name a leading indicator for your own metric<span class="mini">2 min write</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Pick a lagging metric you report. In two or three sentences, name one leading indicator for it and argue why it qualifies on all three tests: is it <strong>predictive</strong> (does last period's move forecast the outcome?), <strong>early</strong> (does it move with real lead time?), and <strong>controllable</strong> (can a team push it on purpose?). If it fails any one test, say which - and what you would use instead.</p>
+        <div class="callout tip">
+          <strong>The honesty check</strong>
+          Most "leading indicators" people quote fail the controllable test - they predict but nobody owns them. A leading indicator you cannot move is a weather forecast, not a lever.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ HOMEWORK ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>Try it yourself - this week <span class="tag exercise">◐ 20-30 min total</span></h2>
+    </div>
+    <ul>
+      <li>Write your team's diagnosis playbook as four named steps on one card. Pin it where the metric review happens. Next red number, follow it in order out loud.</li>
+      <li>For your top-line metric, list two candidate leading indicators and score each on predictive / early / controllable. Keep the one that passes all three.</li>
+      <li>Decide the right baseline for each of your dashboards - WoW, YoY, or vs plan - and write it next to the chart so nobody argues the wrong comparison.</li>
+      <li>Find one place your dashboard shows a drop with no baseline. Add the comparison. Half of "the number is down" panics die there.</li>
+      <li>Bring a real ecommerce-shaped metric to b4 - we go two levels deep on the full GMV tree and diagnose the classic ecommerce drops.</li>
+    </ul>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Framework sources</span>
+      <h2>Frameworks this session draws on</h2>
+    </div>
+    <p class="lede">Leading indicators and the diagnosis runbook are distilled from a handful of durable frameworks, applied here live instead of described. This page draws on:</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Amplitude North Star Playbook - inputs that lead the output</span><span class="note">Part 1 · predictive, early, controllable inputs vs the lagging star</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Amazon Weekly Business Review - diagnosis on a cadence</span><span class="note">Parts 2-3 &amp; Demo 1 · the four-step loop and baselining; full ritual in a5</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Lean Analytics (Croll &amp; Yoskovitz) - leading vs lagging, actionable metrics</span><span class="note">Part 1 · a metric you cannot act on is a distraction</span></div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">1 · What are the three tests a good leading indicator must pass?</p>
+      <button class="qopt" type="button">A · Cheap, fast, automated</button>
+      <button class="qopt" type="button">B · Big, growing, board-facing</button>
+      <button class="qopt" type="button">C · Predictive, early, and controllable</button>
+      <p class="qwhy">A leading indicator must forecast the outcome (predictive), move with real lead time (early), and be something a team can push on purpose (controllable). Fail one and it is a distraction, not a signal.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">2 · What is the correct order of the diagnosis playbook?</p>
+      <button class="qopt" type="button">A · Is it real? -&gt; which branch? -&gt; which segment? -&gt; cause confirmed?</button>
+      <button class="qopt" type="button">B · Which segment? -&gt; cause confirmed? -&gt; is it real? -&gt; which branch?</button>
+      <button class="qopt" type="button">C · Cause confirmed? -&gt; is it real? -&gt; which branch? -&gt; which segment?</button>
+      <p class="qwhy">Prove the drop against a baseline first, then walk the tree to the moved driver, then GROUP BY that driver to find the slice, then confirm a cause. Skipping "is it real?" starts fire drills over noise.</p>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">3 · Why does the choice of baseline matter so much?</p>
+      <button class="qopt" type="button">A · It does not - any comparison works if the drop is big enough</button>
+      <button class="qopt" type="button">B · The wrong baseline invents drops - comparing a Monday to a Saturday reads seasonality as a crisis</button>
+      <button class="qopt" type="button">C · Baselines only matter for annual metrics</button>
+      <p class="qwhy">A baseline that ignores the metric's rhythm manufactures false drops. Match the comparison to the seasonality - same-day-of-week or year-over-year for seasonal metrics - before you call anything a fall.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Builder session 3 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>Leading indicator</b><span>A driver that moves before the outcome and gives you time to act. Near the leaves of the tree, not the root.</span></div>
+      <div class="cheat-item"><b>Three tests</b><span>Predictive (forecasts the outcome), early (real lead time), controllable (a team can push it). Fail one, drop it.</span></div>
+      <div class="cheat-item"><b>Validate by lagging</b><span>Shift the candidate back one period and correlate with the outcome. Holds across many periods = real signal.</span></div>
+      <div class="cheat-item"><b>The playbook</b><span>Is it real? -&gt; which branch? -&gt; which segment? -&gt; cause confirmed? Same order, every time.</span></div>
+      <div class="cheat-item"><b>Step 1 is a baseline</b><span>Prove the drop clears normal noise before diagnosing. No baseline, no drop - just a wobble.</span></div>
+      <div class="cheat-item"><b>Tree then SQL</b><span>Step 2 reads the coral branch; step 3 is a GROUP BY on that driver. Never SQL-first.</span></div>
+      <div class="cheat-item"><b>Match the baseline</b><span>WoW for fast breaks, YoY for seasonality, vs plan for targets. Never compare across a seasonal boundary.</span></div>
+      <div class="cheat-item"><b>Running skill</b><span>Warn early with leading indicators, diagnose in four steps. Next: b4, the ecommerce deep dive.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Builder session 3 of 10 · learn-metric-decomposition-with-phoebe · by Phoebe Fu &nbsp;·&nbsp; 📚 <a href="https://phoebefu6.github.io/learn-with-phoebe/">Learn with Phoebe ↗</a></span>
+    <span><a href="b2-three-patterns.html">← Prev: The three decomposition patterns</a> &nbsp;·&nbsp; <a href="b4-ecommerce-deep-dive.html">Next: Ecommerce deep dive →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/metric-seed.js?v=1"></script>
+<script src="../assets/duck-live.js?v=1"></script>
+<script src="../assets/tree-live.js?v=3"></script>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

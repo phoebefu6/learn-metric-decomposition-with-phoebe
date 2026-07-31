@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Builder session 5 · Marketing deep dive - learn metric decomposition with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-metric-decomposition-with-phoebe</a> / Builder session 5 of 10</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Metric Decomposition with Phoebe · Builder track · Session 5 of 10</div>
+    <h1><span class="accent">Marketing</span> deep dive</h1>
+    <p class="sub">Marketing-sourced revenue looks like one number on the CMO's slide, but underneath it is a chain of leaky buckets - impressions become clicks, clicks become leads, leads become wins, wins carry a deal size. Every stage is a rate you can move, and a percentage lost anywhere flows straight to the bottom of the funnel. Today you build that funnel as a live tree, knock a stage down, and read which bucket sprung the leak.</p>
+    <div class="chip-row">
+      <span class="chip level">🟡 Builder track</span>
+      <span class="chip audience">Analysts · PMs · founders · ops</span>
+      <span class="chip audience">Live tree simulator + SQL</span>
+      <span class="chip time">45 min</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Recap</span>
+      <span class="a2" style="flex:4">3-20 · The marketing funnel</span>
+      <span class="a3" style="flex:5">20-42 · Diagnose a funnel drop</span>
+      <span class="a4" style="flex:1">42-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Where we are</h2>
+    </div>
+    <p class="lede">You have the three patterns (b2), the leading-indicator and diagnosis playbook (b3), and one full domain - ecommerce GMV (b4). Now the domain deep-dives begin in earnest. Each of the next five sessions takes one industry's top-line metric, decomposes it into a live driver tree, and diagnoses a realistic drop. Session 5 is <strong>marketing</strong>, and marketing is the cleanest example of the pattern you already know best: the multiplicative chain. A funnel is just a driver tree stood on its end.</p>
+    <div class="legend">
+      <span class="pill solid">Live - presented in session</span>
+      <span class="pill light">Self-study - read after class</span>
+      <span class="pill peach">▶ Live tree - editable &amp; runnable</span>
+      <span class="pill inkpill">Framework sources covered</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with today</strong>
+      A marketing-revenue funnel written as Impressions x CTR x Lead-rate x Win-rate x ACV, the reflex to read any conversion drop as the guilty stage on the coral path, and a clear head about the two top-lines marketing argues over - revenue (volume) versus ROAS (efficiency).
+    </div>
+  </section>
+
+  <!-- ============ PART 1: THE FUNNEL ============ -->
+  <section class="section" id="funnel">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers the multiplicative pattern, Lean Analytics funnel thinking</span>
+      <h2>Marketing revenue is a funnel of rates <span class="tag concept">7 min live</span></h2>
+    </div>
+    <p class="lede">Marketing-sourced revenue is not a lump you spend your way into. It is what falls out of the bottom of a funnel after a starting audience is filtered by one conversion rate after another. Write it as a product and the whole thing becomes legible: <strong>Revenue = Impressions x CTR x Lead-rate x Win-rate x ACV</strong>. Each stage is a leaky bucket - the fraction that survives to the next stage is the lever a team actually owns.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A marketing funnel narrowing from impressions to won revenue">
+        <style>
+          .mfT { font: 800 14px Inter, sans-serif; fill: #16241E; }
+          .mfV { font: 700 13px Inter, sans-serif; fill: #16241E; }
+          .mfR { font: 700 12px Inter, sans-serif; fill: #431105; }
+          .mfC { font: 400 11px Inter, sans-serif; fill: #566A61; }
+          .mfN { font: 600 12.5px Inter, sans-serif; fill: #431105; }
+        </style>
+        <rect x="120" y="40"  width="640" height="40" rx="8" fill="#B8DFCD"/>
+        <text class="mfT" x="140" y="65">Impressions</text>
+        <text class="mfV" x="740" y="65" text-anchor="end">2,000,000</text>
+
+        <rect x="200" y="98"  width="480" height="40" rx="8" fill="#4FA37E"/>
+        <text class="mfT" x="220" y="123" fill="#FFFFFF">Clicks</text>
+        <text class="mfV" x="660" y="123" text-anchor="end" fill="#FFFFFF">40,000</text>
+
+        <rect x="270" y="156" width="340" height="40" rx="8" fill="#2F7D5B"/>
+        <text class="mfT" x="290" y="181" fill="#FFFFFF">Leads</text>
+        <text class="mfV" x="590" y="181" text-anchor="end" fill="#FFFFFF">3,200</text>
+
+        <rect x="330" y="214" width="220" height="40" rx="8" fill="#1E5240"/>
+        <text class="mfT" x="350" y="239" fill="#FFFFFF">Wins</text>
+        <text class="mfV" x="530" y="239" text-anchor="end" fill="#FFFFFF">160</text>
+
+        <rect x="360" y="272" width="160" height="34" rx="8" fill="#E4572E"/>
+        <text class="mfT" x="380" y="294" fill="#FFFFFF">Revenue</text>
+        <text class="mfV" x="500" y="294" text-anchor="end" fill="#FFFFFF">$192K</text>
+
+        <text class="mfR" x="775" y="93">x CTR 2%</text>
+        <text class="mfR" x="775" y="151">x Lead 8%</text>
+        <text class="mfR" x="775" y="209">x Win 5%</text>
+        <text class="mfR" x="775" y="267">x ACV $1,200</text>
+
+        <text class="mfN" x="120" y="26">Each band is what survives the rate above it. 2,000,000 x 2% x 8% x 5% x $1,200 = $192,000.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - a funnel is a driver tree stood on its end, every stage a rate</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>Every stage is a leaky bucket<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The power of the funnel is that the conversion <em>between</em> stages, not the raw counts, is what you steer. You rarely control impressions directly - you control the rate at which impressions become clicks (creative and targeting), clicks become leads (landing page), leads become wins (sales), and the size of each win (packaging and price). Own a rate, own a stage.</p>
+        <ul>
+          <li><strong>Impressions</strong> - how many times the ad was served. Bought with budget, capped by audience.</li>
+          <li><strong>CTR</strong> - click-through rate. Creative and targeting own it.</li>
+          <li><strong>Lead-rate</strong> - landing-page or form conversion. Web and product own it.</li>
+          <li><strong>Win-rate</strong> - lead to closed deal. Sales and comp own it.</li>
+          <li><strong>ACV</strong> - average contract value. Packaging and pricing own it.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>The same shape scales from a $9 coffee bag to a $90,000 SaaS contract.</strong> A DTC brand's funnel has more impressions and a tiny ACV; a B2B funnel has few impressions and a huge ACV. The stages rename, but the multiplication never changes - which is why once you can read one funnel you can read them all.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Why the product form makes the math honest<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Because the funnel is a pure product, a percentage change in any single rate passes straight to revenue as the same percentage - the multiplicative pass-through from b2. Halve CTR and revenue halves, no matter how healthy every other stage is. That is what makes a funnel diagnosable in seconds: you never argue about the whole number, you find the one rate that moved and sum the percentage moves down the guilty path.</p>
+        <ul>
+          <li><strong>Absolute counts hide the story</strong> - "we lost 400 leads" means nothing until you know the rate that caused it.</li>
+          <li><strong>Rates are comparable across time</strong> - a 2% CTR last month versus 1.4% this month is a clean, ownable signal.</li>
+          <li><strong>Deeper stages warn earlier</strong> - impressions and CTR move this week; won revenue confirms it weeks later.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2: LEADING VS LAGGING, ROAS ============ -->
+  <section class="section" id="roas">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers leading vs lagging, the two top-lines</span>
+      <h2>Two top-lines: volume and efficiency <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">Marketing is unusual because it has a long lag. Impressions and clicks move today, but the won revenue they seed can land weeks or months later through a slow sales cycle. So the top of the funnel is <strong>leading</strong> and the bottom is <strong>lagging</strong> - and the gap between them is exactly where a metric review either catches a problem early or misses it entirely.</p>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Revenue answers "how much", ROAS answers "how efficient"<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>There are two legitimate top-lines and teams fight because they conflate them. <strong>Marketing revenue</strong> is the volume top-line - the bottom of the funnel. <strong>ROAS</strong> (return on ad spend = revenue / spend) is the efficiency top-line - the same revenue divided by what it cost. You can grow revenue while ROAS falls (you bought volume at a worse price), or shrink revenue while ROAS rises (you cut the wasteful spend). Name which one you mean before you celebrate or panic.</p>
+        <ul>
+          <li><strong>Revenue up, ROAS down</strong> - you scaled by spending into worse audiences. Fine if the payback still clears.</li>
+          <li><strong>Revenue down, ROAS up</strong> - you trimmed the losing channels. Healthier than it looks on the volume slide.</li>
+          <li><strong>Both down</strong> - a real leak in the funnel, not a budget choice. That is the case the tree diagnoses.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>The lag trap</strong>
+          Never judge a fresh campaign by its lagging revenue alone - the wins have not landed yet. Watch the leading stages (impressions, CTR, lead-rate) to know within days whether the funnel is filling, then confirm with revenue once the sales cycle catches up.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 3: CLASSIC DROPS ============ -->
+  <section class="section" id="classic-drops">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · covers the diagnosis playbook, symptom to stage</span>
+      <h2>The classic marketing drops <span class="tag concept">4 min live</span></h2>
+    </div>
+    <p class="lede">Marketing drops repeat. Once you know the funnel, a falling number maps to a stage, and a stage maps to a cause and an owner. Here is the field guide - the symptom you see, the stage it points at, and the usual culprit behind it.</p>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Symptom to stage to cause<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <ul>
+          <li><strong>CTR falls</strong> - the ad is served but nobody clicks. Almost always <em>creative fatigue</em> (the audience has seen it too many times) or a targeting drift. Stage: Impressions to Clicks.</li>
+          <li><strong>Lead-rate falls</strong> - clicks arrive but do not convert on the landing page. Usually <em>targeting</em> (wrong audience clicking) or a broken or slow page. Stage: Clicks to Leads.</li>
+          <li><strong>Win-rate falls</strong> - leads pile up but sales cannot close them. Often a <em>sales, comp, or pricing</em> change, or lead quality quietly dropping. Stage: Leads to Wins.</li>
+          <li><strong>ACV falls</strong> - deals close but smaller. Discounting, downmarket mix shift, or a packaging change. Stage: Wins to Revenue.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>Attribution, honestly</strong>
+          Which touch gets the credit for a win is its own hard problem. Last-touch over-credits the final ad; multi-touch spreads it. A funnel tree diagnoses <em>where</em> conversion leaked, not <em>which</em> channel deserves the win - for that, see <strong>learn-marketing-attribution-with-phoebe</strong>. Keep the two questions separate or you will argue in circles.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO 1 ============ -->
+  <section class="section" id="demo-1">
+    <div class="section-kicker">
+      <span class="klabel">Demo 1 of 2</span>
+      <h2>Diagnose a marketing-revenue drop <span class="tag demo">★ 12 min · everyone builds</span></h2>
+    </div>
+    <p class="lede">Here is the funnel as a live tree. Read the baseline, then press <strong>Simulate a drop</strong> - one stage gets knocked down and the whole path from that leaf up to Revenue lights coral. Your job: name the leaked stage from the trail, and say the cause it points to.</p>
+
+    <div class="treebox" data-caption="Edit any rate and Revenue recomputes. Simulate a drop, then read the coral path back to the leaked stage.">
+      <pre class="tree-src">{
+  "unit": "$",
+  "root": {
+    "label": "Marketing revenue", "op": "x",
+    "children": [
+      { "label": "Impressions", "value": 2000000, "unit": "impr" },
+      { "label": "CTR",         "value": 0.02,  "pct": true },
+      { "label": "Lead-rate",   "value": 0.08,  "pct": true },
+      { "label": "Win-rate",    "value": 0.05,  "pct": true },
+      { "label": "ACV",         "value": 1200,  "unit": "$" }
+    ]
+  }
+}</pre>
+    </div>
+
+    <div class="steps">
+      <div class="step"><p>Read the baseline: 2,000,000 x 2% x 8% x 5% x $1,200 = about $192K of marketing-sourced revenue.</p></div>
+      <div class="step"><p>Press <strong>Simulate a drop</strong>. One rate falls. Follow the coral trail - which stage moved, and by what percent?</p></div>
+      <div class="step"><p>Translate the stage into a cause: CTR to creative fatigue, Lead-rate to targeting or page, Win-rate to sales or comp, ACV to discounting.</p></div>
+      <div class="step"><p>Say it out loud: "Revenue fell X% because [stage] fell Y%, which points at [cause]." Press Reset and repeat until it is automatic.</p></div>
+    </div>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Channel as a proxy for where the spend is working<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The store's orders carry a channel (web or app) - a rough stand-in for "which surface is converting". When the funnel points at a stage, the next question is always <em>which slice</em>. Run this to split completed revenue by channel.</p>
+        <div class="sqlbox" data-caption="Swap channel for status to see how much revenue never completes - a different kind of leak.">
+          <pre class="sql-src">SELECT o.channel,
+       COUNT(DISTINCT o.order_id)                  AS orders,
+       ROUND(SUM(oi.quantity * oi.unit_price), 0)  AS revenue
+FROM orders o
+JOIN order_items oi ON o.order_id = oi.order_id
+WHERE o.status = 'completed'
+GROUP BY o.channel
+ORDER BY revenue DESC;</pre>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO 2 ============ -->
+  <section class="section" id="demo-2">
+    <div class="section-kicker">
+      <span class="klabel">Demo 2 of 2</span>
+      <h2>Your turn <span class="tag demo">★ 10 min · everyone builds</span></h2>
+    </div>
+    <p class="lede">Three tasks. The first edits the tree, the second runs SQL, the third is a short thinking exercise to take home.</p>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Q1 · Halve CTR and read the impact<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>In the tree above, edit CTR from 2% down to 1%. Watch Revenue and the delta chip. Because the funnel is a pure product, revenue should fall by almost exactly 50% - creative fatigue at the top of the funnel halves everything downstream, no matter how healthy the other four stages are. That is the pass-through, felt.</p>
+        <div class="callout tip">
+          <strong>The point</strong>
+          A single leaky stage caps the whole funnel. There is no rescuing $192K by pushing harder on win-rate when the top bucket lost half its flow - you fix the leak where it is.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Q2 · Channel performance on the store data<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Build a channel performance proxy: for each channel, how many distinct customers ordered, how many orders, and the average revenue per order. This is the closest the store data comes to "which surface converts best".</p>
+        <div class="sqlbox" data-caption="Add a HAVING clause, or group by o.status too, to see refunded and cancelled leaks per channel.">
+          <pre class="sql-src">SELECT o.channel,
+       COUNT(DISTINCT o.customer_id)               AS customers,
+       COUNT(DISTINCT o.order_id)                  AS orders,
+       ROUND(SUM(oi.quantity * oi.unit_price) * 1.0
+             / COUNT(DISTINCT o.order_id), 2)      AS rev_per_order
+FROM orders o
+JOIN order_items oi ON o.order_id = oi.order_id
+WHERE o.status = 'completed'
+GROUP BY o.channel
+ORDER BY customers DESC;</pre>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Q3 · Two funnels, same revenue - which is healthier?<span class="mini">take home</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Imagine two campaigns that both produce exactly $192K. Funnel A leaks at the <em>top</em>: a weak CTR, but everyone who does click converts and closes cleanly. Funnel B leaks at the <em>bottom</em>: a strong CTR and lead-rate, but win-rate is poor and deals close small. Same bottom line, very different health.</p>
+        <p>Write a paragraph: which is healthier, and why? Consider that a top-of-funnel leak is often the cheapest to fix (new creative, better targeting) and that top-of-funnel volume compounds - a better CTR lifts every stage below it. A bottom-of-funnel leak means you are paying to attract interest you then fail to close, which burns spend and demoralises sales. Argue it either way, but ground it in where the leak is cheapest to fix and what compounds.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ HOMEWORK ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>Try it yourself - this week <span class="tag exercise">◐ 20-30 min total</span></h2>
+    </div>
+    <ul>
+      <li>Write your own marketing funnel as a product. Start from your real starting audience (impressions, sends, or reach) and end at revenue. Name the owner of every rate.</li>
+      <li>For last month, fill in the actual rate at each stage. Circle the one that moved most versus the month before - that is your leak.</li>
+      <li>Compute both top-lines: revenue and ROAS (revenue / spend). Note which one your leadership actually rewards, and whether that is the one you should be optimising.</li>
+      <li>Ask your team the attribution question explicitly - last-touch or multi-touch? - and notice how much disagreement it surfaces. Then bookmark learn-marketing-attribution-with-phoebe for the real answer.</li>
+      <li>Bring your funnel's leakiest stage to b6 - branding is the funnel that feeds the top of this one.</li>
+    </ul>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Framework sources</span>
+      <h2>Frameworks this session draws on</h2>
+    </div>
+    <p class="lede">Marketing decomposition sits on funnel thinking that predates any single tool. This page draws on:</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Lean Analytics (Croll &amp; Yoskovitz) - the funnel as the model for a customer-acquisition business</span><span class="note">Part 1 · impressions to revenue as a chain of rates</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Amplitude North Star Playbook - leading inputs versus the lagging output</span><span class="note">Part 2 · top of funnel leads, won revenue lags</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Marketing attribution (last-touch vs multi-touch) - who gets credit for a win</span><span class="note">Part 3 · flagged and cross-linked to learn-marketing-attribution-with-phoebe</span></div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">1 · A marketing funnel written as Impressions x CTR x Lead-rate x Win-rate x ACV is which decomposition pattern?</p>
+      <button class="qopt" type="button">A · Additive - the stages sum to revenue</button>
+      <button class="qopt" type="button">B · Multiplicative - each stage is a rate, and a % change in one passes straight to revenue</button>
+      <button class="qopt" type="button">C · A flow bridge - inflows minus outflows</button>
+      <p class="qwhy">A funnel is a pure product of rates. That is why halving any single rate halves revenue: the multiplicative pass-through carries a percentage change in one driver straight to the top line.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">2 · The ad is served the usual number of times but revenue fell. CTR is the stage that dropped. The most likely cause is...</p>
+      <button class="qopt" type="button">A · Creative fatigue - the audience has seen the ad too often and stopped clicking</button>
+      <button class="qopt" type="button">B · A pricing change on the contract</button>
+      <button class="qopt" type="button">C · Sales missing their close targets</button>
+      <p class="qwhy">CTR is the Impressions-to-Clicks stage. When impressions hold but clicks fall, the ad is being served and ignored - the signature of creative fatigue or targeting drift, not a sales or pricing problem further down.</p>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">3 · Revenue is up 20% but ROAS is down. What happened?</p>
+      <button class="qopt" type="button">A · The funnel has a leak that needs fixing</button>
+      <button class="qopt" type="button">B · Attribution is broken</button>
+      <button class="qopt" type="button">C · You bought more volume at a worse price - efficiency fell even as the volume top-line rose</button>
+      <p class="qwhy">Revenue is the volume top-line; ROAS (revenue / spend) is the efficiency top-line. Rising revenue with falling ROAS means you scaled into more expensive audiences - a legitimate choice if payback still clears, not necessarily a leak.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Builder session 5 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>Marketing revenue</b><span>Impressions x CTR x Lead-rate x Win-rate x ACV. A funnel is a driver tree stood on its end.</span></div>
+      <div class="cheat-item"><b>Leaky buckets</b><span>You steer the rate between stages, not the raw counts. Own a rate, own a stage.</span></div>
+      <div class="cheat-item"><b>Pass-through</b><span>Pure product: a % change in one rate is the same % change in revenue. Halve CTR, halve revenue.</span></div>
+      <div class="cheat-item"><b>Two top-lines</b><span>Revenue = volume (bottom of funnel). ROAS = revenue / spend = efficiency. Name which you mean.</span></div>
+      <div class="cheat-item"><b>Leading vs lagging</b><span>Impressions and CTR lead by days. Won revenue lags by weeks - long sales cycle. Steer by the top.</span></div>
+      <div class="cheat-item"><b>Symptom to stage</b><span>CTR = creative fatigue · Lead-rate = targeting or page · Win-rate = sales or comp · ACV = discounting.</span></div>
+      <div class="cheat-item"><b>Attribution is separate</b><span>The tree finds where conversion leaked, not which channel gets credit. That is its own question.</span></div>
+      <div class="cheat-item"><b>Running skill</b><span>Build the funnel, break a stage, name the leak and its cause. Next: b6, branding.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Builder session 5 of 10 · learn-metric-decomposition-with-phoebe · by Phoebe Fu &nbsp;·&nbsp; 📚 <a href="https://phoebefu6.github.io/learn-with-phoebe/">Learn with Phoebe ↗</a></span>
+    <span><a href="b4-ecommerce-deep-dive.html">← Prev: Ecommerce deep dive</a> &nbsp;·&nbsp; <a href="b6-branding-deep-dive.html">Next: Branding deep dive →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/metric-seed.js?v=1"></script>
+<script src="../assets/duck-live.js?v=1"></script>
+<script src="../assets/tree-live.js?v=3"></script>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

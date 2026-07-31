@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Builder session 1 · Your first driver tree - learn metric decomposition with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-metric-decomposition-with-phoebe</a> / Builder session 1 of 10</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Metric Decomposition with Phoebe · Builder track · Session 1 of 10</div>
+    <h1>Your first <span class="accent">driver tree</span></h1>
+    <p class="sub">"Sales are down 8%." That sentence is useless on its own - it names an outcome, not a cause. A driver tree breaks a top-line metric into the levers that actually move it, so a drop becomes a path you can trace instead of a mystery you argue about. Today you build one live: an online store's GMV, split into the three drivers underneath it, in a simulator you can poke.</p>
+    <div class="chip-row">
+      <span class="chip level">🟢 Builder track</span>
+      <span class="chip audience">Analysts · PMs · founders · ops</span>
+      <span class="chip audience">Live tree simulator + SQL</span>
+      <span class="chip time">Start here</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Welcome</span>
+      <span class="a2" style="flex:4">3-18 · What a driver tree is</span>
+      <span class="a3" style="flex:5">18-42 · Build &amp; break a GMV tree</span>
+      <span class="a4" style="flex:1">42-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>How this track works</h2>
+    </div>
+    <p class="lede">Ten builder sessions, one skill: take any top-line business metric, break it into the drivers beneath it, and use that tree to diagnose a drop in minutes. You will learn the three decomposition patterns (b2), how to find leading indicators and run the diagnosis playbook (b3), then apply all of it to six real domains - <strong>ecommerce</strong> (b4), <strong>marketing</strong> (b5), <strong>branding</strong> (b6), <strong>internet/traffic</strong> (b7), <strong>B2B SaaS</strong> (b8), and <strong>B2G</strong> (b9) - before a capstone where a metric drops and you diagnose it end to end (b10). The leader track (a1-a6) teaches the same thinking for reading trees and running the weekly and monthly metric reviews.</p>
+    <div class="legend">
+      <span class="pill solid">Live - presented in session</span>
+      <span class="pill light">Self-study - read after class</span>
+      <span class="pill peach">▶ Live tree - editable &amp; runnable</span>
+      <span class="pill inkpill">Framework sources covered</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with today</strong>
+      A working mental model of a driver tree, the ability to read GMV = Traffic x Conversion x AOV as a chain of levers, and a live simulator where you knock one driver down and watch the top line fall - the exact muscle a metric review needs.
+    </div>
+  </section>
+
+  <!-- ============ PART 1: WHAT A TREE IS ============ -->
+  <section class="section" id="what-tree">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers Lean Analytics, the DuPont decomposition heritage</span>
+      <h2>A metric is a chain of drivers <span class="tag concept">7 min live</span></h2>
+    </div>
+    <p class="lede">Almost every top-line number is a <strong>product or a sum of smaller numbers</strong>. GMV is not a thing you control directly - it is what you get when traffic, conversion rate, and average order value multiply together. Each of those is itself controllable, measurable, and ownable. The tree just writes that relationship down so everyone argues about the same picture.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="GMV decomposed into traffic, conversion, and average order value">
+        <style>
+          .dtT { font: 800 15px Inter, sans-serif; fill: #FFFFFF; }
+          .dtV { font: 700 13px Inter, sans-serif; fill: #16241E; }
+          .dtL { font: 700 12px Inter, sans-serif; fill: #16241E; }
+          .dtC { font: 400 11px Inter, sans-serif; fill: #566A61; }
+          .dtN { font: 600 12.5px Inter, sans-serif; fill: #431105; }
+          .dtLine { stroke: #B8DFCD; stroke-width: 2; fill: none; }
+        </style>
+        <rect x="350" y="30" width="180" height="52" rx="10" fill="#2F7D5B"/>
+        <text class="dtT" x="440" y="55" text-anchor="middle">GMV</text>
+        <text class="dtT" x="440" y="73" text-anchor="middle" style="font-size:12px">$208K / mo</text>
+
+        <path class="dtLine" d="M440,82 L440,104 M160,104 L720,104 M160,104 L160,126 M440,104 L440,126 M720,104 L720,126"/>
+
+        <rect x="70" y="126" width="180" height="60" rx="10" fill="#E9F5EF" stroke="#B8DFCD"/>
+        <text class="dtL" x="160" y="150" text-anchor="middle">Traffic</text>
+        <text class="dtV" x="160" y="170" text-anchor="middle">120,000 visits</text>
+        <rect x="350" y="126" width="180" height="60" rx="10" fill="#E9F5EF" stroke="#B8DFCD"/>
+        <text class="dtL" x="440" y="150" text-anchor="middle">Conversion</text>
+        <text class="dtV" x="440" y="170" text-anchor="middle">2.8%</text>
+        <rect x="630" y="126" width="180" height="60" rx="10" fill="#E9F5EF" stroke="#B8DFCD"/>
+        <text class="dtL" x="720" y="150" text-anchor="middle">Avg order value</text>
+        <text class="dtV" x="720" y="170" text-anchor="middle">$62</text>
+
+        <text class="dtC" x="290" y="118" text-anchor="middle">x</text>
+        <text class="dtC" x="570" y="118" text-anchor="middle">x</text>
+
+        <rect x="70" y="248" width="14" height="14" rx="3" fill="#E4572E"/>
+        <text class="dtN" x="94" y="260">120,000 x 2.8% x $62 = $208,320. Change any one lever and the top line moves by the same ratio.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - GMV is not one number, it is three drivers multiplied</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>Why "sales are down" is a useless sentence<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>A top-line metric is a <strong>lagging outcome</strong> - it tells you what happened, never why. Two companies can both report "GMV down 8%" for completely opposite reasons: one lost traffic while conversion held; the other kept traffic but conversion cratered. Same symptom, different disease, different fix. The tree is what lets you tell them apart in thirty seconds instead of a week of meetings.</p>
+        <ul>
+          <li><strong>The top line is the outcome</strong> you report to the board - GMV, revenue, ARR, bookings.</li>
+          <li><strong>The drivers are the levers</strong> teams actually pull - traffic (marketing owns it), conversion (product owns it), AOV (merchandising owns it).</li>
+          <li><strong>Decomposition assigns the drop</strong> to a lever, and a lever to an owner. That is the whole point.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>The DuPont move, a century old and still undefeated.</strong> In the 1910s DuPont broke "return on equity" into margin x turnover x leverage - the first famous driver tree. Every metric framework since (Lean Analytics, Amplitude's North Star, an Amazon weekly business review) is the same idea: never stare at a top-line number, always break it into the levers underneath.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Leading vs lagging, previewed<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Inside the tree hides the distinction that session a2 and b3 make central. GMV is a <strong>lagging</strong> indicator - it moves after the fact. But traffic is more leading than GMV, and further down the tree, "ad impressions" or "email sign-ups" lead traffic. The deeper you go, the earlier the warning. You <em>steer</em> by the leading drivers near the leaves and <em>report</em> the lagging number at the root.</p>
+        <ul>
+          <li><strong>Root of the tree:</strong> lagging, board-facing, slow to move.</li>
+          <li><strong>Leaves of the tree:</strong> leading, team-facing, quick to move and quick to warn.</li>
+          <li><strong>The skill:</strong> push your tree deep enough that the leaves give you early signal, not just after-the-fact accounting.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2: MULTIPLICATIVE ============ -->
+  <section class="section" id="multiplicative">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers the multiplicative pattern (rate x volume)</span>
+      <h2>The multiplicative tree, and why ratios matter <span class="tag concept">5 min live</span></h2>
+    </div>
+    <p class="lede">GMV = Traffic x Conversion x AOV is a <strong>multiplicative</strong> tree: the top line is the product of its drivers. Its defining property - the one that makes diagnosis fast - is that a percentage change in any single driver flows straight to the top line as the same percentage. Traffic down 10% with everything else held? GMV down 10%. That clean pass-through is exactly what you exploit when a metric falls.</p>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>The pass-through rule<span class="mini">2 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>In a pure product, the percentage moves add up. If traffic falls 10% and conversion falls 5%, the top line falls roughly 15% (10 + 5), not 50%. That approximation holds for the small moves you see week to week, and it is why a multiplicative tree lets you literally read the drop off the branches: sum the percentage changes down the guilty path and you have explained the fall.</p>
+        <div class="callout tip">
+          <strong>The one trap</strong>
+          Percentages, not absolute values, are what pass through cleanly. A "10-point" swing means nothing until you know 10 points of what. Always diagnose a multiplicative tree in percentage change per driver - the simulator below reports exactly that.
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO 1 ============ -->
+  <section class="section" id="demo-1">
+    <div class="section-kicker">
+      <span class="klabel">Demo 1 of 2</span>
+      <h2>Build it, then break it <span class="tag demo">★ 12 min · everyone builds</span></h2>
+    </div>
+    <p class="lede">Here is the GMV tree as a live simulator. Every leaf is editable and every parent recomputes instantly. First read it, then edit a driver and watch the top line move, then press <strong>Simulate a drop</strong> - one driver gets knocked down at random and the whole path from that leaf up to GMV lights coral. Your job: name the guilty driver from the trail, every time.</p>
+
+    <div class="treebox" data-caption="Edit Traffic, Conversion, or AOV and GMV recomputes. Simulate a drop, then read the coral path back to the cause.">
+      <pre class="tree-src">{
+  "unit": "$",
+  "root": {
+    "label": "GMV", "op": "x",
+    "children": [
+      { "label": "Traffic",     "value": 120000, "unit": "visits" },
+      { "label": "Conversion",  "value": 0.028,  "pct": true },
+      { "label": "Avg order value", "value": 62, "unit": "$" }
+    ]
+  }
+}</pre>
+    </div>
+
+    <div class="steps">
+      <div class="step"><p>Read the baseline: 120,000 visits x 2.8% x $62 = about $208K. That is GMV at rest.</p></div>
+      <div class="step"><p>Edit one leaf - drop Conversion from 2.8 to 2.5 - and watch GMV fall and the delta chip appear. That is a controlled experiment.</p></div>
+      <div class="step"><p>Press <strong>Simulate a drop</strong>. A random driver falls. Read the coral trail: which leaf moved, and by what percent?</p></div>
+      <div class="step"><p>Say the diagnosis out loud: "GMV fell X% because [driver] fell Y%." Press Reset and do it again until it is automatic.</p></div>
+    </div>
+
+    <div class="callout example">
+      <span class="ex-pill">Real world</span>
+      <p><strong>This is a metric review in miniature.</strong> When an ecommerce team opens Monday's dashboard and GMV is down, the good analysts are not smarter - they just have this tree memorised. They glance at three drivers, spot the one that moved, and route the question to its owner before anyone finishes their coffee. You are building that reflex now.</p>
+    </div>
+  </section>
+
+  <!-- ============ DEMO 2 ============ -->
+  <section class="section" id="demo-2">
+    <div class="section-kicker">
+      <span class="klabel">Demo 2 of 2</span>
+      <h2>One level deeper: segment to find the culprit <span class="tag demo">★ 10 min · everyone builds</span></h2>
+    </div>
+    <p class="lede">The tree tells you <em>which driver</em> fell. Segmentation tells you <em>where</em>. If conversion dropped, was it every channel or just one? Real diagnosis ends in a <code>GROUP BY</code>. These editors run live SQL against a small store's orders - the same move you make when the tree points at a guilty driver.</p>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>Revenue by channel - is the fall everywhere or somewhere?<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The tree flagged a driver. Now split it. Run this to see revenue split by channel - the first cut any analyst makes when a top-line metric drops.</p>
+        <div class="sqlbox" data-caption="Change the GROUP BY to plan or status to slice the drop a different way.">
+          <pre class="sql-src">SELECT o.channel,
+       COUNT(DISTINCT o.order_id)             AS orders,
+       ROUND(SUM(oi.quantity * oi.unit_price), 0) AS revenue
+FROM orders o
+JOIN order_items oi ON o.order_id = oi.order_id
+WHERE o.status = 'completed'
+GROUP BY o.channel
+ORDER BY revenue DESC;</pre>
+        </div>
+        <div class="callout tip">
+          <strong>The diagnosis chain</strong>
+          Tree points at the driver -&gt; segment splits the driver by dimension -&gt; the outlier segment is your lead. Tree first (which lever), SQL second (which slice). Never skip to SQL before the tree tells you where to look.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Your turn: split AOV instead<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <div class="sqlbox" data-caption="Hint: average order value = revenue / distinct orders. Group by channel to see which channel's basket shrank.">
+          <pre class="sql-src">SELECT o.channel,
+       ROUND(SUM(oi.quantity * oi.unit_price) * 1.0
+             / COUNT(DISTINCT o.order_id), 2) AS avg_order_value
+FROM orders o
+JOIN order_items oi ON o.order_id = oi.order_id
+WHERE o.status = 'completed'
+GROUP BY o.channel;</pre>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ HOMEWORK ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>Try it yourself - this week <span class="tag exercise">◐ 20-30 min total</span></h2>
+    </div>
+    <ul>
+      <li>Pick the top-line metric your team reports. Write it as a product or sum of three to five drivers. If you cannot, you do not yet understand what moves it - that gap is the point.</li>
+      <li>For each driver, name the team that owns it. A driver nobody owns is a driver nobody watches.</li>
+      <li>Bookmark this page. The simulator is your scratch pad - paste your own numbers into any later session's tree.</li>
+      <li>Next time someone says "the number is down", ask "which driver?" before "why?". Watch how fast the room re-orients.</li>
+      <li>Bring your metric's tree to b2 - we will decide whether it is multiplicative, additive, or a flow bridge.</li>
+    </ul>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Framework sources</span>
+      <h2>Frameworks this session draws on</h2>
+    </div>
+    <p class="lede">Metric decomposition has no single certificate - it is a craft distilled from a handful of durable frameworks. This track teaches the working core of these, applied live instead of described. This page draws on:</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Lean Analytics (Croll &amp; Yoskovitz) - the one metric that matters, per business model</span><span class="note">Part 1 · why a top-line splits into ownable drivers</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">DuPont analysis - the original driver-tree decomposition</span><span class="note">Part 1 · the century-old multiply-the-levers move</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Amplitude North Star Playbook - inputs that move the output</span><span class="note">Self-study card · leading inputs vs lagging output; full treatment in b3</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Amazon Weekly Business Review - reading trees on a cadence</span><span class="note">Demo 1 · the review reflex; the full ritual is leader session a5</span></div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">1 · Why is "GMV is down 8%" not enough to act on?</p>
+      <button class="qopt" type="button">A · Because 8% is within noise</button>
+      <button class="qopt" type="button">B · Because GMV is a vanity metric</button>
+      <button class="qopt" type="button">C · It names an outcome, not a cause - you cannot fix a lagging number, only the drivers under it</button>
+      <p class="qwhy">A top-line metric is a lagging outcome. The driver tree turns the drop into a specific lever (traffic, conversion, AOV) owned by a specific team - which is what you can actually act on.</p>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">2 · In GMV = Traffic x Conversion x AOV, traffic falls 10% and nothing else changes. GMV falls...</p>
+      <button class="qopt" type="button">A · Much less than 10%, it gets absorbed</button>
+      <button class="qopt" type="button">B · About 10% - a percentage change in one driver passes straight through a product</button>
+      <button class="qopt" type="button">C · 30%, because there are three drivers</button>
+      <p class="qwhy">In a multiplicative tree a percentage change in a single driver flows to the top line as the same percentage. That clean pass-through is what makes diagnosis fast.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">3 · The tree says conversion is the guilty driver. What is the next move?</p>
+      <button class="qopt" type="button">A · Segment conversion by channel, device, or cohort to find which slice fell</button>
+      <button class="qopt" type="button">B · Immediately rebuild the checkout page</button>
+      <button class="qopt" type="button">C · Report GMV is down and wait</button>
+      <p class="qwhy">Tree points at the driver; segmentation finds where. A GROUP BY on the guilty driver isolates the slice - one channel, one device, one cohort - before you spend a cent fixing anything.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Builder session 1 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>Driver tree</b><span>A top-line metric broken into the levers that multiply or sum to make it. Outcome at the root, levers at the leaves.</span></div>
+      <div class="cheat-item"><b>GMV tree</b><span>GMV = Traffic x Conversion x AOV. Marketing, product, and merchandising own one lever each.</span></div>
+      <div class="cheat-item"><b>Lagging vs leading</b><span>Root = lagging outcome (reports late). Leaves = leading drivers (warn early). Steer by leaves, report the root.</span></div>
+      <div class="cheat-item"><b>Multiplicative pass-through</b><span>In a product tree, a % change in one driver ≈ the same % change in the top line. Sum the % moves down the guilty path.</span></div>
+      <div class="cheat-item"><b>Diagnose in percentages</b><span>Absolute swings mislead. Always read a drop as % change per driver - that is what passes through cleanly.</span></div>
+      <div class="cheat-item"><b>Tree then segment</b><span>Tree says which driver. GROUP BY says which slice. Never SQL-first - let the tree aim you.</span></div>
+      <div class="cheat-item"><b>Every driver has an owner</b><span>Decomposition assigns a drop to a lever and a lever to a team. Ownerless drivers go unwatched.</span></div>
+      <div class="cheat-item"><b>Running skill</b><span>Build the tree, break it, name the culprit. Next: b2, the three decomposition patterns.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Builder session 1 of 10 · learn-metric-decomposition-with-phoebe · by Phoebe Fu &nbsp;·&nbsp; 📚 <a href="https://phoebefu6.github.io/learn-with-phoebe/">Learn with Phoebe ↗</a></span>
+    <span><a href="../index.html">← All sessions</a> &nbsp;·&nbsp; <a href="b2-three-patterns.html">Next: The three decomposition patterns →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/metric-seed.js?v=1"></script>
+<script src="../assets/duck-live.js?v=1"></script>
+<script src="../assets/tree-live.js?v=3"></script>
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

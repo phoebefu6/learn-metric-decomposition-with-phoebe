@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leader session 1 · Why a number needs a tree - learn metric decomposition with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-metric-decomposition-with-phoebe</a> / Leader session 1 of 6</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Metric Decomposition with Phoebe · Leader track · Session 1 of 6</div>
+    <h1>Why a number needs a <span class="accent">tree</span></h1>
+    <p class="sub">"Revenue is down 8%." Every leader has heard that sentence and felt the room go quiet. The problem is that it names an outcome, not a cause - so the meeting turns into opinions, not diagnosis. A driver tree breaks a top-line metric into the levers that actually move it, so a drop becomes a routed question with an owner instead of a mystery you argue about. This session teaches the mindset, not the maths: never stare at a number, always break it into the levers underneath.</p>
+    <div class="chip-row">
+      <span class="chip level">🔵 Leader track</span>
+      <span class="chip audience">Leaders: CxO · VPs · founders</span>
+      <span class="chip audience">No code - thinking mode</span>
+      <span class="chip time">45 min</span>
+      <span class="chip time">Start here</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Welcome</span>
+      <span class="a2" style="flex:5">3-20 · A number is an outcome</span>
+      <span class="a3" style="flex:6">20-42 · Decompose to act</span>
+      <span class="a4" style="flex:1">42-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>How this track works</h2>
+    </div>
+    <p class="lede">Six leader sessions, one habit: read any top-line business metric as a tree of drivers, and use that tree to diagnose a drop in minutes instead of meetings. Today you learn why a number alone can never be acted on and how decomposition assigns a drop to a lever and a lever to an owner. Then a2 separates leading from lagging indicators, a3 walks the diagnosis of a real drop, a4 lines up six domains side by side, and a5 and a6 run the weekly and monthly metric reviews. The builder track (b1-b10) does the same thinking hands-on in a live simulator - you do not need it to lead these conversations well.</p>
+    <div class="legend">
+      <span class="pill solid">Live - presented in session</span>
+      <span class="pill light">Self-study - read after class</span>
+      <span class="pill inkpill">Framework sources covered</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with today</strong>
+      A durable mental model: a top-line number is a lagging outcome, and behind it sits a small tree of levers, each owned by a team. You leave able to reframe "the number is down" into "which driver moved, and whose is it?" - the single question that turns a blame meeting into a diagnosis.
+    </div>
+  </section>
+
+  <!-- ============ PART 1: A NUMBER IS AN OUTCOME ============ -->
+  <section class="section" id="outcome">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers Lean Analytics, DuPont analysis</span>
+      <h2>A top-line metric is a lagging outcome <span class="tag concept">8 min live</span></h2>
+    </div>
+    <p class="lede">A number like GMV, revenue, or ARR tells you <strong>what</strong> happened and never <strong>why</strong>. It is the score at the end of the game, not the play that decided it. Two companies can both report "down 8%" for completely opposite reasons - one bled traffic while conversion held, the other kept traffic but conversion collapsed. Same symptom, different disease, different fix. The driver-tree mindset is simple: never stare at the score, always break it into the levers that produced it.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="GMV splitting into three driver boxes, each with a team owner">
+        <style>
+          .a1dtT { font: 800 15px Inter, sans-serif; fill: #FFFFFF; }
+          .a1dtV { font: 700 13px Inter, sans-serif; fill: #16241E; }
+          .a1dtL { font: 700 12px Inter, sans-serif; fill: #16241E; }
+          .a1dtO { font: 600 11px Inter, sans-serif; fill: #2F7D5B; }
+          .a1dtC { font: 400 12px Inter, sans-serif; fill: #566A61; }
+          .a1dtN { font: 600 12.5px Inter, sans-serif; fill: #431105; }
+          .a1dtLine { stroke: #B8DFCD; stroke-width: 2; fill: none; }
+        </style>
+        <rect x="350" y="28" width="180" height="52" rx="10" fill="#2F7D5B"/>
+        <text class="a1dtT" x="440" y="53" text-anchor="middle">GMV (the outcome)</text>
+        <text class="a1dtT" x="440" y="71" text-anchor="middle" style="font-size:12px">$208K / mo · lagging</text>
+
+        <path class="a1dtLine" d="M440,80 L440,102 M160,102 L720,102 M160,102 L160,124 M440,102 L440,124 M720,102 L720,124"/>
+
+        <rect x="70" y="124" width="180" height="58" rx="10" fill="#E9F5EF" stroke="#B8DFCD"/>
+        <text class="a1dtL" x="160" y="148" text-anchor="middle">Traffic</text>
+        <text class="a1dtV" x="160" y="168" text-anchor="middle">120,000 visits</text>
+        <rect x="350" y="124" width="180" height="58" rx="10" fill="#E9F5EF" stroke="#B8DFCD"/>
+        <text class="a1dtL" x="440" y="148" text-anchor="middle">Conversion</text>
+        <text class="a1dtV" x="440" y="168" text-anchor="middle">2.8%</text>
+        <rect x="630" y="124" width="180" height="58" rx="10" fill="#E9F5EF" stroke="#B8DFCD"/>
+        <text class="a1dtL" x="720" y="148" text-anchor="middle">Avg order value</text>
+        <text class="a1dtV" x="720" y="168" text-anchor="middle">$62</text>
+
+        <text class="a1dtC" x="290" y="116" text-anchor="middle">x</text>
+        <text class="a1dtC" x="570" y="116" text-anchor="middle">x</text>
+
+        <text class="a1dtO" x="160" y="204" text-anchor="middle">owner: Marketing</text>
+        <text class="a1dtO" x="440" y="204" text-anchor="middle">owner: Product</text>
+        <text class="a1dtO" x="720" y="204" text-anchor="middle">owner: Merchandising</text>
+
+        <rect x="70" y="268" width="14" height="14" rx="3" fill="#E4572E"/>
+        <text class="a1dtN" x="94" y="280">Decomposition assigns a drop to a lever, and a lever to an owner.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the outcome at the root, the levers and their owners at the leaves</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>Why "the number is down" is a useless sentence<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>A top-line metric is a lagging outcome. On its own it starts an argument, because everyone has a pet theory and none of them can be checked. The tree ends the argument by making the drop specific: it was traffic, or conversion, or basket size, and each of those has a name on it. The leader's job is not to know which lever moved - it is to insist the conversation move to a lever before it moves to a fix.</p>
+        <ul>
+          <li><strong>The top line is the outcome</strong> you report to the board - GMV, revenue, ARR, bookings. Slow, lagging, everyone sees it.</li>
+          <li><strong>The drivers are the levers</strong> teams actually pull - traffic, conversion, average order value. Faster, closer to the work.</li>
+          <li><strong>The tree writes the relationship down</strong> so the room argues about the same picture instead of competing hunches.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>Two boards, one headline.</strong> Lean Analytics (Croll and Yoskovitz) makes the point that the "one metric that matters" depends entirely on your business model and stage - and that the metric you report is never the metric you pull. A subscription board and a marketplace board can both say "down 8%" this quarter and be describing two entirely different problems. Without a tree, the two conversations sound identical and go nowhere.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>The one-metric-that-matters idea<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Lean Analytics argues that at any given stage a company should have a single metric it obsesses over - the one that captures whether the current bet is working. That does not contradict the tree; it sits on top of it. The one metric that matters is your root. The tree is how you make it actionable, because you cannot pull the root directly - you pull the levers underneath.</p>
+        <ul>
+          <li><strong>Pick the root deliberately.</strong> An early startup watches activation; a scaling one watches retention or GMV. The right root changes as you grow.</li>
+          <li><strong>Then decompose it.</strong> A root without a tree is a wish. A root with a tree is a plan with owners.</li>
+          <li><strong>One root, not seven.</strong> A dashboard with forty numbers and no tree is not visibility - it is noise wearing a suit.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2: THE TREE ASSIGNS OWNERSHIP ============ -->
+  <section class="section" id="ownership">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers DuPont analysis, ownership routing</span>
+      <h2>The tree assigns ownership <span class="tag concept">7 min live</span></h2>
+    </div>
+    <p class="lede">The quiet superpower of a driver tree is not diagnosis - it is <strong>accountability</strong>. When a metric splits into levers, each lever gets a team. A drop then becomes a routed question ("conversion fell 6%, product please look") rather than a blame meeting where everyone stares at the floor. The tree is an org chart in disguise: it tells you not only what moved, but whose phone should ring.</p>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>From blame meeting to routed question<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Without a tree, a bad number lands on whoever is most senior or most visible, which is neither fair nor useful. With a tree, the number lands on the lever that moved, and the lever has a standing owner. The emotional temperature of the meeting drops immediately, because it is no longer "who failed" - it is "which lever, and what do we do about it." Good leaders build the tree in calm times precisely so it is on the wall when the number falls.</p>
+        <ul>
+          <li><strong>Every leaf has one owner.</strong> A driver two teams share is a driver neither team watches.</li>
+          <li><strong>Route, do not blame.</strong> "Conversion is the guilty driver, product owns conversion" is a task, not an accusation.</li>
+          <li><strong>Ownership survives reorgs.</strong> If a lever loses its owner, the tree tells you before the metric does.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>DuPont, 1910s: the first famous driver tree.</strong> An engineer at DuPont broke return on equity into three levers - profit margin x asset turnover x financial leverage - so that a change in ROE could be traced to operations, efficiency, or financing, each owned by a different part of the business. A century later, every serious metric framework is the same move: split the outcome, name the levers, give each an owner. The maths has aged; the idea has not.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>The exec who stared at a falling number for a month<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>A pattern worth recognising in yourself. A VP watches a weekly number slide for four straight weeks. Each week the update says "we are aware and monitoring." Nobody has decomposed it, so nobody can say what to do - and "monitoring" becomes a month of watching a house burn with a full bucket in hand. The fix was never more data. It was one whiteboard session breaking the number into three levers, at which point the culprit was obvious in ten minutes.</p>
+        <ul>
+          <li><strong>Monitoring is not diagnosis.</strong> If an update cannot name a lever, it is a status, not an answer.</li>
+          <li><strong>Decompose early, not eventually.</strong> The tree is cheapest to draw before the crisis, not during it.</li>
+          <li><strong>Ask the routing question.</strong> "Which driver, and whose is it?" ends the month-long stare in one meeting.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>ROE as a tree you already trust<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>If the driver-tree idea feels abstract, remember you already trust one: any CFO reads return on equity as margin, turnover, and leverage, and can tell you in seconds whether a change came from pricing, operations, or the balance sheet. That fluency is exactly what this track builds for the metrics your operating teams live in - GMV, ARR, pipeline, DAU. The financial world decomposed its top line a hundred years ago. The operating world is still catching up.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 3: WHAT A GOOD TREE GIVES LEADERS ============ -->
+  <section class="section" id="value">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · covers Amplitude North Star (preview), decomposition discipline</span>
+      <h2>What a good tree gives leaders <span class="tag concept">7 min live</span></h2>
+    </div>
+    <p class="lede">A tree on the wall buys a leadership team three things: a <strong>shared picture</strong> so debate starts from the same map, <strong>faster diagnosis</strong> so a drop is traced not argued, and <strong>aligned accountability</strong> so each lever has a name. But there is a discipline to it - decompose to the level that changes a decision, and no deeper. A tree with forty leaves nobody owns is not rigour; it is vanity depth that hides the signal instead of surfacing it.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="An ownership map: the outcome at the root routes to three levers, each with a team">
+        <style>
+          .a1omT { font: 800 14px Inter, sans-serif; fill: #FFFFFF; }
+          .a1omS { font: 600 11px Inter, sans-serif; fill: #E9F5EF; }
+          .a1omL { font: 700 13px Inter, sans-serif; fill: #16241E; }
+          .a1omO { font: 600 11px Inter, sans-serif; fill: #2F7D5B; }
+          .a1omN { font: 600 12.5px Inter, sans-serif; fill: #431105; }
+          .a1omLine { stroke: #4FA37E; stroke-width: 2; fill: none; }
+        </style>
+        <rect x="40" y="104" width="210" height="76" rx="12" fill="#1E5240"/>
+        <text class="a1omT" x="145" y="134" text-anchor="middle">Top-line outcome</text>
+        <text class="a1omS" x="145" y="154" text-anchor="middle">board-facing · lagging</text>
+        <text class="a1omS" x="145" y="170" text-anchor="middle">you report this</text>
+
+        <path class="a1omLine" d="M250,142 C400,142 420,60 555,60 M250,142 L555,142 M250,142 C400,142 420,224 555,224"/>
+
+        <rect x="555" y="34" width="290" height="52" rx="10" fill="#E9F5EF" stroke="#B8DFCD"/>
+        <text class="a1omL" x="575" y="58">Traffic lever</text>
+        <text class="a1omO" x="575" y="76">owner: Marketing · steer this</text>
+        <rect x="555" y="116" width="290" height="52" rx="10" fill="#E9F5EF" stroke="#B8DFCD"/>
+        <text class="a1omL" x="575" y="140">Conversion lever</text>
+        <text class="a1omO" x="575" y="158">owner: Product · steer this</text>
+        <rect x="555" y="198" width="290" height="52" rx="10" fill="#E9F5EF" stroke="#B8DFCD"/>
+        <text class="a1omL" x="575" y="222">Avg order value lever</text>
+        <text class="a1omO" x="575" y="240">owner: Merchandising · steer this</text>
+
+        <rect x="40" y="266" width="14" height="14" rx="3" fill="#E4572E"/>
+        <text class="a1omN" x="64" y="278">The root is what you report. The leaves are who you route to.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - outcome at the root, owned levers at the leaves</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>The three gifts, and the one trap<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>A shared picture means your weekly review starts from a map, not a slide of forty tiles. Faster diagnosis means a drop is a five-minute trace down the branches. Aligned accountability means each lever has a standing owner who is not surprised to be asked. The trap is over-decomposition: past the point where a deeper split would change a decision, extra leaves are cost, not insight. Decompose until the next level would not change what you do, then stop.</p>
+        <ul>
+          <li><strong>Shared picture.</strong> Everyone debates the same tree, so disagreements are about the world, not about the map.</li>
+          <li><strong>Faster diagnosis.</strong> The drop lives on a branch. You trace it, you do not litigate it.</li>
+          <li><strong>Aligned accountability.</strong> Each lever has an owner before the crisis, not assigned during it.</li>
+          <li><strong>The trap: vanity depth.</strong> A leaf no one owns and no decision needs is noise dressed as rigour.</li>
+        </ul>
+        <div class="callout tip">
+          <strong>The stopping rule</strong>
+          Split a driver one more level only if that level would change who you call or what you do. If it would not, you have decomposed enough. Depth is a means, never a trophy.
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>A preview of leading vs lagging<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Notice the note on the ownership map: the root is lagging and board-facing, the leaves are the things teams steer. That is the seed of session a2. The Amplitude North Star idea puts a lagging output metric at the top and a small set of leading input metrics beneath it, on the logic that inputs move first and warn early. You will see that the deeper you push a tree, the earlier its leaves warn you - which is why leaders steer by leaves and report by roots.</p>
+        <ul>
+          <li><strong>Root:</strong> lagging, slow, what the board sees.</li>
+          <li><strong>Leaves:</strong> leading, quick, what teams pull.</li>
+          <li><strong>Next session:</strong> a2 makes this the whole show - steer by leading, report by lagging.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ HOMEWORK ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Take it to your team</span>
+      <h2>Five things to raise this week <span class="tag exercise">◐ discussion prompts</span></h2>
+    </div>
+    <ul>
+      <li>Name the one top-line metric your leadership team reports. Can you, on a whiteboard, break it into three to five levers? If not, that gap is exactly what this track closes.</li>
+      <li>For each lever, write the single team that owns it. If a lever has two owners or none, you have found a diagnosis that will be slow every single time.</li>
+      <li>Recall the last time a number dropped and the meeting went in circles. Which lever, in hindsight, actually moved - and how long did it take to name it?</li>
+      <li>Ask your team whether your main dashboard is a tree or a wall of tiles. A wall of tiles is a decomposition you have not done yet.</li>
+      <li>Bring your top-line tree to a2. We will sort its levers into leading and lagging, so you know which ones warn you early and which ones just keep score.</li>
+    </ul>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Framework sources</span>
+      <h2>Frameworks this session draws on</h2>
+    </div>
+    <p class="lede">Metric decomposition has no single certificate - it is a craft distilled from a handful of durable frameworks. This leader track teaches the thinking core of these, applied to the decisions you make, not the code behind them. This page draws on:</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Lean Analytics (Croll &amp; Yoskovitz) - the one metric that matters, per business model</span><span class="note">Part 1 · why the root is chosen, and why it still needs a tree</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">DuPont analysis - the original driver-tree decomposition</span><span class="note">Part 2 · ROE = margin x turnover x leverage, the century-old ownership split</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Amplitude North Star Playbook - leading inputs move the lagging output</span><span class="note">Part 3 preview · lagging root vs leading leaves; full treatment in a2</span></div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">1 · Why can a top-line number, on its own, not be acted on?</p>
+      <button class="qopt" type="button">A · Because it is always within noise</button>
+      <button class="qopt" type="button">B · Because top-line numbers are vanity metrics</button>
+      <button class="qopt" type="button">C · It names a lagging outcome, not a cause - you can only pull the levers underneath it</button>
+      <p class="qwhy">A top-line metric is the score, not the play. You cannot move a lagging outcome directly; you move the drivers beneath it. The tree is what turns the number into levers a team can pull.</p>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">2 · Beyond faster diagnosis, what does decomposition assign?</p>
+      <button class="qopt" type="button">A · A budget to each metric</button>
+      <button class="qopt" type="button">B · A drop to a lever, and a lever to an owner - accountability, not just insight</button>
+      <button class="qopt" type="button">C · A forecast to each quarter</button>
+      <p class="qwhy">The quiet power of a tree is ownership. Each lever gets a team, so a drop becomes a routed question ("conversion fell, product please look") instead of a blame meeting.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">3 · What was DuPont's move in the 1910s?</p>
+      <button class="qopt" type="button">A · It split return on equity into margin x turnover x leverage - the first famous driver tree</button>
+      <button class="qopt" type="button">B · It invented the balance sheet</button>
+      <button class="qopt" type="button">C · It set the first OKRs</button>
+      <p class="qwhy">DuPont broke ROE into three levers so a change could be traced to operations, efficiency, or financing, each owned by a different part of the business. Every modern metric framework repeats that move.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Leader session 1 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>Driver tree</b><span>A top-line metric broken into the levers that multiply or sum to make it. Outcome at the root, owned levers at the leaves.</span></div>
+      <div class="cheat-item"><b>The number is an outcome</b><span>A top line tells you what, never why. Two firms can be "down 8%" for opposite reasons. Never act on the score alone.</span></div>
+      <div class="cheat-item"><b>Decomposition assigns</b><span>A drop to a lever, and a lever to an owner. That is the whole point - accountability, not just insight.</span></div>
+      <div class="cheat-item"><b>Route, do not blame</b><span>"Conversion fell, product owns conversion" is a task. It drops the emotional temperature of a bad-number meeting.</span></div>
+      <div class="cheat-item"><b>DuPont, 1910s</b><span>ROE = margin x turnover x leverage. The first famous driver tree. Every framework since is the same move.</span></div>
+      <div class="cheat-item"><b>One metric that matters</b><span>Lean Analytics: pick the root deliberately for your stage, then decompose it. A root without a tree is a wish.</span></div>
+      <div class="cheat-item"><b>The stopping rule</b><span>Split one level deeper only if it changes who you call or what you do. Past that, extra leaves are vanity depth.</span></div>
+      <div class="cheat-item"><b>Running skill</b><span>Reframe "the number is down" as "which driver, and whose is it?" Next: a2, leading vs lagging.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Leader session 1 of 6 · learn-metric-decomposition-with-phoebe · by Phoebe Fu &nbsp;·&nbsp; 📚 <a href="https://phoebefu6.github.io/learn-with-phoebe/">Learn with Phoebe ↗</a></span>
+    <span><a href="../index.html">← All sessions</a> &nbsp;·&nbsp; <a href="a2-leading-vs-lagging.html">Next: Leading vs lagging →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

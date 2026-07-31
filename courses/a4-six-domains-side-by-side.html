@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leader session 4 · The six domains side by side - learn metric decomposition with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-metric-decomposition-with-phoebe</a> / Leader session 4 of 6</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Metric Decomposition with Phoebe · Leader track · Session 4 of 6</div>
+    <h1>The six domains, <span class="accent">side by side</span></h1>
+    <p class="sub">You have learned to read a driver tree, spot leading indicators, and trace a drop. Now the question every leader eventually asks: does this method survive contact with a business that is nothing like an online store? A CFO runs finance, a CMO runs brand, a founder runs a SaaS book - do they all decompose the same way? Today we lay six very different businesses on the same table and show that the method is one, even though the shape of the tree changes.</p>
+    <div class="chip-row">
+      <span class="chip level">🔵 Leader track</span>
+      <span class="chip audience">Leaders: CxO · VPs · founders</span>
+      <span class="chip audience">No code - thinking mode</span>
+      <span class="chip time">45 min</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Welcome</span>
+      <span class="a2" style="flex:5">3-22 · Same method, six shapes</span>
+      <span class="a3" style="flex:5">22-42 · Read across the domains</span>
+      <span class="a4" style="flex:1">42-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Why put six businesses on one page</h2>
+    </div>
+    <p class="lede">Most leaders learn metric thinking inside one industry and quietly assume it does not travel. It does. A driver tree is a way of writing down "this outcome is made of these levers" - and every business, from a marketplace to a government contractor, has that structure. What changes is the <strong>shape</strong> of the tree: some multiply, some bridge, some funnel. Today you see all three shapes, across six domains, so you can walk into any business unit and ask the same three questions with confidence.</p>
+    <div class="legend">
+      <span class="pill solid">Live - presented in session</span>
+      <span class="pill light">Self-study - read after class</span>
+      <span class="pill inkpill">Framework sources covered</span>
+    </div>
+    <div class="callout win">
+      <strong>★ What you walk out with today</strong>
+      One method that transfers across every business you will ever lead: a mental map of the six top-line trees, the ability to tell a multiplicative tree from a bridge from a funnel on sight, and the discipline to pick one top-line metric per unit instead of drowning in a dashboard.
+    </div>
+  </section>
+
+  <!-- ============ PART 1: SAME METHOD, SIX SHAPES ============ -->
+  <section class="section" id="six-shapes">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers the domain metric canon, the three tree shapes</span>
+      <h2>One method, three shapes of tree <span class="tag concept">9 min live</span></h2>
+    </div>
+    <p class="lede">The method never changes: name the top line, break it into the levers that make it, assign each lever an owner. But the levers do not always combine the same way. In some businesses the top line is a <strong>product</strong> of rates and volumes. In others it is a <strong>bridge</strong> - a starting balance plus and minus flows. In others it is a <strong>funnel</strong> - a wide top narrowing stage by stage. Learn to spot which shape you are looking at and the rest of the diagnosis follows.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Six domains and their top-line formulas in a two by three grid">
+        <style>
+          .sdH { font: 800 13px Inter, sans-serif; fill: #FFFFFF; }
+          .sdF { font: 700 12px Inter, sans-serif; fill: #16241E; }
+          .sdS { font: 400 10.5px Inter, sans-serif; fill: #566A61; }
+          .sdShape { font: 700 10px Inter, sans-serif; fill: #431105; }
+          .sdN { font: 600 12px Inter, sans-serif; fill: #431105; }
+        </style>
+
+        <!-- row 1 -->
+        <rect x="20" y="30" width="270" height="120" rx="12" fill="#E9F5EF" stroke="#DCEAE2"/>
+        <rect x="20" y="30" width="270" height="30" rx="12" fill="#2F7D5B"/>
+        <rect x="20" y="46" width="270" height="14" fill="#2F7D5B"/>
+        <text class="sdH" x="34" y="50">1 · Ecommerce</text>
+        <text class="sdF" x="34" y="88">GMV = Traffic x Conv x AOV</text>
+        <text class="sdShape" x="34" y="112">Shape: multiplicative</text>
+        <text class="sdS" x="34" y="134">Rate x volume, clean pass-through</text>
+
+        <rect x="305" y="30" width="270" height="120" rx="12" fill="#E9F5EF" stroke="#DCEAE2"/>
+        <rect x="305" y="30" width="270" height="30" rx="12" fill="#2F7D5B"/>
+        <rect x="305" y="46" width="270" height="14" fill="#2F7D5B"/>
+        <text class="sdH" x="319" y="50">2 · Marketing</text>
+        <text class="sdF" x="319" y="88">ROAS = Revenue / Spend</text>
+        <text class="sdShape" x="319" y="112">Shape: funnel to revenue</text>
+        <text class="sdS" x="319" y="134">Spend to clicks to leads to won</text>
+
+        <rect x="590" y="30" width="270" height="120" rx="12" fill="#E9F5EF" stroke="#DCEAE2"/>
+        <rect x="590" y="30" width="270" height="30" rx="12" fill="#2F7D5B"/>
+        <rect x="590" y="46" width="270" height="14" fill="#2F7D5B"/>
+        <text class="sdH" x="604" y="50">3 · Branding</text>
+        <text class="sdF" x="604" y="88">Reach to intent to sales</text>
+        <text class="sdShape" x="604" y="112">Shape: brand funnel</text>
+        <text class="sdS" x="604" y="134">Share of search leads share</text>
+
+        <!-- row 2 -->
+        <rect x="20" y="170" width="270" height="120" rx="12" fill="#E9F5EF" stroke="#DCEAE2"/>
+        <rect x="20" y="170" width="270" height="30" rx="12" fill="#1E5240"/>
+        <rect x="20" y="186" width="270" height="14" fill="#1E5240"/>
+        <text class="sdH" x="34" y="190">4 · Internet / traffic</text>
+        <text class="sdF" x="34" y="228">Ad rev = Impr x Fill x CPM</text>
+        <text class="sdShape" x="34" y="252">Shape: multiplicative</text>
+        <text class="sdS" x="34" y="274">Impr = DAU x sessions x slots</text>
+
+        <rect x="305" y="170" width="270" height="120" rx="12" fill="#E9F5EF" stroke="#DCEAE2"/>
+        <rect x="305" y="170" width="270" height="30" rx="12" fill="#1E5240"/>
+        <rect x="305" y="186" width="270" height="14" fill="#1E5240"/>
+        <text class="sdH" x="319" y="190">5 · B2B SaaS</text>
+        <text class="sdF" x="319" y="228">ARR bridge (flow)</text>
+        <text class="sdShape" x="319" y="252">Shape: bridge</text>
+        <text class="sdS" x="319" y="274">Start + new + exp - churn</text>
+
+        <rect x="590" y="170" width="270" height="120" rx="12" fill="#E9F5EF" stroke="#DCEAE2"/>
+        <rect x="590" y="170" width="270" height="30" rx="12" fill="#1E5240"/>
+        <rect x="590" y="186" width="270" height="14" fill="#1E5240"/>
+        <text class="sdH" x="604" y="190">6 · B2G</text>
+        <text class="sdF" x="604" y="228">Bookings = Pipe x Win x ACV</text>
+        <text class="sdShape" x="604" y="252">Shape: multiplicative</text>
+        <text class="sdS" x="604" y="274">Plus mission-outcome KPIs</text>
+
+        <rect x="20" y="330" width="14" height="14" rx="3" fill="#E4572E"/>
+        <text class="sdN" x="44" y="342">Same three questions everywhere: what is the top line, what are its levers, who owns each one?</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - six businesses, one method, three shapes of tree</figcaption>
+    </figure>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>The three shapes, and how to tell them apart<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>You do not need to memorise six trees. You need to recognise three shapes and know which businesses wear which. Once you can name the shape, you know how a drop will behave and where to look first.</p>
+        <ul>
+          <li><strong>Multiplicative</strong> - the top line is a product of rates and volumes. Ecommerce GMV, ad revenue, bookings. A percentage move in one lever passes straight to the top line, so diagnosis is fast: find the lever that moved by the matching percent.</li>
+          <li><strong>Bridge</strong> - the top line is a starting balance plus and minus flows. SaaS ARR: you begin the quarter with a number, add new and expansion, subtract contraction and churn, and land on the ending number. You diagnose by asking which flow changed, not which rate.</li>
+          <li><strong>Funnel</strong> - a wide top narrows stage by stage to a converted outcome. Marketing spend to won, brand reach to sales. You diagnose by finding the stage where the conversion rate slipped.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Why the shape decides your first move<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The shape is not trivia - it tells you the <em>first cut</em> when a number moves. In a multiplicative tree you compare percentage changes across levers. In a bridge you compare this quarter's flows to last quarter's flows - the churn line, the expansion line. In a funnel you compare stage-conversion rates to their baseline to find the leaky stage.</p>
+        <ul>
+          <li><strong>Multiplicative:</strong> ask "which lever moved, by what percent?"</li>
+          <li><strong>Bridge:</strong> ask "which flow changed - did more churn out, or did less new come in?"</li>
+          <li><strong>Funnel:</strong> ask "which stage stopped converting at its usual rate?"</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>The same drop, told three ways<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Imagine revenue is down 6% in three businesses. In the ecommerce store, "conversion fell 6%, everything else held" - one lever, one owner. In the SaaS book, "new bookings held but churn doubled" - a flow problem, a retention owner. In the brand-led business, "reach held but consideration slipped" - a mid-funnel problem, a messaging owner. Same headline, three completely different rooms to walk into. The tree shape is what routed you to the right room.</p>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>Marketplaces run two trees at once.</strong> A ride-hailing or delivery business decomposes both supply (drivers, couriers, listings) and demand (riders, orders) as separate multiplicative trees, then joins them at the marketplace level. Leaders who only watch the demand tree miss supply-side drops entirely - which is why the best operators keep both trees on the same wall.</p>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2: READ ACROSS THE DOMAINS ============ -->
+  <section class="section" id="read-across">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers leading vs lagging across domains</span>
+      <h2>Leading and lagging, domain by domain <span class="tag concept">8 min live</span></h2>
+    </div>
+    <p class="lede">Every domain has a <strong>lagging top line</strong> the board watches and a <strong>leading indicator</strong> that moves first. The leader's edge is knowing the leading one for each business you touch - because that is the number that warns you weeks before the board number confirms the bad news. Here is the whole set on one table.</p>
+
+    <table class="clean">
+      <thead>
+        <tr><th>Domain</th><th>Top line (lagging)</th><th>A key leading indicator</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Ecommerce</td><td>GMV / revenue</td><td>Add-to-cart rate, checkout starts</td></tr>
+        <tr><td>Marketing</td><td>Marketing-sourced revenue</td><td>MQL-to-SQL rate, cost per lead</td></tr>
+        <tr><td>Branding</td><td>Market share</td><td>Share of search, share of voice</td></tr>
+        <tr><td>Internet / traffic</td><td>Ad revenue</td><td>DAU, sessions per user, fill rate</td></tr>
+        <tr><td>B2B SaaS</td><td>ARR</td><td>Pipeline coverage, net revenue retention</td></tr>
+        <tr><td>B2G</td><td>Contract bookings</td><td>Pipeline coverage, win rate on late-stage</td></tr>
+      </tbody>
+    </table>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>The leading indicator is where you actually lead<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The lagging number is for the board; the leading number is for you. GMV confirms last month happened. Add-to-cart rate is falling <em>right now</em> and gives you weeks to act before it shows up as revenue. The whole point of decomposing a metric is to get down to leaves that lead - so you steer by them and report the root.</p>
+        <ul>
+          <li><strong>Report the lagging root</strong> - it is the accountable, board-facing number.</li>
+          <li><strong>Manage by the leading leaves</strong> - they warn early and are quick to move.</li>
+          <li><strong>Pipeline coverage</strong> deserves special mention: in both SaaS and B2G it is the single earliest signal, because a thin pipeline today is a bookings miss two quarters out.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Share of search - the brand leader's leading number<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Market share is the slowest number a brand leader watches - it lands quarters late and only after the market has already moved. Share of search (your brand's share of category search volume) tracks it closely and arrives weekly. When share of search dips, brand-driven sales tend to follow. It is the closest thing brand marketing has to the add-to-cart rate: an early, cheap, leading proxy for a slow, expensive, lagging outcome.</p>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Boardroom moment - one leader, five business units<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>A group operating officer inherited five business units - a marketplace, a media property, a SaaS product, a services arm, and a government-contracts desk. Five industries, five vocabularies, five sets of dashboards that did not talk to each other. She refused to learn five methods. Instead she made every unit head answer the same three questions in the monthly review: <strong>what is your one top-line metric, what are the three-to-five drivers under it, and who owns each driver?</strong> Within two quarters the reviews got shorter and sharper. The vocabularies still differed, but the thinking was identical - and she could now smell a problem in a business she had never operated.</p>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>This is the transferable skill.</strong> Leaders who rise into multi-unit roles cannot be domain experts in everything. What travels is the method: same three questions, applied to whatever tree the unit happens to have. The domain expert knows the answers; the leader knows the questions.</p>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 3: ONE TOP-LINE PER UNIT ============ -->
+  <section class="section" id="one-metric">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · covers Lean Analytics, the one metric that matters</span>
+      <h2>Pick the one top-line, then its drivers <span class="tag concept">6 min live</span></h2>
+    </div>
+    <p class="lede">The trap on the other side of decomposition is sprawl. Once teams learn to break metrics down, they break down everything, and the dashboard grows to two hundred tiles nobody reads. Lean Analytics gives the antidote: at any moment, one metric matters most. Pick the <strong>one top-line</strong> for the unit, put three to five drivers under it, and let everything else be a leaf you consult only when a driver moves.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="One top-line metric with three to five drivers beneath it">
+        <style>
+          .omT { font: 800 15px Inter, sans-serif; fill: #FFFFFF; }
+          .omTs { font: 700 12px Inter, sans-serif; fill: #FFFFFF; }
+          .omL { font: 700 12px Inter, sans-serif; fill: #16241E; }
+          .omO { font: 400 10.5px Inter, sans-serif; fill: #566A61; }
+          .omN { font: 600 12px Inter, sans-serif; fill: #431105; }
+          .omLine { stroke: #B8DFCD; stroke-width: 2; fill: none; }
+        </style>
+        <rect x="330" y="24" width="220" height="54" rx="10" fill="#2F7D5B"/>
+        <text class="omT" x="440" y="48" text-anchor="middle">The ONE top-line</text>
+        <text class="omTs" x="440" y="67" text-anchor="middle">what this unit is judged on</text>
+
+        <path class="omLine" d="M440,78 L440,100 M90,100 L790,100 M90,100 L90,124 M265,100 L265,124 M440,100 L440,124 M615,100 L615,124 M790,100 L790,124"/>
+
+        <rect x="20" y="124" width="140" height="66" rx="9" fill="#E9F5EF" stroke="#DCEAE2"/>
+        <text class="omL" x="90" y="150" text-anchor="middle">Driver 1</text>
+        <text class="omO" x="90" y="170" text-anchor="middle">has an owner</text>
+        <rect x="195" y="124" width="140" height="66" rx="9" fill="#E9F5EF" stroke="#DCEAE2"/>
+        <text class="omL" x="265" y="150" text-anchor="middle">Driver 2</text>
+        <text class="omO" x="265" y="170" text-anchor="middle">has an owner</text>
+        <rect x="370" y="124" width="140" height="66" rx="9" fill="#E9F5EF" stroke="#DCEAE2"/>
+        <text class="omL" x="440" y="150" text-anchor="middle">Driver 3</text>
+        <text class="omO" x="440" y="170" text-anchor="middle">has an owner</text>
+        <rect x="545" y="124" width="140" height="66" rx="9" fill="#E9F5EF" stroke="#DCEAE2"/>
+        <text class="omL" x="615" y="150" text-anchor="middle">Driver 4</text>
+        <text class="omO" x="615" y="170" text-anchor="middle">optional</text>
+        <rect x="720" y="124" width="140" height="66" rx="9" fill="#E9F5EF" stroke="#DCEAE2"/>
+        <text class="omL" x="790" y="150" text-anchor="middle">Driver 5</text>
+        <text class="omO" x="790" y="170" text-anchor="middle">optional</text>
+
+        <rect x="20" y="222" width="14" height="14" rx="3" fill="#E4572E"/>
+        <text class="omN" x="44" y="234">Three to five drivers, each with an owner. More than five and nobody watches any of them.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - one top-line, three to five owned drivers, and no more</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Three to five, not thirty<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Attention is the scarce resource in any review. A tree with five drivers gets watched; a tree with thirty gets ignored. Discipline is choosing the small number of levers that explain most of the movement and pushing the rest down into leaves you consult only on demand. If everything is a headline metric, nothing is.</p>
+        <ul>
+          <li><strong>One top-line per unit</strong> - the number the unit is judged on this quarter.</li>
+          <li><strong>Three to five drivers</strong> - the levers that explain most of its movement.</li>
+          <li><strong>Everything else is a leaf</strong> - real, tracked, but consulted only when a driver above it moves.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>The one metric changes as the business changes<span class="mini">2 min read</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Lean Analytics is clear that the one metric that matters is not permanent. An early SaaS company watches activation; a scaling one watches net revenue retention; a mature one watches margin. The tree stays; the metric at its root is promoted as the business matures. The skill is noticing when your one metric has stopped being the constraint and a different driver has taken its place.</p>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p><strong>Dashboard sprawl is a leadership failure, not a tooling one.</strong> When a review has forty charts, it is not because the tool made too many - it is because no leader was willing to say which one number matters most this quarter. Picking the one top-line is an act of leadership, and it is uncomfortable precisely because it makes you accountable for a single number.</p>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ HOMEWORK ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>Try it yourself - this week <span class="tag exercise">◐ 20-30 min total</span></h2>
+    </div>
+    <ul>
+      <li>Pick one business unit you touch. Write down its one top-line metric and name its tree shape - multiplicative, bridge, or funnel. If you cannot name the shape, you do not yet know how a drop will behave.</li>
+      <li>Under that top line, list three to five drivers and the owner of each. If a driver has no owner, that is your first finding.</li>
+      <li>For that same unit, write the lagging top line and one leading indicator beside it. Ask whether your review actually watches the leading one.</li>
+      <li>Find a dashboard in your org with more than fifteen headline tiles. Circle the one metric that matters most this quarter - and notice how hard that choice is.</li>
+      <li>Bring your unit's tree to a5 - we will run it through a weekly business review and watch a small deviation before it becomes a quarterly problem.</li>
+    </ul>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Framework sources</span>
+      <h2>Frameworks this session draws on</h2>
+    </div>
+    <p class="lede">This session leans on the frameworks that make cross-domain metric thinking durable. This page draws on:</p>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Lean Analytics (Croll &amp; Yoskovitz) - the one metric that matters, per business model</span><span class="note">Part 3 · pick one top-line, resist dashboard sprawl</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Domain metric canon - GMV, ROAS, brand funnel, ad revenue, ARR bridge, bookings</span><span class="note">Parts 1 &amp; 2 · six top-line trees and their shapes</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Amplitude North Star Playbook - one output, a few inputs that move it</span><span class="note">Part 3 · one top-line with three to five drivers; full treatment in b3</span></div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions before you go 🎯 <span class="tag exercise">◐ 90 seconds</span></h2>
+    </div>
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">1 · A SaaS ARR number is a "bridge" tree. What does that mean for diagnosis?</p>
+      <button class="qopt" type="button">A · You compare percentage changes across three multiplied levers</button>
+      <button class="qopt" type="button">B · You ask which flow changed - more churn out, or less new in - not which rate moved</button>
+      <button class="qopt" type="button">C · You find the funnel stage that stopped converting</button>
+      <p class="qwhy">A bridge is a starting balance plus and minus flows: start + new + expansion - contraction - churn. You diagnose it by comparing this period's flows to last period's, not by reading rate pass-through.</p>
+    </div>
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">2 · Why does a brand leader watch share of search, not just market share?</p>
+      <button class="qopt" type="button">A · Market share is a vanity metric</button>
+      <button class="qopt" type="button">B · Share of search is cheaper to buy</button>
+      <button class="qopt" type="button">C · Share of search is a leading proxy - it moves weeks before the lagging market-share number confirms it</button>
+      <p class="qwhy">Market share lands quarters late. Share of search tracks it closely and arrives weekly, giving the brand leader early warning - the same role add-to-cart rate plays for ecommerce.</p>
+    </div>
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">3 · Your unit's dashboard has thirty headline metrics. What does Lean Analytics tell you to do?</p>
+      <button class="qopt" type="button">A · Pick the one metric that matters most now, put three to five drivers under it, demote the rest to leaves</button>
+      <button class="qopt" type="button">B · Add ten more so nothing is missed</button>
+      <button class="qopt" type="button">C · Give every metric equal weight in the review</button>
+      <p class="qwhy">If everything is a headline, nothing is. Choose the one top-line the unit is judged on, keep three to five drivers under it, and consult the rest only when a driver above them moves.</p>
+    </div>
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Leader session 4 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>One method, three shapes</b><span>Multiplicative (product of rates x volumes), bridge (start + flows), funnel (wide top narrowing). Name the shape first.</span></div>
+      <div class="cheat-item"><b>Multiplicative</b><span>Ecommerce GMV, ad revenue, bookings. A % move in one lever passes straight to the top line. Find the matching lever.</span></div>
+      <div class="cheat-item"><b>Bridge</b><span>SaaS ARR = start + new + expansion - contraction - churn. Diagnose by which flow changed, not which rate.</span></div>
+      <div class="cheat-item"><b>Funnel</b><span>Marketing spend to won, brand reach to sales. Diagnose by the stage whose conversion rate slipped.</span></div>
+      <div class="cheat-item"><b>Lagging vs leading</b><span>Report the lagging root to the board. Manage by the leading leaf - add-to-cart, share of search, pipeline coverage.</span></div>
+      <div class="cheat-item"><b>The same three questions</b><span>What is the top line, what are its three-to-five drivers, who owns each? Ask them in every unit you touch.</span></div>
+      <div class="cheat-item"><b>One top-line per unit</b><span>Lean Analytics: pick the one metric that matters now. Three to five drivers under it. Everything else is a leaf.</span></div>
+      <div class="cheat-item"><b>Running skill</b><span>The method transfers across every domain. Next: a5, run your tree through a weekly business review.</span></div>
+    </div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Leader session 4 of 6 · learn-metric-decomposition-with-phoebe · by Phoebe Fu &nbsp;·&nbsp; 📚 <a href="https://phoebefu6.github.io/learn-with-phoebe/">Learn with Phoebe ↗</a></span>
+    <span><a href="a3-decompose-and-read-a-drop.html">← Prev: Decompose and read a drop</a> &nbsp;·&nbsp; <a href="a5-weekly-business-review.html">Next: The weekly business review →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>
