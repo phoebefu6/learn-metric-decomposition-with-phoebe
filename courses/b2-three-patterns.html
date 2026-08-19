@@ -156,6 +156,35 @@
       <summary><span class="mode live">Live</span>Reading an additive drop: which part, and how heavy<span class="mini">3 min</span><span class="caret">▶</span></summary>
       <div class="body">
         <p>In a sum, the top-line change equals the <em>absolute</em> change of the part that moved - percentages do not pass through cleanly because each part carries a different weight. If EMEA is 28% of revenue and it falls 20%, the top line falls about 20% x 28% = 5.6%. So the additive diagnosis is a two-step read: which part moved, and what share of the whole is it.</p>
+<figure class="zoomable">
+  <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A bar chart showing that EMEA is 28 percent of total revenue, EMEA fell 20 percent, and the resulting top-line impact is only 5.6 percent, because in an additive tree the weight of the part determines how much the whole moves.">
+    <style>
+      .b2bnT { font: 700 13px Inter, sans-serif; fill: #16241E; }
+      .b2bnL { font: 600 12px Inter, sans-serif; fill: #16241E; }
+      .b2bnV { font: 700 12px Inter, sans-serif; fill: #FFFFFF; }
+      .b2bnVO { font: 700 12px Inter, sans-serif; fill: #16241E; }
+      .b2bnN { font: 400 12px Inter, sans-serif; fill: #566A61; }
+    </style>
+    <rect x="0" y="0" width="880" height="300" fill="#F6FAF8"/>
+    <text class="b2bnT" x="40" y="28">Additive trees: weight decides how much a part's drop matters</text>
+
+    <text class="b2bnL" x="240" y="90" text-anchor="end">EMEA share of revenue</text>
+    <rect x="260" y="70" width="448" height="30" rx="6" fill="#2F7D5B"/>
+    <text class="b2bnV" x="272" y="90">28%</text>
+
+    <text class="b2bnL" x="240" y="142" text-anchor="end">EMEA revenue fall</text>
+    <rect x="260" y="122" width="320" height="30" rx="6" fill="#4FA37E"/>
+    <text class="b2bnV" x="272" y="142">-20%</text>
+
+    <text class="b2bnL" x="240" y="194" text-anchor="end">Top-line impact</text>
+    <rect x="260" y="174" width="90" height="30" rx="6" fill="#E4572E"/>
+    <text class="b2bnVO" x="362" y="194">-5.6%</text>
+
+    <text class="b2bnN" x="40" y="276">EMEA is 28% of revenue; a 20% EMEA fall drags the top line down only 5.6% - weight matters.</text>
+  </svg>
+  <figcaption>🔍 Click to zoom - a big swing in a small part barely moves the whole</figcaption>
+</figure>
+
         <ul>
           <li><strong>Contribution = the part's share of the total.</strong> Sort your segments by contribution before you panic about any one of them.</li>
           <li><strong>A drop is usually concentrated.</strong> One region, one SKU, one cohort - additive trees fail in a corner, not everywhere at once.</li>
@@ -314,6 +343,42 @@
       <summary><span class="mode live">Live</span>Q2 · Write an additive segment tree<span class="mini">3 min</span><span class="caret">▶</span></summary>
       <div class="body">
         <p>Here is a product-line sum: Total revenue = Product A + Product B + Product C. Edit the parts to your segments. Then simulate a drop and note which part carries the most weight.</p>
+<figure class="zoomable">
+  <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A decomposition tree showing total revenue of 204,000 dollars as the sum of Product A at 95,000 dollars, Product B at 68,000 dollars, and Product C at 41,000 dollars, with each product's share of the total shown beneath it.">
+    <style>
+      .b2dtT { font: 700 13px Inter, sans-serif; fill: #16241E; }
+      .b2dtR { font: 700 13px Inter, sans-serif; fill: #FFFFFF; }
+      .b2dtC { font: 700 12px Inter, sans-serif; fill: #1E5240; }
+      .b2dtS { font: 400 11px Inter, sans-serif; fill: #566A61; }
+      .b2dtN { font: 400 12px Inter, sans-serif; fill: #566A61; }
+    </style>
+    <rect x="0" y="0" width="880" height="300" fill="#F6FAF8"/>
+    <text class="b2dtT" x="40" y="28">Total revenue as a sum: three products, three weights</text>
+
+    <line x1="440" y1="90" x2="170" y2="160" stroke="#566A61" stroke-width="1.6"/>
+    <line x1="440" y1="90" x2="440" y2="160" stroke="#566A61" stroke-width="1.6"/>
+    <line x1="440" y1="90" x2="710" y2="160" stroke="#566A61" stroke-width="1.6"/>
+
+    <rect x="340" y="40" width="200" height="50" rx="10" fill="#2F7D5B"/>
+    <text class="b2dtR" x="440" y="70" text-anchor="middle">Total revenue $204,000</text>
+
+    <rect x="60" y="160" width="220" height="70" rx="10" fill="#E9F5EF" stroke="#2F7D5B" stroke-width="1.4"/>
+    <text class="b2dtC" x="170" y="192" text-anchor="middle">Product A $95,000</text>
+    <text class="b2dtS" x="170" y="212" text-anchor="middle">46.6% of total</text>
+
+    <rect x="330" y="160" width="220" height="70" rx="10" fill="#E9F5EF" stroke="#2F7D5B" stroke-width="1.4"/>
+    <text class="b2dtC" x="440" y="192" text-anchor="middle">Product B $68,000</text>
+    <text class="b2dtS" x="440" y="212" text-anchor="middle">33.3% of total</text>
+
+    <rect x="600" y="160" width="220" height="70" rx="10" fill="#E9F5EF" stroke="#2F7D5B" stroke-width="1.4"/>
+    <text class="b2dtC" x="710" y="192" text-anchor="middle">Product C $41,000</text>
+    <text class="b2dtS" x="710" y="212" text-anchor="middle">20.1% of total</text>
+
+    <text class="b2dtN" x="40" y="276">Total revenue is a sum: $95,000 + $68,000 + $41,000 = $204,000 - each part carries its own weight.</text>
+  </svg>
+  <figcaption>🔍 Click to zoom - a sum tree: three parts, three different weights on the total</figcaption>
+</figure>
+
         <div class="treebox" data-caption="Swap the parts for your segments or regions. Which part is heaviest? A drop there moves the top line most.">
           <pre class="tree-src">{
   "unit": "$",

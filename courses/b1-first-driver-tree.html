@@ -141,6 +141,34 @@
       <summary><span class="mode live">Live</span>The pass-through rule<span class="mini">2 min</span><span class="caret">▶</span></summary>
       <div class="body">
         <p>In a pure product, the percentage moves add up. If traffic falls 10% and conversion falls 5%, the top line falls roughly 15% (10 + 5), not 50%. That approximation holds for the small moves you see week to week, and it is why a multiplicative tree lets you literally read the drop off the branches: sum the percentage changes down the guilty path and you have explained the fall.</p>
+<figure class="zoomable">
+  <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A bar chart showing that in a multiplicative tree, a 10 percent fall in traffic and a 5 percent fall in conversion combine to roughly a 15 percent fall in GMV, because percentage changes down a product tree simply add.">
+    <style>
+      .b1bnT { font: 700 13px Inter, sans-serif; fill: #16241E; }
+      .b1bnL { font: 600 12px Inter, sans-serif; fill: #16241E; }
+      .b1bnV { font: 700 12px Inter, sans-serif; fill: #FFFFFF; }
+      .b1bnN { font: 400 12px Inter, sans-serif; fill: #566A61; }
+    </style>
+    <rect x="0" y="0" width="880" height="300" fill="#F6FAF8"/>
+    <text class="b1bnT" x="40" y="28">The pass-through rule: percentage moves simply add up</text>
+
+    <text class="b1bnL" x="240" y="90" text-anchor="end">Traffic</text>
+    <rect x="260" y="70" width="320" height="30" rx="6" fill="#2F7D5B"/>
+    <text class="b1bnV" x="272" y="90">-10%</text>
+
+    <text class="b1bnL" x="240" y="142" text-anchor="end">Conversion</text>
+    <rect x="260" y="122" width="160" height="30" rx="6" fill="#4FA37E"/>
+    <text class="b1bnV" x="272" y="142">-5%</text>
+
+    <text class="b1bnL" x="240" y="194" text-anchor="end">GMV (combined)</text>
+    <rect x="260" y="174" width="480" height="30" rx="6" fill="#E4572E"/>
+    <text class="b1bnV" x="272" y="194">-15%</text>
+
+    <text class="b1bnN" x="40" y="276">Traffic -10% and conversion -5% combine to roughly -15% off GMV - percentages simply add.</text>
+  </svg>
+  <figcaption>🔍 Click to zoom - two small drops down the tree add up, they do not multiply</figcaption>
+</figure>
+
         <div class="callout tip">
           <strong>The one trap</strong>
           Percentages, not absolute values, are what pass through cleanly. A "10-point" swing means nothing until you know 10 points of what. Always diagnose a multiplicative tree in percentage change per driver - the simulator below reports exactly that.
@@ -173,7 +201,36 @@
 
     <div class="steps">
       <div class="step"><p>Read the baseline: 120,000 visits x 2.8% x $62 = about $208K. That is GMV at rest.</p></div>
-      <div class="step"><p>Edit one leaf - drop Conversion from 2.8 to 2.5 - and watch GMV fall and the delta chip appear. That is a controlled experiment.</p></div>
+      <div class="step"><p>Edit one leaf - drop Conversion from 2.8 to 2.5 - and watch GMV fall and the delta chip appear. That is a controlled experiment.</p>
+<figure class="zoomable">
+  <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A before and after comparison of the GMV tree showing that dropping conversion from 2.8 percent to 2.5 percent, with traffic held at 120,000 visits and AOV held at 62 dollars, cuts GMV from 208,320 dollars to 186,000 dollars, a fall of about 10.7 percent.">
+    <style>
+      .b1baT { font: 700 13px Inter, sans-serif; fill: #16241E; }
+      .b1baHA { font: 700 13px Inter, sans-serif; fill: #1E5240; }
+      .b1baHB { font: 700 13px Inter, sans-serif; fill: #991B1B; }
+      .b1baB { font: 400 12px Inter, sans-serif; fill: #16241E; }
+      .b1baN { font: 400 12px Inter, sans-serif; fill: #566A61; }
+    </style>
+    <rect x="0" y="0" width="880" height="300" fill="#F6FAF8"/>
+    <text class="b1baT" x="40" y="28">Edit one leaf: drop Conversion from 2.8% to 2.5% and watch GMV fall</text>
+
+    <rect x="40" y="50" width="390" height="180" rx="12" fill="#E9F5EF" stroke="#2F7D5B" stroke-width="1.6"/>
+    <text class="b1baHA" x="58" y="84">✓ Baseline conversion 2.8%</text>
+    <text class="b1baB" x="58" y="114">120,000 visits x 2.8% x $62/order</text>
+    <text class="b1baB" x="58" y="134">= 3,360 orders at $62 average</text>
+    <text class="b1baB" x="58" y="154">GMV = $208,320</text>
+
+    <rect x="450" y="50" width="390" height="180" rx="12" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.6"/>
+    <text class="b1baHB" x="468" y="84">✗ Conversion drops to 2.5%</text>
+    <text class="b1baB" x="468" y="114">120,000 visits x 2.5% x $62/order</text>
+    <text class="b1baB" x="468" y="134">= 3,000 orders at $62 average</text>
+    <text class="b1baB" x="468" y="154">GMV = $186,000 (down 10.7%)</text>
+
+    <text class="b1baN" x="40" y="276">A 0.3-point conversion drop cuts GMV 10.7% - traffic and AOV never moved.</text>
+  </svg>
+  <figcaption>🔍 Click to zoom - a 0.3-point conversion drop cuts GMV 10.7%, nothing else moved</figcaption>
+</figure>
+</div>
       <div class="step"><p>Press <strong>Simulate a drop</strong>. A random driver falls. Read the coral trail: which leaf moved, and by what percent?</p></div>
       <div class="step"><p>Say the diagnosis out loud: "GMV fell X% because [driver] fell Y%." Press Reset and do it again until it is automatic.</p></div>
     </div>

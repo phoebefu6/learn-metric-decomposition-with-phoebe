@@ -165,6 +165,57 @@
       <summary><span class="mode live">Live</span>Leading engagement, lagging revenue<span class="mini">3 min</span><span class="caret">▶</span></summary>
       <div class="body">
         <p>At baseline the bridge nets to 2,000,000 - inflows (180K new + 40K resurrected) exactly offset the 220K churned, so DAU holds flat. That is the number that feeds the impressions sub-tree in Part 1. The bridge is <strong>leading</strong>: churn rising this week is an early warning that impressions, and therefore ad revenue, will fall in the weeks ahead. Ad revenue is the <strong>lagging</strong> confirmation.</p>
+<figure class="zoomable">
+  <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A flow bridge showing DAU starting at 2,000,000, adding 180,000 new and 40,000 resurrected users, subtracting 220,000 churned users, and ending at 2,000,000, because the inflows exactly offset the losses and the level holds flat.">
+    <style>
+      .b7dtT { font: 700 13px Inter, sans-serif; fill: #16241E; }
+      .b7dtL { font: 700 12px Inter, sans-serif; fill: #1E5240; }
+      .b7dtLoss { font: 700 12px Inter, sans-serif; fill: #991B1B; }
+      .b7dtV { font: 400 11px Inter, sans-serif; fill: #566A61; }
+      .b7dtR { font: 700 13px Inter, sans-serif; fill: #FFFFFF; }
+      .b7dtN { font: 400 12px Inter, sans-serif; fill: #566A61; }
+    </style>
+    <rect x="0" y="0" width="880" height="300" fill="#F6FAF8"/>
+    <text class="b7dtT" x="40" y="28">The DAU bridge: inflows exactly offset the losses</text>
+
+    <rect x="40" y="60" width="150" height="60" rx="10" fill="#E9F5EF" stroke="#2F7D5B" stroke-width="1.4"/>
+    <text class="b7dtL" x="115" y="84" text-anchor="middle">Start DAU</text>
+    <text class="b7dtV" x="115" y="102" text-anchor="middle">2,000,000</text>
+
+    <text class="b7dtL" x="222" y="96" text-anchor="middle">+</text>
+
+    <rect x="240" y="60" width="150" height="60" rx="10" fill="#E9F5EF" stroke="#2F7D5B" stroke-width="1.4"/>
+    <text class="b7dtL" x="315" y="84" text-anchor="middle">New</text>
+    <text class="b7dtV" x="315" y="102" text-anchor="middle">180,000</text>
+
+    <text class="b7dtL" x="422" y="96" text-anchor="middle">+</text>
+
+    <rect x="440" y="60" width="150" height="60" rx="10" fill="#E9F5EF" stroke="#2F7D5B" stroke-width="1.4"/>
+    <text class="b7dtL" x="515" y="84" text-anchor="middle">Resurrected</text>
+    <text class="b7dtV" x="515" y="102" text-anchor="middle">40,000</text>
+
+    <text class="b7dtLoss" x="622" y="96" text-anchor="middle">-</text>
+
+    <rect x="640" y="60" width="150" height="60" rx="10" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.4"/>
+    <text class="b7dtLoss" x="715" y="84" text-anchor="middle">Churned</text>
+    <text class="b7dtV" x="715" y="102" text-anchor="middle">220,000</text>
+
+    <line x1="115" y1="120" x2="115" y2="190" stroke="#566A61" stroke-width="1.4"/>
+    <line x1="315" y1="120" x2="315" y2="190" stroke="#566A61" stroke-width="1.4"/>
+    <line x1="515" y1="120" x2="515" y2="190" stroke="#566A61" stroke-width="1.4"/>
+    <line x1="715" y1="120" x2="715" y2="190" stroke="#566A61" stroke-width="1.4"/>
+    <line x1="115" y1="190" x2="715" y2="190" stroke="#566A61" stroke-width="1.4"/>
+    <line x1="415" y1="190" x2="415" y2="212" stroke="#566A61" stroke-width="1.4"/>
+
+    <rect x="290" y="212" width="250" height="56" rx="10" fill="#2F7D5B"/>
+    <text class="b7dtR" x="415" y="236" text-anchor="middle">Ending DAU</text>
+    <text class="b7dtR" x="415" y="256" text-anchor="middle">2,000,000 (flat)</text>
+
+    <text class="b7dtN" x="40" y="292">180K new plus 40K resurrected exactly offsets 220K churned - flat hides two moving flows.</text>
+  </svg>
+  <figcaption>🔍 Click to zoom - a flat DAU can be two big flows cancelling out, not calm</figcaption>
+</figure>
+
         <div class="callout tip">
           <strong>Watch the flows, not just the level</strong>
           A flat DAU can hide a business quietly falling apart - churn and new-user inflow both climbing, netting to the same level while the base rots underneath. The bridge shows the flows the level conceals. Steer by the inflow and churn leaves, not the DAU total.
@@ -261,6 +312,35 @@ ORDER BY week;</pre>
       <summary><span class="mode live">Live</span>Q1 · Double the churn on the DAU bridge<span class="mini">3 min</span><span class="caret">▶</span></summary>
       <div class="body">
         <p>Go back to the DAU bridge in Part 2. Edit Churned from 220,000 up to 440,000. Ending DAU falls from 2.0M to about 1.78M - the inflows can no longer offset the losses. Now trace it forward in your head: fewer DAU means fewer impressions in Part 1, which (holding fill and price) means ad revenue falls by the same percentage. One churn number, felt two trees down.</p>
+<figure class="zoomable">
+  <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A before and after comparison showing that doubling churn on the DAU bridge from 220,000 to 440,000, with new and resurrected users unchanged, drops ending DAU from 2.0 million to about 1.78 million because the inflows can no longer offset the losses.">
+    <style>
+      .b7baT { font: 700 13px Inter, sans-serif; fill: #16241E; }
+      .b7baHA { font: 700 13px Inter, sans-serif; fill: #1E5240; }
+      .b7baHB { font: 700 13px Inter, sans-serif; fill: #991B1B; }
+      .b7baB { font: 400 12px Inter, sans-serif; fill: #16241E; }
+      .b7baN { font: 400 12px Inter, sans-serif; fill: #566A61; }
+    </style>
+    <rect x="0" y="0" width="880" height="300" fill="#F6FAF8"/>
+    <text class="b7baT" x="40" y="28">Double the churn leaf and the bridge cannot keep up</text>
+
+    <rect x="40" y="50" width="390" height="180" rx="12" fill="#E9F5EF" stroke="#2F7D5B" stroke-width="1.6"/>
+    <text class="b7baHA" x="58" y="84">✓ Baseline churn 220,000</text>
+    <text class="b7baB" x="58" y="114">180K new + 40K resurrected</text>
+    <text class="b7baB" x="58" y="134">minus 220K churned</text>
+    <text class="b7baB" x="58" y="154">Ending DAU = 2,000,000</text>
+
+    <rect x="450" y="50" width="390" height="180" rx="12" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.6"/>
+    <text class="b7baHB" x="468" y="84">✗ Churn doubles to 440,000</text>
+    <text class="b7baB" x="468" y="114">180K new + 40K resurrected</text>
+    <text class="b7baB" x="468" y="134">minus 440K churned</text>
+    <text class="b7baB" x="468" y="154">Ending DAU = about 1.78M</text>
+
+    <text class="b7baN" x="40" y="276">Fewer DAU means fewer impressions - the same percentage fall reaches ad revenue next.</text>
+  </svg>
+  <figcaption>🔍 Click to zoom - a churn number felt two trees down, all the way to ad revenue</figcaption>
+</figure>
+
         <div class="callout tip">
           <strong>Why edit, not simulate</strong>
           On the bridge, "Simulate a drop" cuts a random leaf by 15-35%. If it happens to cut Churned, DAU <em>rises</em> - because less churn is good. For a churn <em>increase</em>, edit the leaf up by hand. Losses are the one place a "drop" in the input is a gain in the output.

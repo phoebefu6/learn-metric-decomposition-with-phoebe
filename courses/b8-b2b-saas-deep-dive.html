@@ -161,6 +161,42 @@
       <summary><span class="mode live">Live</span>New = Leads x Win-rate x ACV<span class="mini">3 min</span><span class="caret">▶</span></summary>
       <div class="body">
         <p>Split the New flow into its drivers. Marketing owns leads, sales owns win-rate, packaging and pricing own ACV. Now a "new-business shortfall" stops being vague and becomes one of three named levers.</p>
+<figure class="zoomable">
+  <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A decomposition tree showing New ARR of 180,000 dollars as the product of 600 leads, a 10 percent win rate, and an average contract value of 3,000 dollars, so a new-business shortfall names one of three levers.">
+    <style>
+      .b8dtT { font: 700 13px Inter, sans-serif; fill: #16241E; }
+      .b8dtR { font: 700 13px Inter, sans-serif; fill: #FFFFFF; }
+      .b8dtC { font: 700 12px Inter, sans-serif; fill: #1E5240; }
+      .b8dtS { font: 400 11px Inter, sans-serif; fill: #566A61; }
+      .b8dtN { font: 400 12px Inter, sans-serif; fill: #566A61; }
+    </style>
+    <rect x="0" y="0" width="880" height="300" fill="#F6FAF8"/>
+    <text class="b8dtT" x="40" y="28">New ARR is its own multiplicative tree</text>
+
+    <rect x="340" y="40" width="200" height="50" rx="10" fill="#2F7D5B"/>
+    <text class="b8dtR" x="440" y="70" text-anchor="middle">New ARR $180,000</text>
+
+    <line x1="440" y1="90" x2="170" y2="160" stroke="#566A61" stroke-width="1.6"/>
+    <line x1="440" y1="90" x2="440" y2="160" stroke="#566A61" stroke-width="1.6"/>
+    <line x1="440" y1="90" x2="710" y2="160" stroke="#566A61" stroke-width="1.6"/>
+
+    <rect x="60" y="160" width="220" height="70" rx="10" fill="#E9F5EF" stroke="#2F7D5B" stroke-width="1.4"/>
+    <text class="b8dtC" x="170" y="192" text-anchor="middle">Leads: 600</text>
+    <text class="b8dtS" x="170" y="212" text-anchor="middle">Marketing owns it</text>
+
+    <rect x="330" y="160" width="220" height="70" rx="10" fill="#E9F5EF" stroke="#2F7D5B" stroke-width="1.4"/>
+    <text class="b8dtC" x="440" y="192" text-anchor="middle">Win-rate: 10%</text>
+    <text class="b8dtS" x="440" y="212" text-anchor="middle">Sales owns it</text>
+
+    <rect x="600" y="160" width="220" height="70" rx="10" fill="#E9F5EF" stroke="#2F7D5B" stroke-width="1.4"/>
+    <text class="b8dtC" x="710" y="192" text-anchor="middle">ACV: $3,000</text>
+    <text class="b8dtS" x="710" y="212" text-anchor="middle">Packaging owns it</text>
+
+    <text class="b8dtN" x="40" y="276">600 leads x 10% win rate x $3,000 ACV = $180,000 - one of three named levers.</text>
+  </svg>
+  <figcaption>🔍 Click to zoom - a vague new-business shortfall becomes one of three named levers</figcaption>
+</figure>
+
         <div class="treebox" data-caption="600 leads x 10% win-rate x $3,000 ACV = $180K new ARR - the same New flow that feeds the bridge above.">
           <pre class="tree-src">{
   "unit": "$",
@@ -277,6 +313,35 @@ FROM subscriptions;</pre>
       <summary><span class="mode live">Live</span>Q1 · Halve Expansion, watch ending ARR and NRR<span class="mini">3 min</span><span class="caret">▶</span></summary>
       <div class="body">
         <p>On the ARR bridge in Demo 1, edit <strong>Expansion from $90K down to $45K</strong>. Ending ARR falls by $45K to about $1.065M. More importantly, feel NRR drop: (1.00M + 45K - 40K - 120K) / 1.00M = <strong>88.5%</strong>. Expansion is the flow that pushes NRR above 100% - halve it and the installed base leaks faster. Say why a product team, not sales, owns this miss.</p>
+<figure class="zoomable">
+  <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A before and after comparison showing that halving Expansion from 90,000 dollars to 45,000 dollars, with New at 180,000, Contraction at 40,000 and Churn at 120,000 unchanged, drops ending ARR from 1.11 million to about 1.065 million and Net Revenue Retention from 93 percent to 88.5 percent.">
+    <style>
+      .b8baT { font: 700 13px Inter, sans-serif; fill: #16241E; }
+      .b8baHA { font: 700 13px Inter, sans-serif; fill: #1E5240; }
+      .b8baHB { font: 700 13px Inter, sans-serif; fill: #991B1B; }
+      .b8baB { font: 400 12px Inter, sans-serif; fill: #16241E; }
+      .b8baN { font: 400 12px Inter, sans-serif; fill: #566A61; }
+    </style>
+    <rect x="0" y="0" width="880" height="300" fill="#F6FAF8"/>
+    <text class="b8baT" x="40" y="28">Halve Expansion and NRR falls under the radar</text>
+
+    <rect x="40" y="50" width="390" height="180" rx="12" fill="#E9F5EF" stroke="#2F7D5B" stroke-width="1.6"/>
+    <text class="b8baHA" x="58" y="84">✓ Baseline expansion $90K</text>
+    <text class="b8baB" x="58" y="114">Start $1.00M, New $180K</text>
+    <text class="b8baB" x="58" y="134">minus $40K/$120K losses</text>
+    <text class="b8baB" x="58" y="154">Ending $1.11M, NRR 93%</text>
+
+    <rect x="450" y="50" width="390" height="180" rx="12" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.6"/>
+    <text class="b8baHB" x="468" y="84">✗ Expansion halved to $45K</text>
+    <text class="b8baB" x="468" y="114">Start $1.00M, New $180K</text>
+    <text class="b8baB" x="468" y="134">minus $40K/$120K losses</text>
+    <text class="b8baB" x="468" y="154">Ending $1.065M, NRR 88.5%</text>
+
+    <text class="b8baN" x="40" y="276">Expansion is the flow that pushes NRR above 100% - a product team owns this miss.</text>
+  </svg>
+  <figcaption>🔍 Click to zoom - a quiet expansion slowdown drags NRR down even with New unchanged</figcaption>
+</figure>
+
       </div>
     </details>
 
