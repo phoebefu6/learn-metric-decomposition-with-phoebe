@@ -74,6 +74,253 @@
   .mm-node text { pointer-events: none; }
   .mm-link:hover .mm-node rect { filter: brightness(1.06); }
   .mm-edge { transition: opacity .15s ease; }
+
+.vposter{
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --mono:"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  transform-origin:top left;
+}
+.vposter{width:1400px;background:var(--paper);font-family:var(--sans);color:var(--ink);
+       -webkit-font-smoothing:antialiased}
+.vposter .vp-sheet{padding:34px 38px 0}
+.vposter .vp-top{display:flex;align-items:flex-end;gap:28px;border-bottom:3px solid var(--indigo-deep);
+       padding-bottom:18px;margin-bottom:20px}
+.vposter .vp-top h1{font-size:54px;font-weight:800;letter-spacing:-.03em;line-height:.95;color:var(--indigo-deep)}
+.vposter .vp-subs{flex:1;padding-bottom:4px}
+.vposter .vp-s1{font-size:20px;font-weight:700;color:var(--indigo);line-height:1.25}
+.vposter .vp-s2{font-size:14.5px;color:var(--muted);margin-top:5px;font-weight:500}
+.vposter .vp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.vposter .vp-mod{border:1px solid var(--hairline);border-radius:12px;background:#fff;overflow:hidden;
+       display:flex;flex-direction:column}
+.vposter .vp-mod > h2{background:var(--indigo-deep);color:#fff;font-size:14px;font-weight:800;
+       letter-spacing:.06em;padding:9px 14px;display:flex;align-items:baseline;gap:10px}
+.vposter .vp-mod > h2 b{font-family:var(--sans);font-size:11.5px;font-weight:800;color:var(--indigo-soft);
+       letter-spacing:.1em}
+.vposter .vp-body{padding:14px;display:flex;flex-direction:column;gap:10px;flex:1;
+       justify-content:space-between}
+.vposter .vp-span2{grid-column:span 2}
+.vposter .vp-note{font-size:12.5px;color:var(--muted);line-height:1.45}
+.vposter .vp-flag{background:var(--amber-50);border:1px solid var(--amber);border-radius:7px;
+        padding:8px 11px;font-size:12.5px;color:var(--amber-ink);font-weight:600;line-height:1.4}
+.vposter .vp-tracks{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.vposter .vp-tk h3{font-size:11px;font-weight:800;letter-spacing:.05em;color:#fff;background:var(--indigo);
+        padding:6px 9px;border-radius:6px;line-height:1.3}
+.vposter .vp-tk.vp-lead h3{background:var(--indigo-deep)}
+.vposter .vp-tk ol{list-style:none;margin-top:7px;display:flex;flex-direction:column;gap:3px}
+.vposter .vp-tk li{display:flex;gap:7px;align-items:baseline;font-size:12.5px;line-height:1.3}
+.vposter .vp-tk li i{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--indigo);
+        background:var(--indigo-50);border-radius:4px;padding:2px 5px;font-style:normal;min-width:29px;
+        text-align:center;flex:none}
+.vposter .vp-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;
+        border-top:1px solid var(--hairline);padding-top:11px}
+.vposter .vp-stats div{text-align:center}
+.vposter .vp-stats b{display:block;font-size:23px;font-weight:800;color:var(--indigo-deep);line-height:1;
+        font-variant-numeric:tabular-nums}
+.vposter .vp-stats span{display:block;font-size:10.5px;font-weight:700;color:var(--muted);
+        text-transform:uppercase;letter-spacing:.06em;margin-top:3px}
+.vposter .vp-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.vposter .vp-tbl{border:1px solid var(--indigo-soft);border-radius:8px;overflow:hidden;background:var(--indigo-50)}
+.vposter .vp-tbl h4{display:flex;justify-content:space-between;align-items:center;background:var(--indigo);
+        color:#fff;font-family:var(--mono);font-size:12.5px;font-weight:700;padding:5px 9px;gap:8px}
+.vposter .vp-tbl h4 span{font-family:var(--sans);font-size:11.5px;font-weight:800;color:var(--amber)}
+.vposter .vp-tbl ul{list-style:none;padding:7px 9px;display:flex;flex-direction:column;gap:1px}
+.vposter .vp-tbl li{font-family:var(--mono);font-size:11.5px;color:var(--ink);line-height:1.42;
+        overflow-wrap:anywhere}
+.vposter .vp-tbl li.vp-key{font-weight:700;color:var(--indigo-deep)}
+.vposter .vp-lad{display:flex;flex-direction:column-reverse;gap:3px}
+.vposter .vp-lad2{display:grid;grid-template-columns:1fr 1fr;gap:3px 10px;align-content:start}
+.vposter .vp-lad2 .vp-rung{margin:0}
+.vposter .vp-rung{display:flex;align-items:stretch;border:1px solid var(--hairline);border-radius:6px;overflow:hidden}
+.vposter .vp-rung i{font-family:var(--mono);font-size:11.5px;font-weight:700;background:var(--indigo-deep);
+        color:#fff;display:flex;align-items:center;padding:0 8px;font-style:normal;flex:none}
+.vposter .vp-kw{flex:1;padding:5px 8px;font-size:11.5px;line-height:1.32}
+.vposter .vp-kw b{font-family:var(--mono);font-weight:700;color:var(--indigo-deep)}
+.vposter .vp-kw em{font-style:normal;color:var(--muted);display:block;margin-top:1px;font-size:11px}
+.vposter .vp-rung u{background:var(--amber);color:var(--amber-ink);font-family:var(--mono);font-size:11.5px;
+        font-weight:700;text-decoration:none;display:flex;align-items:center;padding:0 8px;flex:none}
+.vposter .vp-ord{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.vposter .vp-ord h3{font-size:11px;font-weight:800;letter-spacing:.05em;color:var(--indigo-deep);
+        text-align:center;padding-bottom:6px;border-bottom:1px solid var(--hairline);margin-bottom:7px}
+.vposter .vp-ord ul{list-style:none;display:flex;flex-direction:column;gap:4px}
+.vposter .vp-ord li{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--indigo-soft);
+        border-radius:6px;padding:4px 8px;font-family:var(--mono);font-size:12px;font-weight:700;
+        color:var(--indigo-deep);background:#fff;gap:6px}
+.vposter .vp-ord li s{text-decoration:none;font-family:var(--sans);font-size:10.5px;font-weight:800;
+        color:var(--amber-ink);background:var(--amber-50);border:1px solid var(--amber);
+        border-radius:99px;min-width:17px;height:17px;display:grid;place-items:center;flex:none}
+.vposter .vp-jn{display:flex;flex-direction:column;gap:8px}
+.vposter .vp-row{display:flex;gap:9px;align-items:flex-start;border:1px solid var(--hairline);
+        border-radius:7px;padding:7px 9px}
+.vposter .vp-row i{font-family:var(--mono);font-size:11.5px;font-weight:700;color:#fff;background:var(--indigo);
+        border-radius:6px;padding:3px 7px;font-style:normal;flex:none;margin-top:1px}
+.vposter .vp-row b{font-family:var(--mono);font-size:11.5px;color:var(--indigo-deep);display:block}
+.vposter .vp-row span{font-size:11.5px;color:var(--muted);line-height:1.35;display:block;margin-top:1px}
+.vposter .vp-traps{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:9px}
+.vposter .vp-trap{background:var(--amber-50);border:1px solid var(--amber);border-radius:8px;padding:9px 11px}
+.vposter .vp-trap b{font-size:12.5px;color:var(--amber-ink);font-weight:800;display:block;line-height:1.3}
+.vposter .vp-trap span{font-size:12px;color:var(--muted);line-height:1.4;display:block;margin-top:3px}
+.vposter .vp-trap span i{font-style:normal;font-weight:700;color:var(--indigo-deep)}
+.vposter .vp-fun{display:flex;flex-direction:column;gap:4px}
+.vposter .vp-step{display:flex;gap:9px;align-items:flex-start;background:var(--indigo-50);border-radius:6px;padding:6px 9px}
+.vposter .vp-step i{font-family:var(--mono);font-size:11px;font-weight:700;color:#fff;background:var(--indigo);
+        border-radius:99px;min-width:18px;height:18px;display:grid;place-items:center;font-style:normal;
+        flex:none;margin-top:1px}
+.vposter .vp-step b{font-size:11.5px;font-weight:800;color:var(--indigo-deep);letter-spacing:.02em;display:block;line-height:1.3}
+.vposter .vp-step span{font-size:11.5px;color:var(--muted);display:block;line-height:1.32}
+.vposter .vp-conseq{border-top:1px solid var(--hairline);padding-top:10px}
+.vposter .vp-body > .vp-conseq:first-child{border-top:0;padding-top:0}
+.vposter .vp-conseq > b{font-size:10.5px;font-weight:800;color:var(--indigo-deep);letter-spacing:.06em;
+        text-transform:uppercase;display:block;margin-bottom:6px}
+.vposter .vp-code{font-family:var(--mono);font-size:11.5px;line-height:1.5;background:var(--code-bg);
+        color:var(--code-ink);border-radius:6px;padding:7px 9px;white-space:pre;overflow:hidden}
+.vposter .vp-code u{text-decoration:none;color:var(--amber);font-weight:700}
+.vposter .vp-code s{text-decoration:none;color:var(--indigo-soft);font-weight:700}
+.vposter .vp-conseq p{font-size:11.5px;color:var(--muted);line-height:1.4;margin:5px 0 7px}
+.vposter .vp-conseq p:last-child{margin-bottom:0}
+.vposter .vp-foot{margin:20px -38px 0;background:var(--indigo-deep);color:#fff;padding:13px 38px;
+        display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:700;gap:16px}
+.vposter .vp-mid{font-family:var(--sans);font-size:13.5px;font-weight:600;color:var(--indigo-soft);letter-spacing:.01em}
+
+  /* The poster lives at the foot of this page, below the knowledge map, rather than on a
+     page of its own. It holds its authored width and either scales to fit or scrolls,
+     because a reference sheet that reflows stops being a reference sheet. */
+  .poster-section { margin-top: 2.2rem; padding-top: 1.5rem; border-top: 1px solid var(--hairline); }
+  /* The sheet is authored wider than the course's reading column, so inside that column it
+     would fit at 0.67 and render 11.5px type at 7.7px. Break the section out to full width
+     and it fits near 1:1 on a desktop instead. */
+  /* Break out of the reading column, but only where it buys something. Below 1100px the
+     sheet is already at actual size and scrolling inside its frame, so the negative margins
+     would add a page-level scrollbar for no gain. 100vw also counts the scrollbar, so --sbw
+     is measured in script and taken back off. */
+  @media (min-width: 1100px) {
+    .poster-section { margin-left: calc(50% - 50vw + (var(--sbw, 0px) / 2));
+                      margin-right: calc(50% - 50vw + (var(--sbw, 0px) / 2));
+                      padding-left: clamp(1rem, 4vw, 4rem); padding-right: clamp(1rem, 4vw, 4rem); }
+  }
+  .poster-section h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: .2rem; }
+  .poster-section .ps-lede { color: var(--muted); font-size: .92rem; margin-bottom: .7rem; }
+  .poster-bar { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; margin-bottom: .7rem; }
+  .poster-bar .pb-note { font-size: .82rem; color: var(--muted); min-width: 0; flex: 1; }
+  .poster-btn {
+    font: inherit; font-size: .82rem; font-weight: 700; cursor: pointer;
+    border: 1px solid var(--hairline); background: #fff; color: var(--indigo-deep);
+    border-radius: 999px; padding: .5rem 1rem; min-height: 44px;
+    display: inline-flex; align-items: center; gap: .4rem; text-decoration: none;
+    transition: all .12s ease;
+  }
+  .poster-btn:hover { background: var(--indigo-50); border-color: var(--indigo-soft); }
+  .poster-btn[aria-pressed="true"] { background: var(--indigo-deep); color: #fff; border-color: var(--indigo-deep); }
+  .poster-frame {
+    border: 1px solid var(--hairline); border-radius: var(--radius);
+    background: var(--paper); overflow: auto; -webkit-overflow-scrolling: touch;
+  }
+  .poster-stage { position: relative; margin: 0 auto; }
+  .poster-frame > .poster-stage > img { display: block; width: 100%; height: auto; }
+.vposter{
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --mono:"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  transform-origin:top left;
+}
+.vposter{width:1400px;background:var(--paper);font-family:var(--sans);color:var(--ink);
+       -webkit-font-smoothing:antialiased}
+.vposter .vp-sheet{padding:34px 38px 0}
+.vposter .vp-top{display:flex;align-items:flex-end;gap:28px;border-bottom:3px solid var(--indigo-deep);
+       padding-bottom:18px;margin-bottom:20px}
+.vposter .vp-top h1{font-size:54px;font-weight:800;letter-spacing:-.03em;line-height:.95;color:var(--indigo-deep)}
+.vposter .vp-subs{flex:1;padding-bottom:4px}
+.vposter .vp-s1{font-size:20px;font-weight:700;color:var(--indigo);line-height:1.25}
+.vposter .vp-s2{font-size:14.5px;color:var(--muted);margin-top:5px;font-weight:500}
+.vposter .vp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.vposter .vp-mod{border:1px solid var(--hairline);border-radius:12px;background:#fff;overflow:hidden;
+       display:flex;flex-direction:column}
+.vposter .vp-mod > h2{background:var(--indigo-deep);color:#fff;font-size:14px;font-weight:800;
+       letter-spacing:.06em;padding:9px 14px;display:flex;align-items:baseline;gap:10px}
+.vposter .vp-mod > h2 b{font-family:var(--sans);font-size:11.5px;font-weight:800;color:var(--indigo-soft);
+       letter-spacing:.1em}
+.vposter .vp-body{padding:14px;display:flex;flex-direction:column;gap:10px;flex:1;
+       justify-content:space-between}
+.vposter .vp-span2{grid-column:span 2}
+.vposter .vp-note{font-size:12.5px;color:var(--muted);line-height:1.45}
+.vposter .vp-flag{background:var(--amber-50);border:1px solid var(--amber);border-radius:7px;
+        padding:8px 11px;font-size:12.5px;color:var(--amber-ink);font-weight:600;line-height:1.4}
+.vposter .vp-tracks{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.vposter .vp-tk h3{font-size:11px;font-weight:800;letter-spacing:.05em;color:#fff;background:var(--indigo);
+        padding:6px 9px;border-radius:6px;line-height:1.3}
+.vposter .vp-tk.vp-lead h3{background:var(--indigo-deep)}
+.vposter .vp-tk ol{list-style:none;margin-top:7px;display:flex;flex-direction:column;gap:3px}
+.vposter .vp-tk li{display:flex;gap:7px;align-items:baseline;font-size:12.5px;line-height:1.3}
+.vposter .vp-tk li i{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--indigo);
+        background:var(--indigo-50);border-radius:4px;padding:2px 5px;font-style:normal;min-width:29px;
+        text-align:center;flex:none}
+.vposter .vp-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;
+        border-top:1px solid var(--hairline);padding-top:11px}
+.vposter .vp-stats div{text-align:center}
+.vposter .vp-stats b{display:block;font-size:23px;font-weight:800;color:var(--indigo-deep);line-height:1;
+        font-variant-numeric:tabular-nums}
+.vposter .vp-stats span{display:block;font-size:10.5px;font-weight:700;color:var(--muted);
+        text-transform:uppercase;letter-spacing:.06em;margin-top:3px}
+.vposter .vp-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.vposter .vp-tbl{border:1px solid var(--indigo-soft);border-radius:8px;overflow:hidden;background:var(--indigo-50)}
+.vposter .vp-tbl h4{display:flex;justify-content:space-between;align-items:center;background:var(--indigo);
+        color:#fff;font-family:var(--mono);font-size:12.5px;font-weight:700;padding:5px 9px;gap:8px}
+.vposter .vp-tbl h4 span{font-family:var(--sans);font-size:11.5px;font-weight:800;color:var(--amber)}
+.vposter .vp-tbl ul{list-style:none;padding:7px 9px;display:flex;flex-direction:column;gap:1px}
+.vposter .vp-tbl li{font-family:var(--mono);font-size:11.5px;color:var(--ink);line-height:1.42;
+        overflow-wrap:anywhere}
+.vposter .vp-tbl li.vp-key{font-weight:700;color:var(--indigo-deep)}
+.vposter .vp-lad{display:flex;flex-direction:column-reverse;gap:3px}
+.vposter .vp-lad2{display:grid;grid-template-columns:1fr 1fr;gap:3px 10px;align-content:start}
+.vposter .vp-lad2 .vp-rung{margin:0}
+.vposter .vp-rung{display:flex;align-items:stretch;border:1px solid var(--hairline);border-radius:6px;overflow:hidden}
+.vposter .vp-rung i{font-family:var(--mono);font-size:11.5px;font-weight:700;background:var(--indigo-deep);
+        color:#fff;display:flex;align-items:center;padding:0 8px;font-style:normal;flex:none}
+.vposter .vp-kw{flex:1;padding:5px 8px;font-size:11.5px;line-height:1.32}
+.vposter .vp-kw b{font-family:var(--mono);font-weight:700;color:var(--indigo-deep)}
+.vposter .vp-kw em{font-style:normal;color:var(--muted);display:block;margin-top:1px;font-size:11px}
+.vposter .vp-rung u{background:var(--amber);color:var(--amber-ink);font-family:var(--mono);font-size:11.5px;
+        font-weight:700;text-decoration:none;display:flex;align-items:center;padding:0 8px;flex:none}
+.vposter .vp-ord{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.vposter .vp-ord h3{font-size:11px;font-weight:800;letter-spacing:.05em;color:var(--indigo-deep);
+        text-align:center;padding-bottom:6px;border-bottom:1px solid var(--hairline);margin-bottom:7px}
+.vposter .vp-ord ul{list-style:none;display:flex;flex-direction:column;gap:4px}
+.vposter .vp-ord li{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--indigo-soft);
+        border-radius:6px;padding:4px 8px;font-family:var(--mono);font-size:12px;font-weight:700;
+        color:var(--indigo-deep);background:#fff;gap:6px}
+.vposter .vp-ord li s{text-decoration:none;font-family:var(--sans);font-size:10.5px;font-weight:800;
+        color:var(--amber-ink);background:var(--amber-50);border:1px solid var(--amber);
+        border-radius:99px;min-width:17px;height:17px;display:grid;place-items:center;flex:none}
+.vposter .vp-jn{display:flex;flex-direction:column;gap:8px}
+.vposter .vp-row{display:flex;gap:9px;align-items:flex-start;border:1px solid var(--hairline);
+        border-radius:7px;padding:7px 9px}
+.vposter .vp-row i{font-family:var(--mono);font-size:11.5px;font-weight:700;color:#fff;background:var(--indigo);
+        border-radius:6px;padding:3px 7px;font-style:normal;flex:none;margin-top:1px}
+.vposter .vp-row b{font-family:var(--mono);font-size:11.5px;color:var(--indigo-deep);display:block}
+.vposter .vp-row span{font-size:11.5px;color:var(--muted);line-height:1.35;display:block;margin-top:1px}
+.vposter .vp-traps{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:9px}
+.vposter .vp-trap{background:var(--amber-50);border:1px solid var(--amber);border-radius:8px;padding:9px 11px}
+.vposter .vp-trap b{font-size:12.5px;color:var(--amber-ink);font-weight:800;display:block;line-height:1.3}
+.vposter .vp-trap span{font-size:12px;color:var(--muted);line-height:1.4;display:block;margin-top:3px}
+.vposter .vp-trap span i{font-style:normal;font-weight:700;color:var(--indigo-deep)}
+.vposter .vp-fun{display:flex;flex-direction:column;gap:4px}
+.vposter .vp-step{display:flex;gap:9px;align-items:flex-start;background:var(--indigo-50);border-radius:6px;padding:6px 9px}
+.vposter .vp-step i{font-family:var(--mono);font-size:11px;font-weight:700;color:#fff;background:var(--indigo);
+        border-radius:99px;min-width:18px;height:18px;display:grid;place-items:center;font-style:normal;
+        flex:none;margin-top:1px}
+.vposter .vp-step b{font-size:11.5px;font-weight:800;color:var(--indigo-deep);letter-spacing:.02em;display:block;line-height:1.3}
+.vposter .vp-step span{font-size:11.5px;color:var(--muted);display:block;line-height:1.32}
+.vposter .vp-conseq{border-top:1px solid var(--hairline);padding-top:10px}
+.vposter .vp-body > .vp-conseq:first-child{border-top:0;padding-top:0}
+.vposter .vp-conseq > b{font-size:10.5px;font-weight:800;color:var(--indigo-deep);letter-spacing:.06em;
+        text-transform:uppercase;display:block;margin-bottom:6px}
+.vposter .vp-code{font-family:var(--mono);font-size:11.5px;line-height:1.5;background:var(--code-bg);
+        color:var(--code-ink);border-radius:6px;padding:7px 9px;white-space:pre;overflow:hidden}
+.vposter .vp-code u{text-decoration:none;color:var(--amber);font-weight:700}
+.vposter .vp-code s{text-decoration:none;color:var(--indigo-soft);font-weight:700}
+.vposter .vp-conseq p{font-size:11.5px;color:var(--muted);line-height:1.4;margin:5px 0 7px}
+.vposter .vp-conseq p:last-child{margin-bottom:0}
+.vposter .vp-foot{margin:20px -38px 0;background:var(--indigo-deep);color:#fff;padding:13px 38px;
+        display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:700;gap:16px}
+.vposter .vp-mid{font-family:var(--sans);font-size:13.5px;font-weight:600;color:var(--indigo-soft);letter-spacing:.01em}
 </style>
 </head>
 <body>
@@ -266,6 +513,150 @@
     <div class="mm-wrap"><div id="mindmap"></div></div>
   </section>
 
+
+
+
+  <section class="section poster-section" id="poster">
+    <h2>The whole course on one sheet 📐</h2>
+    <p class="ps-lede">Seven modules: both tracks, why a number is useless on its own, the three shapes every metric takes, the builder ladder, the six domains it is worked in, the traps that make a tree lie, and the two rituals that turn tree-reading into a habit.</p>
+    <div class="poster-bar">
+      <button class="poster-btn" id="zoomToggle" type="button" aria-pressed="false">Actual size</button>
+      <a class="poster-btn" href="assets/poster/learn-metric-decomposition-with-phoebe-poster.png" download>Download for print (2800px)</a>
+      <span class="pb-note">Every word here is real selectable text, so it stays sharp however far you zoom.</span>
+    </div>
+    <div class="poster-frame" id="frame">
+      <div class="poster-stage" id="stage">
+        <div class="vposter" id="vp">
+<div class="vp-sheet">
+
+  <div class="vp-top">
+    <h1>learn metric<br>decomposition</h1>
+    <div class="vp-subs">
+      <div class="vp-s1">From a top-line number to the driver that moved it</div>
+      <div class="vp-s2">16 sessions - two tracks - six domains - runs in your browser</div>
+    </div>
+  </div>
+
+  <div class="vp-grid">
+    <section class="vp-mod">
+      <h2><b>SEC-01</b> TWO TRACKS</h2>
+      <div class="vp-body">
+        <div class="vp-tracks">
+<div class="vp-tk vp-lead"><h3>LEADER TRACK<br>read the tree, no code</h3><ol>
+<li><i>a1</i>Why a number needs a tree</li>
+<li><i>a2</i>Leading vs lagging</li>
+<li><i>a3</i>Decompose and read a drop</li>
+<li><i>a4</i>The six domains, side by side</li>
+<li><i>a5</i>The weekly business review</li>
+<li><i>a6</i>The monthly leadership summit</li>
+</ol></div>
+<div class="vp-tk"><h3>BUILDER TRACK<br>build the tree yourself</h3><ol>
+<li><i>b1</i>Your first driver tree</li>
+<li><i>b2</i>The three patterns</li>
+<li><i>b3</i>Leading indicators and the playbook</li>
+<li><i>b4</i>Ecommerce deep dive</li>
+<li><i>b5</i>Marketing deep dive</li>
+<li><i>b6</i>Branding deep dive</li>
+<li><i>b7</i>Internet and traffic deep dive</li>
+<li><i>b8</i>B2B SaaS deep dive</li>
+<li><i>b9</i>B2G deep dive</li>
+<li><i>b10</i>Capstone: diagnose the drop</li>
+</ol></div>
+</div>
+        <div class="vp-stats"><div><b>16</b><span>sessions</span></div><div><b>3</b><span>patterns</span></div><div><b>6</b><span>domains</span></div><div><b>1</b><span>owner per lever</span></div></div>
+      </div>
+    </section>
+    <section class="vp-mod">
+      <h2><b>SEC-02</b> WHY A NUMBER NEEDS A TREE</h2>
+      <div class="vp-body">
+        <div class="vp-conseq"><b>The sentence that is not a finding</b><div class="vp-code">"sales are down <u>8%</u>"
+
+-&gt; which driver moved?
+-&gt; by how much?
+-&gt; who owns it?</div><p>A top-line number tells you that something happened. It cannot tell you what, and it cannot be assigned to anyone.</p></div>
+        <div class="vp-flag">A driver tree turns a number into a lever with an owner. That is the whole job.</div>
+        <div class="vp-conseq"><b>What the tree has to survive</b><p>A branch that nobody owns cannot be actioned, and a branch that does not reconcile with its parent lets the diagnosis hide. Session b1 breaks one tree in the simulator until naming the guilty driver is a reflex, because reading a tree under pressure is a different skill from drawing one.</p></div>
+      </div>
+    </section>
+    <section class="vp-mod">
+      <h2><b>SEC-03</b> THE THREE PATTERNS</h2>
+      <div class="vp-body">
+        <div class="vp-note">Not every metric multiplies. The moment one lands on your desk you should already know which shape it is.</div>
+        <div class="vp-jn">
+<div class="vp-row"><i>x</i><div><b>multiplicative</b><span>A product of drivers. GMV = Traffic x Conversion x AOV.</span></div></div>
+<div class="vp-row"><i>+</i><div><b>sum</b><span>Parts that add up. Revenue split by region.</span></div></div>
+<div class="vp-row"><i>~</i><div><b>bridge</b><span>A balance carried forward. Active users this month starts from last month's.</span></div></div>
+</div>
+        <div class="vp-conseq"><b>Why the shape decides the diagnosis</b><p>In a product, one driver moving 10 percent moves the top line 10 percent. In a sum it moves it by its share. In a bridge the question is never the level at all, it is what came in and what left.</p></div>
+      </div>
+    </section>
+    <section class="vp-mod vp-span2">
+      <h2><b>SEC-04</b> THE BUILDER LADDER</h2>
+      <div class="vp-body">
+        <div class="vp-lad2">
+<div class="vp-rung"><i>1</i><div class="vp-kw"><b>your first driver tree</b> <em>GMV = Traffic x Conversion x AOV, broken in the simulator</em></div><u>b1</u></div>
+<div class="vp-rung"><i>2</i><div class="vp-kw"><b>the three patterns</b> <em>multiplicative, sum, bridge</em></div><u>b2</u></div>
+<div class="vp-rung"><i>3</i><div class="vp-kw"><b>leading indicators</b> <em>and the playbook that acts on them</em></div><u>b3</u></div>
+<div class="vp-rung"><i>4</i><div class="vp-kw"><b>ecommerce</b> <em>the domain the canonical tree comes from</em></div><u>b4</u></div>
+<div class="vp-rung"><i>5</i><div class="vp-kw"><b>marketing</b> <em>spend, reach and the lag before it lands</em></div><u>b5</u></div>
+<div class="vp-rung"><i>6</i><div class="vp-kw"><b>branding</b> <em>the domain where the tree is hardest to build</em></div><u>b6</u></div>
+<div class="vp-rung"><i>7</i><div class="vp-kw"><b>internet and traffic</b> <em>sessions, sources and the funnel beneath</em></div><u>b7</u></div>
+<div class="vp-rung"><i>8</i><div class="vp-kw"><b>B2B SaaS</b> <em>pipeline, retention and expansion</em></div><u>b8</u></div>
+<div class="vp-rung"><i>9</i><div class="vp-kw"><b>B2G</b> <em>long cycles, and metrics that are not sales</em></div><u>b9</u></div>
+<div class="vp-rung"><i>10</i><div class="vp-kw"><b>capstone</b> <em>diagnose the drop, end to end</em></div><u>b10</u></div>
+</div>
+        <div class="vp-conseq"><b>How to climb it</b><p>Rung 1 gives you one tree and breaks it until naming the guilty driver is a reflex. Rung 2 gives you the vocabulary for every other metric. Rungs 4 to 9 are the same skill in six different rooms, which is the point: the tree travels, the domain knowledge is what you bring.</p></div>
+      </div>
+    </section>
+    <section class="vp-mod">
+      <h2><b>SEC-05</b> SIX DOMAINS, ONE SKILL</h2>
+      <div class="vp-body">
+        <div class="vp-cards">
+<div class="vp-tbl"><h4>commerce<span>2</span></h4><ul><li class="vp-key">ecommerce</li><li class="vp-key">B2B SaaS</li><li>carts, pipeline,</li><li>retention</li></ul></div>
+<div class="vp-tbl"><h4>demand<span>2</span></h4><ul><li class="vp-key">marketing</li><li class="vp-key">branding</li><li>spend, reach,</li><li>and the lag</li></ul></div>
+<div class="vp-tbl"><h4>reach<span>2</span></h4><ul><li class="vp-key">internet, traffic</li><li class="vp-key">B2G</li><li>sessions, cycles,</li><li>non-sales outcomes</li></ul></div>
+</div>
+        <div class="vp-note">Session a4 puts all six side by side, so you can see which parts of a tree are universal and which are the domain talking.</div>
+        <div class="vp-conseq"><b>Why six and not one</b><p>The mechanics are identical in every domain. What changes is which drivers exist, how fast they respond, and how long the lag is before a lever shows up in the top line. Seeing the same tree in six rooms is what stops it being an ecommerce trick.</p></div>
+      </div>
+    </section>
+    <section class="vp-mod vp-span2">
+      <h2><b>SEC-06</b> WHERE A TREE LIES TO YOU</h2>
+      <div class="vp-body">
+        <div class="vp-traps">
+<div class="vp-trap"><b>The wrong shape</b><span>Reading a bridge as if it were a product. The level was never the question. <i>Ask: does this metric multiply, add, or carry forward?</i></span></div>
+<div class="vp-trap"><b>A lever with no owner</b><span>A branch nobody is accountable for is decoration on a slide. <i>Ask: whose name is on this node?</i></span></div>
+<div class="vp-trap"><b>Lagging only</b><span>Every driver in the tree confirms what already happened. <i>Ask: which of these could have warned us?</i></span></div>
+<div class="vp-trap"><b>A branch that does not reconcile</b><span>The children do not account for the parent, so the diagnosis has somewhere to hide. <i>Ask: do these add back up?</i></span></div>
+</div>
+        <div class="vp-flag">Sessions a5 and a6 make the tree a ritual rather than an artifact: the weekly business review reads it, the monthly leadership summit acts on it.</div>
+      </div>
+    </section>
+    <section class="vp-mod">
+      <h2><b>SEC-07</b> THE TWO RITUALS</h2>
+      <div class="vp-body">
+        <div class="vp-fun">
+<div class="vp-step"><i>1</i><div><b>THE WEEKLY REVIEW</b><span>read the tree, name the moved driver</span></div></div>
+<div class="vp-step"><i>2</i><div><b>AGREE THE LEVER</b><span>one branch, one owner, one action</span></div></div>
+<div class="vp-step"><i>3</i><div><b>THE MONTHLY SUMMIT</b><span>did the lever move the number</span></div></div>
+<div class="vp-step"><i>4</i><div><b>PRUNE THE TREE</b><span>drop the branches nobody ever acts on</span></div></div>
+</div>
+        <div class="vp-note">A tree that nobody reads on a schedule stops being a diagnostic and becomes a diagram.</div>
+      </div>
+    </section>
+  </div>
+
+  <div class="vp-foot">
+    <span>learn metric decomposition with phoebe</span>
+    <span class="vp-mid">3 patterns - 6 domains - 1 tree - 1 owner per lever</span>
+    <span>by Phoebe Fu</span>
+  </div>
+</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <footer class="pagefoot">
     <span>learn-metric-decomposition-with-phoebe · by Phoebe Fu &nbsp;·&nbsp; 📚 <a href="https://phoebefu6.github.io/learn-with-phoebe/">Learn with Phoebe ↗</a> · built from Lean Analytics, DuPont, Amplitude North Star &amp; the Amazon Weekly Business Review · runs a live driver-tree simulator + DuckDB-WASM</span>
   </footer>
@@ -345,5 +736,42 @@ window.MINDMAP_DATA = {
 </script>
 <script src="assets/mindmap.js?v=8"></script>
 <script src="assets/app.js?v=8"></script>
+
+
+<script>
+(function () {
+  var vp = document.getElementById('vp');
+  if (!vp) return;
+  var W = 1400, MIN_FIT = 0.8;
+  var frame = document.getElementById('frame'), stage = document.getElementById('stage'),
+      btn = document.getElementById('zoomToggle');
+  var userChose = false, actual = false;
+  function sbw() {
+    var w = window.innerWidth - document.documentElement.clientWidth;
+    document.documentElement.style.setProperty('--sbw', (w > 0 ? w : 0) + 'px');
+  }
+  function full() { vp.style.transform = 'none'; stage.style.height = ''; stage.style.width = W + 'px'; }
+  function apply() {
+    var avail = frame.clientWidth;
+    if (!avail || avail < 40) { full(); return; }   // a hidden frame must never scale to nothing
+    var s = avail / W;
+    if (!userChose) actual = s < MIN_FIT;           // below 0.8 the labels stop being readable
+    if (actual || s >= 1) full();
+    else {
+      vp.style.transform = 'scale(' + s + ')';
+      stage.style.width = W + 'px';
+      stage.style.height = Math.ceil(vp.offsetHeight * s) + 'px';
+    }
+    btn.setAttribute('aria-pressed', actual ? 'true' : 'false');
+    btn.textContent = actual ? 'Fit to width' : 'Actual size';
+  }
+  btn.addEventListener('click', function () {
+    userChose = true; actual = !actual; apply(); if (actual) frame.scrollLeft = 0;
+  });
+  window.addEventListener('resize', function () { sbw(); apply(); });
+  if (typeof ResizeObserver === 'function') new ResizeObserver(apply).observe(frame);
+  sbw(); apply();
+})();
+</script>
 </body>
 </html>
