@@ -3,6 +3,8 @@
    (CSS var names still read --indigo/--amber; they hold SQL-blue values.) */
 
 :root {
+  --indigo-text: #2E7958;
+  --fill-solid: #CF431B;
   --indigo: #2F7D5B;
   --indigo-deep: #1E5240;
   --indigo-mid: #4FA37E;
@@ -154,7 +156,7 @@ main { padding: 2.5rem 0 4rem; }
   text-transform: uppercase;
   letter-spacing: .08em;
 }
-.tag.concept { background: var(--indigo-50); color: var(--indigo); }
+.tag.concept { background: var(--indigo-50); color: var(--indigo-text); }
 .tag.demo { background: var(--amber-50); color: var(--amber-ink); }
 .tag.exercise { background: var(--ink); color: #fff; }
 
@@ -223,7 +225,7 @@ details.card .body h4:first-child { margin-top: 0; }
   font-weight: 600;
 }
 .pill.solid { background: var(--indigo); color: #fff; }
-.pill.light { background: var(--indigo-50); color: var(--indigo); }
+.pill.light { background: var(--indigo-50); color: var(--indigo-text); }
 .pill.inkpill { background: var(--ink); color: #fff; }
 .pill.amber, .pill.peach { background: var(--amber-solid); color: #fff; }
 .pill.bare { color: var(--faint); }
@@ -322,7 +324,7 @@ table.clean td:first-child { font-weight: 600; }
   width: 1.7rem; height: 1.7rem;
   border-radius: 999px;
   background: var(--indigo-50);
-  color: var(--indigo);
+  color: var(--indigo-text);
   font-weight: 700;
   font-size: .85rem;
   display: inline-flex;
@@ -746,7 +748,7 @@ table.sql-table tr:last-child td { border-bottom: none; }
 .tree-btn { font: inherit; font-size: 13px; font-weight: 600; padding: 6px 12px; border-radius: 999px; border: 1px solid #DCEAE2; background: #FFFFFF; color: #16241E; cursor: pointer; }
 .tree-btn:hover { border-color: #2F7D5B; }
 .tree-btn.tree-drop { background: #FDECE6; border-color: #E4572E; color: #431105; }
-.tree-btn.tree-drop:hover { background: #E4572E; color: #FFFFFF; }
+.tree-btn.tree-drop:hover { background: var(--fill-solid); color: #FFFFFF; }
 .tree-canvas { padding: 24px 18px; overflow-x: auto; }
 .tree-node-wrap { display: flex; flex-direction: column; align-items: center; }
 .tree-node { position: relative; min-width: 130px; max-width: 180px; padding: 12px 14px; border-radius: 12px; border: 1.5px solid #B8DFCD; background: #E9F5EF; text-align: center; }
@@ -764,7 +766,7 @@ table.sql-table tr:last-child td { border-bottom: none; }
 .tree-input:focus { outline: none; border-color: #2F7D5B; background: #FFFFFF; }
 .tree-suffix { font-size: 12px; font-weight: 600; color: #566A61; }
 .tree-delta { position: absolute; top: -10px; right: -8px; font-size: 10.5px; font-weight: 800; padding: 2px 7px; border-radius: 999px; }
-.tree-delta.down { background: #E4572E; color: #FFFFFF; }
+.tree-delta.down { background: var(--fill-solid); color: #FFFFFF; }
 .tree-delta.up { background: #2F7D5B; color: #FFFFFF; }
 .tree-kids { display: flex; gap: 16px; margin-top: 26px; position: relative; align-items: flex-start; justify-content: center; }
 .tree-kids::before { content: ""; position: absolute; top: -14px; left: 50%; width: 1.5px; height: 14px; background: #B8DFCD; }
