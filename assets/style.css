@@ -930,3 +930,7 @@ figure.zoomable.can-scroll figcaption::after {
    overflow:auto parent cut it in half; in normal flow nothing can clip it. The right margin
    keeps it clear of the Copy button; long labels wrap instead of running under it. */
 .prompt-box > .label{ position: static; display: table; margin: 0 5.2rem .55rem 0; white-space: normal; line-height: 1.45; }
+
+/* The tree sized to its content (2026-10-12): a centred row wider than the scroll box pushed its
+   left leaves to negative x, where scrolling cannot reach them. */
+.tree-canvas > .tree-node-wrap { width: max-content; min-width: 100%; }
